@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="天下武功，唯快不破，对于函数式语言更是如此。 由于惰性求值，Haskell慢于大多数命令式语言。但，OJ 们却是一视同仁的。因此经常会有这样的惨案发生：用Haskell写个程序，倾尽平生所学投入到优化事业中，提交上去仍然超时；顺手用C撸个原型就直接过了。并且，优化Haskell代码往往要求你得是一个Haskell专家，熟知RTS、profiling，能看懂Core，了解各种Haskell结构的实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用函数式思维解决问题（CodeWars）">
+<meta property="og:url" content="http://yxnan.tk/blog/functional-solutions/index.html">
+<meta property="og:site_name" content="typowritter">
+<meta property="og:description" content="天下武功，唯快不破，对于函数式语言更是如此。 由于惰性求值，Haskell慢于大多数命令式语言。但，OJ 们却是一视同仁的。因此经常会有这样的惨案发生：用Haskell写个程序，倾尽平生所学投入到优化事业中，提交上去仍然超时；顺手用C撸个原型就直接过了。并且，优化Haskell代码往往要求你得是一个Haskell专家，熟知RTS、profiling，能看懂Core，了解各种Haskell结构的实现">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-05-09T04:29:03.000Z">
+<meta property="article:modified_time" content="2021-01-02T13:40:53.638Z">
+<meta property="article:author" content="yxnan">
+<meta property="article:tag" content="Haskell">
+<meta property="article:tag" content="CodeWars">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yxnan.tk/blog/functional-solutions/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>用函数式思维解决问题（CodeWars） | typowritter</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">typowritter</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/functional-solutions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用函数式思维解决问题（CodeWars）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-09 12:29:03" itemprop="dateCreated datePublished" datetime="2019-05-09T12:29:03+08:00">2019-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-02 21:40:53" itemprop="dateModified" datetime="2021-01-02T21:40:53+08:00">2021-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>天下武功，唯快不破，对于函数式语言更是如此。</p>
+<p>由于惰性求值，Haskell慢于大多数命令式语言。但，OJ 们却是一视同仁的。因此经常会有这样的惨案发生：用Haskell写个程序，倾尽平生所学投入到优化事业中，提交上去仍然超时；顺手用C撸个原型就直接过了。并且，优化Haskell代码往往要求你得是一个Haskell专家，熟知RTS、profiling，能看懂Core，了解各种Haskell结构的实现细节等等。 <a id="more"></a></p>
+<p>Haskell默认惰性求值的特点，导致了Haskell中不同算法“贫富差距”较大<del>（大神写的/我写的 = 50倍以上）</del>。但我们可以大致找到两个方向，要么尽量避免惰性，采用严格求值，但这样会牺牲代码的简洁性；或者就是<strong>更好地利用惰性求值带来的表达能力</strong>。这里主要着重于后者，记录一些函数式的思维方式，以提高“计算”过程的表达能力.</p>
+<hr />
+<h2 id="fibonacci-数列">Fibonacci 数列</h2>
+<p>在Haskell中如何得到一个Fibonacci数列？</p>
+<p>出发点：假设我们已经有了这个数列<code>fibs</code>（这种假设在函数式表达中很常见），我们看看<code>fibs</code>长啥样：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">[ <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">13</span>, .... ]</span><br></pre></td></tr></table></figure>
+<p>再看看它去掉首项后是什么：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">[ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">21</span>, .... ]</span><br></pre></td></tr></table></figure>
+<p>OK，我们已经很接近真相了，把上面两个“加起来”看看：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">   [ <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,  <span class="number">5</span>,  <span class="number">8</span>, <span class="number">13</span>, .... ]</span><br><span class="line">+  [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>,  <span class="number">8</span>, <span class="number">13</span>, <span class="number">21</span>, .... ]</span><br><span class="line">=  [ <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">13</span>, <span class="number">21</span>, <span class="number">34</span>, .... ]</span><br></pre></td></tr></table></figure>
+<p>得到了什么？这可不就是去掉开头两项的<code>fibs</code>么！</p>
+<p>好了，<code>fibs</code>表达式我们有了：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">fibs</span> :: [<span class="type">Integer</span>]</span><br><span class="line"><span class="title">fibs</span> = <span class="number">1</span> : <span class="number">1</span> : zipWith (+) fibs (tail fibs)</span><br></pre></td></tr></table></figure>
+<p>取出前 10 项试试看：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">ghci</span>&gt; take <span class="number">10</span> fibs</span><br><span class="line">[<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">13</span>,<span class="number">21</span>,<span class="number">34</span>,<span class="number">55</span>]</span><br></pre></td></tr></table></figure>
+<p>大功告成。</p>
+<p>总结一下，上面的做法是：<strong>先假设问题已经解决，然后从这个假设的解出发，构造一个“不动点”，于是答案就能表达出来了</strong>。我们下面仍然要采取这种做法。</p>
+<h2 id="twice-linear">Twice linear</h2>
+<p>原题地址：<a target="_blank" rel="noopener" href="https://www.codewars.com/kata/twice-linear/haskell">Twice linear</a></p>
+<p>大致就是，输入一个自然数 n，求出数列<code>u</code>的第 n 项。有序数列<code>u</code>满足：</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>u(0) = 1​</li>
+<li>如果 x 在 u 中，那么 2x+1 和 3x+1 也在 u 中</li>
+</ol>
+</blockquote>
+<p>我们用不动点思路，假设已经有了这个数列，叫做<code>dblLst</code>，现在我们说，对<code>dblLst</code>中每一个元素实行2x+1和3x+1变换，分别得到两个数列<code>lst1</code>和<code>lst2</code>，则两个数列的有序合并正是<code>dblLst</code>去掉首项以后的余项。现在我们可以表达<code>dblLst</code>了：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">dblLinear</span> :: <span class="type">Int</span> -&gt; <span class="type">Integer</span></span><br><span class="line"><span class="title">dblLinear</span> = (dblLst !!)</span><br><span class="line">  <span class="keyword">where</span></span><br><span class="line">    dblLst = <span class="number">1</span> : merge lst1 lst2</span><br><span class="line">    lst1 = map ((<span class="number">1</span>+) . (<span class="number">2</span>*)) dblLst</span><br><span class="line">    lst2 = map ((<span class="number">1</span>+) . (<span class="number">3</span>*)) dblLst</span><br><span class="line">    merge a@(x:xs) b@(y:ys)</span><br><span class="line">      | x == y    = x : merge xs ys</span><br><span class="line">      | x &lt; y     = x : merge xs b</span><br><span class="line">      | otherwise = y : merge a  ys</span><br></pre></td></tr></table></figure>
+<p>取出前十项看看：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">ghci</span>&gt; map dblLinear [<span class="number">0.</span><span class="number">.9</span>]</span><br><span class="line">[<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">13</span>,<span class="number">15</span>,<span class="number">19</span>,<span class="number">21</span>]</span><br></pre></td></tr></table></figure>
+<p>这个表达方法有个显而易见的优点。由于 Haskell 的惰性，首次计算<code>dblLinear n</code>之后，这个数列的前 n 项就已经被求出来了，之后计算索引小于 n 的项就可以直接查表；同时，即使要取得索引大于 n 的项，计算过程也可以依赖前面的结果，效率高到飞起：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">ghci</span>&gt; dblLinear <span class="number">10000000</span> <span class="comment">--（千万）</span></span><br><span class="line"><span class="number">1031926810</span>  <span class="comment">-- 21秒</span></span><br><span class="line"><span class="title">ghci</span>&gt; dblLinear <span class="number">10000010</span></span><br><span class="line"><span class="number">1031926918</span>  <span class="comment">-- 秒出</span></span><br><span class="line"><span class="title">ghci</span>&gt; dblLinear <span class="number">20000000</span></span><br><span class="line"><span class="number">2461770814</span>  <span class="comment">-- 24秒</span></span><br><span class="line"><span class="title">ghci</span>&gt; dblLinear <span class="number">20050000</span></span><br><span class="line"><span class="number">2465510683</span>  <span class="comment">-- 秒出</span></span><br><span class="line"><span class="title">ghci</span>&gt; dblLinear <span class="number">20550000</span></span><br><span class="line"><span class="number">2536799014</span>  <span class="comment">-- 3秒</span></span><br><span class="line"><span class="title">ghci</span>&gt; dblLinear <span class="number">25550000</span></span><br><span class="line"><span class="number">3366031077</span>  <span class="comment">-- 8秒</span></span><br></pre></td></tr></table></figure>
+<p>没有对比就没有伤害，从 C++ 中翻译过来的算法（循环 n 次，每次取较小者推入数列，更新索引）仅仅在 n=100000 （十万）时就花了 89 秒，而且还不能迭代计算。</p>
+<h2 id="fix-it">Fix it</h2>
+<p>原题地址：<a target="_blank" rel="noopener" href="https://www.codewars.com/kata/5443dd2d7fc4478154000ac6">Fix it</a></p>
+<p>这道题涉及 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fixed-point_combinator">Y combinator</a> 以及 “函数不动点” 的概念，不过它不是我们这里问题的重点，因此只简单解释一下：Y combinator 是一个高阶函数，它接受一个函数 f，返回 f 的“不动点”，所谓“不动点”，即为满足 Y F = F (Y F) 的函数 F。Y combinator 可以用于定义递归的匿名函数。</p>
+<p>Y combinator （即 fix 函数）的简单定义如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">y</span> = \f -&gt; (\x -&gt; f $ x x) (\x -&gt; f $ x x)</span><br></pre></td></tr></table></figure>
+<p>我们的任务，是定义<code>reverse'</code>及<code>foldr'</code>函数，使得 <code>reverse = fix reverse'</code>，<code>foldr = fix foldr'</code>。</p>
+<p>理解<code>fix</code>的原理后具体操作十分简单，对任何函数<code>fn</code>，我们只需要写出<code>fn</code>的递归版本，然后增加一个函数参数f，把函数体内的<code>fn</code>替换为<code>f</code>，再改改类型声明就得到<code>fn'</code>了。</p>
+<p><code>reverse'</code>没什么问题，无脑改：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">reverse</span> :: [a] -&gt; [a]</span><br><span class="line"><span class="title">reverse</span> []   = []</span><br><span class="line"><span class="title">reverse</span> (x:xs) = reverse xs ++ [x]</span><br><span class="line"></span><br><span class="line"><span class="title">reverse&#x27;</span> :: ([a] -&gt; [a]) -&gt; [a] -&gt; [a]</span><br><span class="line"><span class="title">reverse&#x27;</span> _ []     = []</span><br><span class="line"><span class="title">reverse&#x27;</span> f (x:xs) = f xs ++ [x]</span><br></pre></td></tr></table></figure>
+<p>对于<code>foldr'</code>，我们先定义类型简写<code>type FoldT a b = (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</code>，这样一来，<code>foldr</code>的类型就是<code>FoldT a b</code>，而<code>foldr'</code>的类型就是<code>FoldT a b -&gt; FoldT a b</code></p>
+<p>直接放我写的版本和大神写的版本：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">myFoldr&#x27;</span> :: <span class="type">FoldT</span> a b -&gt; <span class="type">FoldT</span> a b</span><br><span class="line"><span class="title">myFoldr&#x27;</span> _  _ acc []     = acc</span><br><span class="line"><span class="title">myFoldr&#x27;</span> f fn acc (x:xs) = f fn (fn x acc) xs</span><br><span class="line"></span><br><span class="line"><span class="title">hisFoldr&#x27;</span> :: <span class="type">FoldT</span> a b -&gt; <span class="type">FoldT</span> a b</span><br><span class="line"><span class="title">hisFoldr&#x27;</span> _  _ acc []     = acc</span><br><span class="line"><span class="title">hisFoldr&#x27;</span> f fn acc (x:xs) = fn x $ f fn acc xs</span><br></pre></td></tr></table></figure>
+<p>有什么区别吗？</p>
+<p>有区别，而且还很大，因为我的过不了测试……</p>
+<p>事实上，对于有限列表，这两种确实没太大区别，不同的是，<code>myFoldr'</code>不能处理无限列表，这就是过不了测试的原因。</p>
+<p>至于为什么，我们需要明确<code>foldr</code>（右折叠）和<code>foldl</code>（左折叠）的区别，它们都是在一个列表上迭代，但求值过程有根本区别：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">foldl</span> f z [x1, x2, x3, x4 ... xn] <span class="comment">-- 展开为 f ( ... (f (f (f (f z x1) x2) x3) x4) ...) xn</span></span><br><span class="line"><span class="title">foldr</span> f z [x1, x2, x3, x4 ... xn] <span class="comment">-- 展开为 f x1 (f x2 (f x3 (f x4 ... (f xn z) ...)))</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>foldl</code>首先需要遍历一次列表，生成函数调用链，然后由外向里开始求值，再由内向外返回调用栈；而<code>foldr</code>只会生成一个函数调用，其第二个参数即为列表剩余部分，其求值过程就是逐步的惰性调用。</p>
+<p>这就是右折叠能处理无限列表，而左折叠不可以的原因：右折叠在无限列表上的迭代是一个惰性调用，而左折叠在开始任何计算前必须遍历整个列表。</p>
+<p>问题就在于，我写的<code>myFoldr'</code>实质上是一个左折叠。</p>
+<p>可以用一个“试金石”函数来检验一下两种版本对无限列表的处理：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">touchstone</span> :: (<span class="type">Enum</span> a, <span class="type">Num</span> a) =&gt; <span class="type">FoldT</span> a [a] -&gt; [a]</span><br><span class="line"><span class="title">touchstone</span> f = take <span class="number">6</span> (f (\a b -&gt; (<span class="number">2</span> * a):b) [] [<span class="number">1.</span>.])</span><br><span class="line"></span><br><span class="line"><span class="title">ghci</span>&gt; touchstone $ fix hisFoldr&#x27;</span><br><span class="line">[<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>,<span class="number">12</span>]</span><br><span class="line"></span><br><span class="line"><span class="title">ghci</span>&gt; touchstone $ fix myFoldr&#x27;</span><br><span class="line"><span class="comment">-- (无限循环)</span></span><br></pre></td></tr></table></figure>
+<p>我们还能获得一个实践经验：总是使用<code>foldr</code>来代替<code>foldl</code>，不仅因为<code>foldr</code>能处理无限结构，还因为<code>foldl</code>长长的调用链容易造成 stack overflow。</p>
+<p>（持续更新……）</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Haskell/" rel="tag"># Haskell</a>
+              <a href="/blog/tags/CodeWars/" rel="tag"># CodeWars</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/oh-my-laziness/" rel="prev" title="啊哈，惰性求值！">
+      <i class="fa fa-chevron-left"></i> 啊哈，惰性求值！
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/dim-analysis/" rel="next" title="量纲分析入门">
+      量纲分析入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fibonacci-%E6%95%B0%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">Fibonacci 数列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#twice-linear"><span class="nav-number">2.</span> <span class="nav-text">Twice linear</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fix-it"><span class="nav-number">3.</span> <span class="nav-text">Fix it</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yxnan</p>
+  <div class="site-description" itemprop="description">Sci-Tech Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yxnan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文是 A Student’s Guide to Dimensional Analysis 的读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="量纲分析入门">
+<meta property="og:url" content="http://yxnan.tk/blog/dim-analysis/index.html">
+<meta property="og:site_name" content="typowritter">
+<meta property="og:description" content="本文是 A Student’s Guide to Dimensional Analysis 的读书笔记">
+<meta property="og:locale">
+<meta property="og:image" content="http://yxnan.tk/blog/images/dim-analysis/cone.gif">
+<meta property="og:image" content="http://yxnan.tk/blog/images/dim-analysis/spring.gif">
+<meta property="og:image" content="http://yxnan.tk/blog/images/dim-analysis/earth.gif">
+<meta property="article:published_time" content="2019-08-26T08:29:21.000Z">
+<meta property="article:modified_time" content="2021-01-14T20:50:55.633Z">
+<meta property="article:author" content="yxnan">
+<meta property="article:tag" content="Math in Practice">
+<meta property="article:tag" content="Note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yxnan.tk/blog/images/dim-analysis/cone.gif">
+
+<link rel="canonical" href="http://yxnan.tk/blog/dim-analysis/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>量纲分析入门 | typowritter</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">typowritter</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/dim-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          量纲分析入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-26 16:29:21" itemprop="dateCreated datePublished" datetime="2019-08-26T16:29:21+08:00">2019-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-15 04:50:55" itemprop="dateModified" datetime="2021-01-15T04:50:55+08:00">2021-01-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Mathematics/Physics/" itemprop="url" rel="index"><span itemprop="name">Physics</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文是 A Student’s Guide to Dimensional Analysis 的读书笔记</p>
+<a id="more"></a>
+<h2 id="introduction">Introduction</h2>
+<h3 id="dimensional-homogeneity">Dimensional Homogeneity</h3>
+<p>在一个描述物理状态或过程的方程中，每一个加减项都应具有相同的量纲。</p>
+<h4 id="symmetry-under-change-of-units">Symmetry under Change of Units</h4>
+<p>各个量的单位发生变化，方程的形式不变。</p>
+<hr />
+<h3 id="dimensionless-products">Dimensionless Products</h3>
+<p>dimensionally homogeneous equation -&gt; a relation among dimensionless products <span class="math display">\[
+\frac{E}{V}=\frac{8\pi^5}{15}\frac{k_B^4T^4}{c^3h^3} \Rightarrow \frac{Ec^3h^3}{Vk_B^4T^4}=C
+\]</span></p>
+<h3 id="dimensional-formulae">Dimensional Formulae</h3>
+<p>[x] -&gt; 物理量 x 的量纲</p>
+<p>如 <span class="math inline">\([g]=LT^{-1}\)</span></p>
+<h3 id="the-rayleigh-algorithm">The Rayleigh Algorithm</h3>
+<h4 id="例子内圆锥面与小球">例子：内圆锥面与小球</h4>
+<p>想象一个质量为 <span class="math inline">\(m\)</span> 的小球在半径为 <span class="math inline">\(R\)</span> 、顶角为 <span class="math inline">\(\theta\)</span> 的圆锥内表面滚动，我们想要知道小球滚动一周的时间 <span class="math inline">\(\Delta t\)</span> 与 <span class="math inline">\(m,R,\theta\)</span> 之间的关系（忽略摩擦力），同时，重力加速度 <span class="math inline">\(g\)</span> 也可能有关。</p>
+<div class="figure">
+<img src="/blog/images/dim-analysis/cone.gif" />
+
+</div>
+<p>Rayleigh方法要解决的问题就是找到几个物理量的无量纲组合形式。在本例中，我们知道该组合一定是 <span class="math inline">\(\Delta t^\alpha m^\beta R^\gamma g^\delta \theta^\epsilon\)</span> 的形式，当然我们知道角度是无量纲的，所以可简化为 <span class="math inline">\(\Delta t^\alpha m^\beta R^\gamma g^\delta\)</span>.</p>
+<p>接下来，我们代入各个量的量纲进行运算： <span class="math display">\[
+\begin{aligned}\\
+[\Delta t^\alpha m^\beta R^\gamma g^\delta]
+&amp;=[\Delta t^\alpha][m^\beta][R^\gamma][g^\delta]\\
+&amp;=[\Delta t]^\alpha[m]^\beta[R]^\gamma[g]^\delta\\
+&amp;=T^\alpha M^\beta L^\gamma(LT^{-2})^\delta\\
+&amp;=T^{\alpha-2\delta} M^\beta L^{\gamma+\delta}
+\end{aligned}
+\]</span> 由于该乘积是无量纲的，据此得出三个方程： <span class="math display">\[
+\begin{aligned}
+&amp;T: \alpha-2\delta=0\\
+&amp;M: \beta=0\\
+&amp;L: \gamma+\delta=0
+\end{aligned}
+\]</span> 解此方程组，我们可以确定 <span class="math inline">\((\Delta tg^{1/2}/R^{1/2})^\alpha\)</span> 是这几个量的无量纲组合形式。由于底数部分是无量纲的，因此自由变量 <span class="math inline">\(\alpha\)</span> 的取值并无影响，可直接令 <span class="math inline">\(\alpha=1\)</span>.</p>
+<p>知道这个结果后，我们就能肯定地说，这几个量之间剩下的关系由某个函数确定，即： <span class="math display">\[
+\Delta t=\sqrt{\frac{R}{g}}\cdot f(\theta)
+\]</span> 这里 <span class="math inline">\(f(\theta)\)</span> 是一个无量纲的函数。</p>
+<p>量纲分析法最多就能把我们带到这里了。剩下的部分，由动力学分析可以进一步确定 <span class="math inline">\(f(\theta)=2\pi\sqrt{tan\theta}\)</span>.</p>
+<h3 id="the-buckingham-π-theorem">The Buckingham π Theorem</h3>
+<p>π定理可以分成相对独立的两部分叙述：</p>
+<p>定理第一部分：如果一个方程量纲一致(dimensionally homogeneous)，则它可化为一组无量纲乘积之间的关系，这组无量纲乘积是独立且完备的。</p>
+<p>一组无量纲乘积是<strong>完备</strong>的，当且仅当所有无量纲组合都能用这组乘积表达；一组无量纲乘积是<strong>独立</strong>的，当且仅当其中任何一个元素都不能经由其他成员通过乘法、乘方的组合进行表达。符号 π 代表这组无量纲乘积的元素。例如，在上面一个圆锥与小球的例子中，<span class="math inline">\(\pi_1=\Delta tg^{1/2}/R^{1/2},\quad\pi_2=\theta\)</span>.</p>
+<p>定理第二部分：<span class="math inline">\(N_P=N_V-N_D\)</span></p>
+<p><span class="math inline">\(N_P\)</span>：完备且独立的无量纲乘积的个数；</p>
+<p><span class="math inline">\(N_V\)</span>：描述该物理状态的变量和常数的个数；</p>
+<p><span class="math inline">\(N_D\)</span>：参与运算的基本量纲的最少个数；</p>
+<h4 id="定理解释">定理解释</h4>
+<p>大部分动力学的量纲分析中，基本量纲不会超出 M,L,T 这三个范围，在圆锥与小球的例子中也是如此，所以这里 <span class="math inline">\(N_D=3\)</span>；又因为 Δt, <em>m</em>, <em>R</em>, <em>g</em>, 和 <em>θ</em> 完全描述了小球的运动，因此 <span class="math inline">\(N_V=5\)</span>.</p>
+<p>由π定理，<span class="math inline">\(N_p=2\)</span>，即我们需要找到两个完备、独立的无量纲乘积。由Rayleigh方法，我们知道它们分别是 <span class="math inline">\(\Delta tg^{1/2}/R^{1/2}\)</span> 和 <span class="math inline">\(\theta\)</span>. 这个集合是完备的，因为由Δt, <em>m</em>, <em>R</em>, <em>g</em>, <em>θ</em> 组成的所有无量纲形式都能表示为 <span class="math inline">\(\Delta t^2g/R\)</span> 和 <span class="math inline">\(\theta\)</span> 的组合；这个集合是独立的，因为 <span class="math inline">\(\Delta t^2g/R\)</span> 和 <span class="math inline">\(\theta\)</span> 不能互相表示。</p>
+<h3 id="n_p-对量纲模型精度的影响"><span class="math inline">\(N_P\)</span> 对量纲模型精度的影响</h3>
+<p>注意，在建立量纲模型的过程中，我们产生的无量纲乘积个数越多，这个模型能够反映的量之间的关系就越不明确。例如，当仅仅一个 <span class="math inline">\(\pi_1\)</span> 时，表达式形如 <span class="math inline">\(f(\pi_1)=0\)</span>，其解为 <span class="math inline">\(\pi_1=C\)</span>，含有<strong>一个未定的常数</strong>；当有两个 <span class="math inline">\(\pi_1,\pi_2\)</span> 时，表达式形如 <span class="math inline">\(g(\pi_1,\pi_2)=0\)</span>，解为 <span class="math inline">\(\pi_1=h(\pi_2)\)</span>，含有<strong>一个一元未定函数</strong>；无量纲乘积增至3个时，我们面对的是 <span class="math inline">\(j(\pi_1,\pi_2,\pi_3)=0\)</span>，解为 <span class="math inline">\(\pi_1=k(\pi_2,\pi_3)\)</span>，含有<strong>一个二元未定函数</strong>。</p>
+<p>因此，为尽可能地精确描述对象物理状态或过程，我们要尽量减小<span class="math inline">\(N_P\)</span>，可以通过减小<span class="math inline">\(N_V\)</span> 或增大<span class="math inline">\(N_D\)</span> (如果可能)来实现。但这需要一定的观察和判断技巧。</p>
+<h3 id="例子理想气体压强公式">例子：理想气体压强公式</h3>
+<p>理想气体的压强 <span class="math inline">\(p\)</span> 可由3个量刻画：气体数密度 <span class="math inline">\(N/V\)</span>，摩尔质量 <span class="math inline">\(m\)</span>，气体分子特征速度 <span class="math inline">\(\bar v\)</span>. 这3个量足以描述理想气体的压强，因为我们能据此确定气体粒子的平均动量、平均动能，以及撞击器壁的频率。引入其他变量或常数，如重力加速度 <span class="math inline">\(g\)</span>，会增加不必要的无量纲乘积数，使我们的模型反映的信息量变少。</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">物理量</th>
+<th align="center">描述</th>
+<th align="center">量纲</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">p</td>
+<td align="center">压强</td>
+<td align="center"><span class="math inline">\(ML^{-1}T^{-2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">N/V</td>
+<td align="center">分子数密度</td>
+<td align="center"><span class="math inline">\(L^{-3}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">m</td>
+<td align="center">摩尔质量</td>
+<td align="center"><span class="math inline">\(M\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\bar{v}\)</span></td>
+<td align="center">特征速度</td>
+<td align="center"><span class="math inline">\(LT^{-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>由此，<span class="math inline">\(N_V=4,N_D=3\)</span>，所以<span class="math inline">\(N_P=1\)</span>，需要研究一个无量纲乘积。</p>
+<p>采用Rayleigh方法，我们能写出该无量纲乘积：<span class="math inline">\(p(N/V)^\alpha m^\beta \bar{v}^\gamma\)</span>（为方便，可直接令我们想要的变量指数为1），列出量纲方程： <span class="math display">\[
+\begin{aligned}\\
+[p(N/V)^\alpha m^\beta \bar{v}^\gamma]
+&amp;=(ML^{-1}T^{-2})(L^{-3})^\alpha M^\beta (LT^{-1})^\gamma\\
+&amp;=M^{1+\beta} L^{-1-3\alpha+\gamma} T^{-2-\gamma}
+\end{aligned}
+\]</span> 令各个指数为0，解得 <span class="math inline">\(\alpha=-1,\beta=-1,\gamma=-2\)</span>，因此，我们得到理想气体压强公式： <span class="math display">\[
+pV=C\cdot Nm \bar{v}^2
+\]</span> 此处 <span class="math inline">\(C\)</span> 为未定常数。</p>
+<p>这里，我们是把 <span class="math inline">\(N/V\)</span> 当成一个变量，整体参与的运算。如果我们把 <span class="math inline">\(V\)</span> 单独拿进来考虑（多了一个变量），那么就需要处理两个无量纲乘积，即 <span class="math inline">\(pV/(m\bar{v}^2)\)</span> 和 <span class="math inline">\(N\)</span>，最终结果为 <span class="math inline">\(pV=f(N)\cdot m\bar{v}^2\)</span>，显然相比上一个模型要差。</p>
+<h3 id="一个经常出现的错误">一个经常出现的错误</h3>
+<p>作为我们研究对象的物体是否为刚体？流体是否为薄层？热体散发热辐射还是仅仅通过热传导？不同的情况下，我们需要考虑的变量个数不一定相同。同时受限于我们对物理过程的认知，初学者很容易出现一个错误：<strong>未将考虑变量数最少化</strong>，而这会带来模型精度的降低。</p>
+<p>例如，我们要研究弹簧振子的角频率 <span class="math inline">\(\omega\)</span> 与系统各变量的关系，如果我们选取如下变量组：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">物理量</th>
+<th align="center">描述</th>
+<th align="center">量纲</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\omega\)</span></td>
+<td align="center">角频率</td>
+<td align="center"><span class="math inline">\(T^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">m</td>
+<td align="center">物块质量</td>
+<td align="center"><span class="math inline">\(M\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">k</td>
+<td align="center">劲度系数</td>
+<td align="center"><span class="math inline">\(MT^{-2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\rho\)</span></td>
+<td align="center">物块密度</td>
+<td align="center"><span class="math inline">\(ML^{-3}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">V</td>
+<td align="center">物块体积</td>
+<td align="center"><span class="math inline">\(L^3\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">g</td>
+<td align="center">重力加速度</td>
+<td align="center"><span class="math inline">\(LT^{-2}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="/blog/images/dim-analysis/spring.gif" />
+
+</div>
+<p>此时，<span class="math inline">\(N_V=6,N_D=3\)</span>，我们解得最终结果为 <span class="math display">\[
+\omega=\sqrt{\frac{k}{m}}\cdot f(\frac{\rho V}{m},\frac{m^{4/3}g}{k \rho^{1/3}})
+\]</span> 含有一个未定的二元函数。而如果我们注意到 <span class="math inline">\(m=\rho V\)</span>，便能将结果改进到 <span class="math display">\[
+\omega=\sqrt{\frac{k}{m}}\cdot f(1,\frac{m^{4/3}g}{k \rho^{1/3}})
+\]</span> 此时含有一个未定的一元函数，但这并不是最好的答案。注意到重力只会影响平衡点，而与周期运动的角频率无关，因此可以进一步剔除重力加速度g，得到 <span class="math display">\[
+\omega=C\cdot \sqrt{\frac{k}{m}}
+\]</span></p>
+<hr />
+<h3 id="练习">练习</h3>
+<h4 id="写出下式中的无量纲乘积">写出下式中的无量纲乘积</h4>
+<p>The radiant energy per volume per differential frequency interval in a cavity surrounded by walls at temperature <em>T</em> is <em>ρ</em> where <span class="math display">\[
+\rho = \frac{8\pi v^2}{c^3}\frac{h\upsilon}{e^{h\upsilon/k_BT}-1}
+\]</span> Plank常量 <span class="math inline">\([h]=ML^2T^{-1}\)</span>，Boltzmann常量 <span class="math inline">\([k_B]=ML^2T^{-2}\Theta^{-1}\)</span>，温度 <span class="math inline">\([T]=\Theta\)</span></p>
+<h4 id="溜冰爱好者">溜冰爱好者</h4>
+<p>两个溜冰者沿两条平行线接近，平行线相距 <span class="math inline">\(r\)</span>，在两人距离最近时，互相拉住对方的手，开始围绕共同质心转动。两人质量都是 <span class="math inline">\(m\)</span>，请使用Rayleigh方法得出转动频率 <span class="math inline">\(f\)</span> 与系统其他变量的关系。</p>
+<h4 id="振动的线">振动的线</h4>
+<p>长为 <span class="math inline">\(l\)</span>、线密度为 <span class="math inline">\(\lambda\)</span> 的细线，两端用大小为 <span class="math inline">\(\tau\)</span> 的力拉紧。在中点拨动细线，试用Rayleigh方法确定细线振动周期 <span class="math inline">\(\Delta t\)</span> 与系统其他变量的关系。</p>
+<h4 id="地球隧道">地球隧道</h4>
+<p>假设你挖了一个贯通地球的隧道，然后从其中一端扔下一个物体，那么它要多久到达另一端？确定该时间 <span class="math inline">\(\Delta t\)</span> 与系统其他变量的关系。参考变量如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">物理量</th>
+<th align="center">描述</th>
+<th align="center">量纲</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\Delta t\)</span></td>
+<td align="center">穿过所需时间</td>
+<td align="center"><span class="math inline">\(T\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">G</td>
+<td align="center">重力常数</td>
+<td align="center"><span class="math inline">\(M^{-1}L^3T^{-2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\rho\)</span></td>
+<td align="center">地球密度</td>
+<td align="center"><span class="math inline">\(ML^{-3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">R</td>
+<td align="center">地球半径</td>
+<td align="center"><span class="math inline">\(L\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">m</td>
+<td align="center">物体质量</td>
+<td align="center"><span class="math inline">\(M\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="/blog/images/dim-analysis/earth.gif" />
+
+</div>
+<ol style="list-style-type: lower-alpha">
+<li><p>使用给定的这5个变量和常数，可知 <span class="math inline">\(N_P=N_V-N_D=2\)</span>，找出这两个无量纲乘积。</p></li>
+<li><p>通过简单的动力学分析，我们可以剔除物体质量这一变量。使用Rayleigh方法确定唯一的无量纲乘积，导出 <span class="math inline">\(\Delta t\)</span> 的表达式。</p></li>
+</ol>
+<hr />
+<p>（答案待续...）</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Math-in-Practice/" rel="tag"># Math in Practice</a>
+              <a href="/blog/tags/Note/" rel="tag"># Note</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/functional-solutions/" rel="prev" title="用函数式思维解决问题（CodeWars）">
+      <i class="fa fa-chevron-left"></i> 用函数式思维解决问题（CodeWars）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/residue-theorem/" rel="next" title="利用留数定理计算实变函数定积分">
+      利用留数定理计算实变函数定积分 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dimensional-homogeneity"><span class="nav-number">1.1.</span> <span class="nav-text">Dimensional Homogeneity</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#symmetry-under-change-of-units"><span class="nav-number">1.1.1.</span> <span class="nav-text">Symmetry under Change of Units</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimensionless-products"><span class="nav-number">1.2.</span> <span class="nav-text">Dimensionless Products</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dimensional-formulae"><span class="nav-number">1.3.</span> <span class="nav-text">Dimensional Formulae</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-rayleigh-algorithm"><span class="nav-number">1.4.</span> <span class="nav-text">The Rayleigh Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%E5%86%85%E5%9C%86%E9%94%A5%E9%9D%A2%E4%B8%8E%E5%B0%8F%E7%90%83"><span class="nav-number">1.4.1.</span> <span class="nav-text">例子：内圆锥面与小球</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#the-buckingham-%CF%80-theorem"><span class="nav-number">1.5.</span> <span class="nav-text">The Buckingham π Theorem</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%86%E8%A7%A3%E9%87%8A"><span class="nav-number">1.5.1.</span> <span class="nav-text">定理解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#n_p-%E5%AF%B9%E9%87%8F%E7%BA%B2%E6%A8%A1%E5%9E%8B%E7%B2%BE%E5%BA%A6%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">1.6.</span> <span class="nav-text">\(N_P\) 对量纲模型精度的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%E7%90%86%E6%83%B3%E6%B0%94%E4%BD%93%E5%8E%8B%E5%BC%BA%E5%85%AC%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">例子：理想气体压强公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%BB%8F%E5%B8%B8%E5%87%BA%E7%8E%B0%E7%9A%84%E9%94%99%E8%AF%AF"><span class="nav-number">1.8.</span> <span class="nav-text">一个经常出现的错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">1.9.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E5%87%BA%E4%B8%8B%E5%BC%8F%E4%B8%AD%E7%9A%84%E6%97%A0%E9%87%8F%E7%BA%B2%E4%B9%98%E7%A7%AF"><span class="nav-number">1.9.1.</span> <span class="nav-text">写出下式中的无量纲乘积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%9C%E5%86%B0%E7%88%B1%E5%A5%BD%E8%80%85"><span class="nav-number">1.9.2.</span> <span class="nav-text">溜冰爱好者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%AF%E5%8A%A8%E7%9A%84%E7%BA%BF"><span class="nav-number">1.9.3.</span> <span class="nav-text">振动的线</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E7%90%83%E9%9A%A7%E9%81%93"><span class="nav-number">1.9.4.</span> <span class="nav-text">地球隧道</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yxnan</p>
+  <div class="site-description" itemprop="description">Sci-Tech Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yxnan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+
+  
+
+</body>
+</html>

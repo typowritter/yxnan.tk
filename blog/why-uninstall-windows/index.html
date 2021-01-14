@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="（翻译自Why you should uninstall Windows right now，基于GPL协议分发）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么你应该马上卸载Windows">
+<meta property="og:url" content="http://yxnan.tk/blog/why-uninstall-windows/index.html">
+<meta property="og:site_name" content="typowritter">
+<meta property="og:description" content="（翻译自Why you should uninstall Windows right now，基于GPL协议分发）">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-08-03T06:04:34.000Z">
+<meta property="article:modified_time" content="2021-01-02T11:07:17.962Z">
+<meta property="article:author" content="yxnan">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Translation">
+<meta property="article:tag" content="FOSS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yxnan.tk/blog/why-uninstall-windows/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>为什么你应该马上卸载Windows | typowritter</title><meta name="robots" content="noindex">
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">typowritter</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/why-uninstall-windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为什么你应该马上卸载Windows
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-03 14:04:34" itemprop="dateCreated datePublished" datetime="2020-08-03T14:04:34+08:00">2020-08-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-02 19:07:17" itemprop="dateModified" datetime="2021-01-02T19:07:17+08:00">2021-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>（翻译自<a target="_blank" rel="noopener" href="https://steamcommunity.com/sharedfiles/filedetails/?id=1799575291">Why you should uninstall Windows right now</a>，基于GPL协议分发）</p>
+<a id="more"></a>
+<h1 id="引言">引言</h1>
+<p>这篇文章写作的目的，是为了捍卫我们的基本人权（<a target="_blank" rel="noopener" href="https://www.un.org/zh/universal-declaration-human-rights/index.html">《世界人权宣言》中文原文</a>）。它概述了为什么专有软件是有害的，以及除非迫不得已，使用Windows或Mac是一个不明智的行为。</p>
+<p>本文也将是对网络上各种论战不休的观点的终结。欢迎提出任何见解，不论支持还是反对，都是对这篇文章的有益补充。我不会在意本文的评价好坏，真理是不变的，所有主张以及对应的论据都会得到保留，我相信任何人都能据此得出自己的结论。</p>
+<p>对于游戏开发者，本文将会说明Linux平台的重要性。为游戏开发Linux版本也许会违背利益最大化原则（当然必须承认利益营收是游戏开发的重要驱动因素），但<strong>对接Linux平台是一项正确的举措</strong>，这有助于体现我们的基本人权，展示出你对人类未来的关心，以及你热爱你所开发的游戏，而不是仅仅将其当作营利的手段。这并不是一件难事，只是需要你从一开始就考虑进去。并且，当人们意识到专有软件的不公正之处时，更多人会转而投奔Linux平台，从而带来更多的利润。“Linux是游戏的未来”，Gabe Newell如是说。进一步地，使用一个开源的游戏引擎（如Godot）也有成堆的好处，例如无需支付专利使用费、对你自身游戏的绝对拥有权，甚至你还可以合法地fork一份引擎的源码，将它修改成完全符合你需求的样子。</p>
+<h1 id="专有软件">专有软件</h1>
+<p>Windows和OS X都是专有操作系统，这意味着系统的源代码并不属于你，你不能合法地浏览、审查源码，或者对其进行逆向工程，这听起来也许很没用，毕竟，我为什么需要完全拥有一个软件（而不是使用许可）？这要归结到我们共同的基本人权，例如，<strong>对自身隐私的权利</strong>、以及<strong>自由的权利</strong>。为了确保某个软件履行对我们人权的承诺，我们需要对代码进行审核，但是对于专有软件，除非你对它进行逆向工程，否则这是不可能的，更不要说，逆向是非法的，并且难度很高。</p>
+<p>你也许会说，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/无所隐瞒论">“我不在乎隐私”</a>，但其实这是不经思考的言论，参见<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Hjspu7QV7O0">Why privacy matters even if you have nothing to hide</a>。你当然在乎，否则我们的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Right_to_privacy">隐私权</a>不可能凭空存在，它保护人们免受误解。如果我说“我用霰弹枪当面杀死了他”，那么其实我有可能是在谈论某个游戏。这也是为什么一个<a target="_blank" rel="noopener" href="https://www.vice.com/en_us/article/mvkgnp/law-professor-police-interrogation-law-constitution-survival">好的律师</a>总是会告诉你<a target="_blank" rel="noopener" href="https://www.learnliberty.org/blog/advice-from-cops-dont-talk-to-cops/">不要开口对警察说话</a>，即使<a target="_blank" rel="noopener" href="https://www.latimes.com/opinion/op-ed/la-oe-duane-dont-talk-police-20160826-snap-story.html">你是清白的</a>（译注：此处按原文翻译，但注意不要代入我国情况，海洋法系的沉默权并不适用于大陆法系）。很多无辜的人们受到审查，仅仅因为有人在完全不同的语境中找到了某个词。隐私权也保护你不被骚扰，试想如果其他人都能了解你的一切，罪犯、推销员、雇主，每个人都能利用你的弱点，引导你去做一些根本不想做的事情。</p>
+<p>当然，这是信任的问题，但是你真的可以信任一家公司来保护自己的权利吗？ 你会把自己的生命交在他们手中吗？很不幸那是大多数人正在做的事情。听起来可能很蠢，但是你的虚拟生活足以夺走你的一切。你的身份，你的钱，或者你的朋友。人们可以轻易地为你安上一个未曾犯下的罪行，你甚至可以因为你的在线身份所做的事情而在现实生活中入狱。</p>
+<p>你可能会想，“zf，他们一定会保护我们免受此类伤害”，请再次思考。美国zf实际上是数字不安全的主要原因。 例如，国家安全局（NSA）强迫苹果，谷歌，Facebook和微软等公司实施<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/稜鏡計畫">棱镜项目</a>，这是一种渗透到社交网络和专有软件的间谍软件。 这几家公司被强制不得透露相关信息，并否认任何与棱镜项目合作或关于其存在性的事实。这也是美国禁止华为的原因之一，因为他们不能容忍一个不受他们监管的公司存在。</p>
+<p>你购买软件的许可证而不是副本，您签署相关协议而不是获得所有权和对硬件的控制。 我知道公司必须保护自己的IP，而且如果某种东西是开源的，任何人都可以随心所欲地使用它。 但这不是在推动创新吗？ 这不是在迫使像Microsoft这样的公司尽其所能推广最好的Windows吗？ 这可能是一种风险，但是可以确保软件的进步，带来更大的好处。 微软，苹果，他们不是为了产品的更好，他们是为了金钱，但可悲的是，他们永远都不会足够有钱。人们认为Epic反消费者，再看看微软，他们两者都做了不少的善事，但这并不能弥补其作的恶。蒂姆·斯威尼（Tim Sweeney）凭借自己盈利模式的堡垒摧毁了PC游戏，以谋取自身利益。 比尔·盖茨（Bill Gates）尽管拥有巨大的慈善事业，但他以自己的专有操作系统破坏了人权。</p>
+<p>我并不是说你应该放弃所有专有的东西，但是你的操作系统是你所做一切的基础，对于我来说，我的PC是我的大脑的延伸，它了解我的一切，它甚至比我对自己的了解还多。我曾经按过的每个键，我曾访问过的每个页面，我所有的个人文件，几乎所有内容都经手操作系统。在许多级别上，使系统的重要部分感染间谍软件都是很糟糕的，例如在Windows系统上，使用SSL或其他任何安全措施还有什么意义？</p>
+<p>当然，Steam是专有的，我希望它开源，但我知道我们离数字乌托邦还很远。 Steam也不是我的主要关注点，当然，我可以通过Steam聊天，写评论，玩游戏，但是我所做的一切都是公开的，我不在Steam中写个人笔记，不在Steam中存储密码，我也不会存储私人照片，Valve甚至不需要知道我的真实身份。当然，“棱镜”很有可能存在于Steam中，但是我不在乎他们知道我是游戏玩家，他们可以阅读我的评论，因为我已经选择发布它。掩盖程序的恶意意图很困难，当OS不是开放源代码时，OS可以掩盖它想要的任何东西。</p>
+<p>当然，大多数游戏都是专有的，因为很明显，如果开放源代码，那么人们可以自己编译游戏而无需付费。老实说，如果它真是开源的，我很可能会为该游戏掏钱购买DLC，但遗憾的是这不是大多数人会做的事情，所以我知道对于希望获得一定利润的游戏开发人员来说，这不是一个选择。但是游戏不太可能包含间谍软件，任何特定游戏的用户群都太少而无法引起数据挖掘者的兴趣。游戏不会收集太多有用的信息，如果这样做，反而对公司本身风险非常高。</p>
+<h1 id="隐私安全与全球监控">隐私，安全与全球监控</h1>
+<p>专有软件的问题在于，不论哪家公司，他们都可以声称自己的软件是安全的，但同时又不拿出任何措施，我们很难相信公司在确保我们安全的同时又满足zf监控的要求。所以开源软件具有安全优势，因为任何人都可以审核代码以检查潜在的安全漏洞。 如果黑客们使用一个软件，则有充分的理由确保其安全性。尤其是Linux，它一直在被数百万技术人员审核。</p>
+<p>美国政府还强迫公司不要修补安全漏洞，以便利用它们，甚至知道零日漏洞也不会向公众公开。但是，如果他们可以滥用它，那么任何人都可以。任何黑帽黑客都可以滥用这些相同的漏洞，并获得对系统进行各种恶意操作的权限。间谍，新闻工作者，外交官，黑客，这些政府机构和以安全为重点的人们普遍使用Linux，你认为是什么原因？ 专有软件不能被信任，哪怕公司的座右铭是“不作恶”。</p>
+<p>Windows可以完全控制你的所有硬件，它具有内置的键盘记录器，可以记录你进行的每一次击键；在你要搜索某些内容时，它还可以一直监听您的声音，即使可以关闭这些功能，但你怎么知道它是否真的被禁用？它还可以访问其他连接的设备，例如硬盘驱动器，USB存储器，电话，网络中的其他设备。他们甚至可以在未经你允许或不知情的情况下，远程安装软件并在计算机上打开网络摄像头。Mac，iOS，Android都做同样的事情，不光是Windows。</p>
+<p>如果这些数据泄漏了（可能是被黑客入侵，可能是系统管理员犯了一个错误，也有可能是战争爆发了，数据中心被物理控制），那么所有这些数据将会给获得者带来巨大的利益。数据就是权力，没有任何主体应该拥有这么多的数据（也即对人的权力）。这是重大的安全隐患，也是隐私权存在的原因。人们应该拥有随时删除他们自己隐私的权利。</p>
+<p>这已经成为日益严峻的问题，现在我们的口袋里已经有了支持GPS的可连接互联网的摄像头和麦克风，同时物联网正变得越来越发达，智能家居，智能手表，智能电视，网络摄像机，各种传感器，面部识别，语音识别，心跳识别。95％的东西都是专有的，并不真正为你服务，而是准备随时出卖你的利益。</p>
+<p>有意思的是，Niantic的创始人John Hanke（Pokemon GO背后的公司）受到美国国家安全局（NSA）资助，内容是某些公开项目和增强现实技术。当然NSA不需要Pokemon GO即可访问您的相机或麦克风所在的位置，但是当一款游戏始终在人们面前时，它们肯定会更好地工作。如果没有谷歌，NSA就一事无成，没有美国中央情报局CIA的资助，谷歌就不会存在。从一开始，谷歌就被迫成为间谍软件。</p>
+<p>美国保护人权的形式，就是所谓的“反恐战争”。但恐怖分子并不会去玩一些增强现实游戏，这场反恐战争只会浪费金钱，同时人们失去自由。但美国zf会混淆道德路线，实际上他们自身从未真正停止过恐怖袭击，可悲的是，恐怖分子比专有间谍软件更聪明。这场反恐战争是监视人民的借口，与反恐战争无关，而在于通过信息统治世界。用恐怖主义这个词的最真实形式来说，反恐战争本身就是恐怖主义。</p>
+<h1 id="言论思想自由内容审查">言论/思想自由，内容审查</h1>
+<p>甚至，你的想法也会受到你用的软件的影响。诸如Facebook，Twitter等专有的社交媒体平台实际上控制着世界媒体。它使得像Alex Jones这样的白痴能够俘获另一群傻子的心。 我并不是说社交媒体是一件坏事。但是，当他们开始操控什么是重要的，什么不是时，这是一件坏事，没有任何主体应该拥有这种控制权。它使人们陷入虚幻的泡沫，向他们展示他们想要看到的东西，而实际上不给他们看应该看到的东西。</p>
+<p>最好的情况就是，要么允许任何内容，要么什么都不允许。当然，假新闻是一件坏事，但审查制度甚至更糟，它还允许对真实新闻进行审查。搜索引擎也一样，Google不会首先列出可靠的来源，它会先列出支付了广告费的结果，其余结果只是符合你信念的东西。这也是一种审查形式，我们找到想要找到的东西，而不是我们需要找到的东西。</p>
+<p>没有匿名，我们就不能有自由的思想，因为我们都将陷入循环论证的困境，利用我们眼中的“事实”去证实我们的“信念”。我们的思想会影响我们的言论，试问，你的想法真的是你自己的吗？ 你有自由思想吗？ 你的观点是你的观点吗？ 你有言论自由吗？还是这只是多年来美国zf不停洗脑的结果？</p>
+<p>与之抗衡极为困难，没有什么可以保护你免受其害，如果有，它也将是另一种审查形式。你能做的最好的事情就是检查所有内容，并通过多个可信赖的来源进行确认，开动脑筋。告诉其他人也要这样做。我们获得权利的唯一方法是保持匿名，停止向社交媒体提供数据，停止为专有软件提供资金，对有损我们基本人权的任何行为投出反对票。</p>
+<h1 id="一些有趣但无关紧要的话">一些有趣，但无关紧要的话</h1>
+<p>Windows预装了各种恶意软件（当然包括“棱镜”），广告或广告软件，并且带有遥测功能，你可以将其“关闭”，但事实上呢？ 该软件仍然存在，你无法删除它。只能放任微软（及第三方）随时能够跟踪你的每一个细节，而不管你的设置如何。</p>
+<p>Windows是令人讨厌的。您在找某项特定的设置？搜索可能无济于事，它可能在数千个设置菜单之一中。您要运行软件吗？好吧，得先点3次yes。哦，您需要使用电脑吗？最好别每15分钟按一次，否则您的计算机将重新启动并安装2个永久更新。</p>
+<p>你安装软件的唯一方式（浏览器下载安装包）是一种高风险操作。假如你在网上搜索任何程序，基本可以确定50％捆绑了恶意软件。然后是单独更新计算机上每个软件的问题。 在Linux上，只需一个程序（包管理器）即可完成所有工作，并且它可以在几分钟内安装数百个更新。</p>
+<p>Windows上的大多数软件都是花钱的，即使你可能没有明确付费。如果是实际有用的工具那也无妨，但是，各种糟糕的“免费+增值”软件的数量却令人惊讶。人们购买并安装它是因为他们为此付费。即使在可能显示广告、浪费资源，或有更好的选择的情况下，人们仍会选择使用它。</p>
+<p>病毒扫描程序会占用资源，并且大多数情况下它们会发出错误警报，并且如果你运行了勒索病毒之类的恶意软件（例如未预先安装的恶意软件），它可能无法检测到该信息，因为骇客会重新打包，并使用加密程序，防止病毒软件的识别。防御永远跟不上进攻，即使你安装了10个病毒扫描程序，也无法做到万无一失。</p>
+<p>如果您在电脑上运行Windows，您很有可能是别人眼中的“羔羊”，他们只是在等待适当的时机，掏出您口袋里的钱。您可以很容易地买到泄露的个人信息，他们通过网络摄像头看着羔羊们，通过麦克风听他们说话。他们监视着您在计算机上及附近的活动，一旦他们找到了一种利用您的方法，他们就会这样做。</p>
+<p><a target="_blank" rel="noopener" href="https://www.forbes.com/sites/daveywinder/2020/04/21/the-average-windows-10-pc-has-14-weaponized-vulnerabilities-new-research-finds/#7cb56d112fd9">Windows PC上平均有14个可被攻击利用的漏洞</a>，这对我来说简直是疯狂的。人们选择为Windows付费，并使用Windows，却反而被侵犯了人权，这一事实简直是超现实主义。</p>
+<h1 id="结论">结论</h1>
+<p>我希望我已经说服您至少在使用的软件以及使用方式方面多加思考。</p>
+<p>如果我说服了您尝试使用Linux，请查看我的另一篇Steam指南，<a target="_blank" rel="noopener" href="https://steamcommunity.com/sharedfiles/filedetails/?id=1789465871">Choosing the right Linux distribution</a>。</p>
+<p>任何问题，建议，评论都将受到欢迎。该指南远未完成，非常感谢您的帮助。</p>
+<h1 id="参考来源一">参考来源一</h1>
+<p>我知道任何人都可以编辑Wikipedia，但是Wikipedia也会列出来源，请仔细检查所有内容。不要相信我。得出您自己的结论。</p>
+<p>Universal Declaration of Human Rights: <a target="_blank" rel="noopener" href="https://www.un.org/en/universal-declaration-human-rights/index.html" class="uri">https://www.un.org/en/universal-declaration-human-rights/index.html</a></p>
+<p>TV remotes integrated microphone <a target="_blank" rel="noopener" href="https://www.theverge.com/2017/4/25/15421326/smart-tv-hacking-cia-samsung-weeping-angel-vulnerability" class="uri">https://www.theverge.com/2017/4/25/15421326/smart-tv-hacking-cia-samsung-weeping-angel-vulnerability</a> <a target="_blank" rel="noopener" href="https://www.nytimes.com/2017/03/07/world/europe/wikileaks-cia-hacking.html" class="uri">https://www.nytimes.com/2017/03/07/world/europe/wikileaks-cia-hacking.html</a></p>
+<p>Internet Companies track all your data <a target="_blank" rel="noopener" href="https://www.theguardian.com/commentisfree/2018/mar/28/all-the-data-facebook-google-has-on-you-privacy" class="uri">https://www.theguardian.com/commentisfree/2018/mar/28/all-the-data-facebook-google-has-on-you-privacy</a> <a target="_blank" rel="noopener" href="https://www.ibtimes.com/facebook-keeps-getting-sued-over-face-recognition-software-privacy-groups-say-we-2082166" class="uri">https://www.ibtimes.com/facebook-keeps-getting-sued-over-face-recognition-software-privacy-groups-say-we-2082166</a> https://www.wired.com/story/amazon-echo-and-google-home-voice-data-delete/</p>
+<p>Never talk to the police, even if you are innocent. <a target="_blank" rel="noopener" href="https://www.latimes.com/opinion/op-ed/la-oe-duane-dont-talk-police-20160826-snap-story.html" class="uri">https://www.latimes.com/opinion/op-ed/la-oe-duane-dont-talk-police-20160826-snap-story.html</a> <a target="_blank" rel="noopener" href="https://www.learnliberty.org/blog/advice-from-cops-dont-talk-to-cops/" class="uri">https://www.learnliberty.org/blog/advice-from-cops-dont-talk-to-cops/</a> <a target="_blank" rel="noopener" href="https://www.vice.com/en_us/article/mvkgnp/law-professor-police-interrogation-law-constitution-survival" class="uri">https://www.vice.com/en_us/article/mvkgnp/law-professor-police-interrogation-law-constitution-survival</a></p>
+<p>Government server breached <a target="_blank" rel="noopener" href="https://www.pcmag.com/news/341818/breach-exposes-data-from-thousands-of-dhs-employees" class="uri">https://www.pcmag.com/news/341818/breach-exposes-data-from-thousands-of-dhs-employees</a> <a target="_blank" rel="noopener" href="https://www.nytimes.com/2016/02/09/us/hackers-access-employee-records-at-justice-and-homeland-security-depts.html?_r=0" class="uri">https://www.nytimes.com/2016/02/09/us/hackers-access-employee-records-at-justice-and-homeland-security-depts.html?_r=0</a> <a target="_blank" rel="noopener" href="https://www.nytimes.com/2015/07/10/us/office-of-personnel-management-hackers-got-data-of-millions.html" class="uri">https://www.nytimes.com/2015/07/10/us/office-of-personnel-management-hackers-got-data-of-millions.html</a> <a target="_blank" rel="noopener" href="https://www.theguardian.com/technology/2015/sep/23/us-government-hack-stole-fingerprints" class="uri">https://www.theguardian.com/technology/2015/sep/23/us-government-hack-stole-fingerprints</a> <a target="_blank" rel="noopener" href="https://www.forbes.com/sites/andygreenberg/2010/10/22/wikileaks-reveals-the-biggest-classified-data-breach-in-history/#7242792a6353" class="uri">https://www.forbes.com/sites/andygreenberg/2010/10/22/wikileaks-reveals-the-biggest-classified-data-breach-in-history/#7242792a6353</a></p>
+<p>NSA funds Niantic (Pokemon GO) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/In-Q-Tel" class="uri">https://en.wikipedia.org/wiki/In-Q-Tel</a> <a target="_blank" rel="noopener" href="https://www.vice.com/en_uk/article/yvepdx/pokemon-go-moral-panics-satanism-infosec" class="uri">https://www.vice.com/en_uk/article/yvepdx/pokemon-go-moral-panics-satanism-infosec</a> <a target="_blank" rel="noopener" href="https://sociable.co/technology/cia-backed-pokemon-go-privacy/" class="uri">https://sociable.co/technology/cia-backed-pokemon-go-privacy/</a></p>
+<p>Bad EULA <a target="_blank" rel="noopener" href="https://www.eff.org/wp/dangerous-terms-users-guide-eulas" class="uri">https://www.eff.org/wp/dangerous-terms-users-guide-eulas</a> <a target="_blank" rel="noopener" href="http://asyd.net/docs/misc/comparing_the_gpl_to_eula.pdf" class="uri">http://asyd.net/docs/misc/comparing_the_gpl_to_eula.pdf</a> <a target="_blank" rel="noopener" href="https://1025kiss.com/no-one-reads-the-terms-and-conditions-and-heres-why/" class="uri">https://1025kiss.com/no-one-reads-the-terms-and-conditions-and-heres-why/</a> <a target="_blank" rel="noopener" href="http://edition.cnn.com/2011/TECH/web/05/06/itunes.terms/" class="uri">http://edition.cnn.com/2011/TECH/web/05/06/itunes.terms/</a> <a target="_blank" rel="noopener" href="https://www.foxnews.com/tech/7500-online-shoppers-unknowingly-sold-their-souls" class="uri">https://www.foxnews.com/tech/7500-online-shoppers-unknowingly-sold-their-souls</a></p>
+<p>Five Eyes <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Five_Eyes" class="uri">https://en.wikipedia.org/wiki/Five_Eyes</a> <a target="_blank" rel="noopener" href="http://cdfai.org.previewmysite.com/PDF/Canada%20and%20the%20Five%20Eyes%20Intelligence%20Community.pdf">http://cdfai.org.previewmysite.com/PDF/Canada%20and%20the%20Five%20Eyes%20Intelligence%20Community.pdf</a> <a target="_blank" rel="noopener" href="https://web.archive.org/web/20140202105224/http://usacac.army.mil/cac2/call/thesaurus/toc.asp?id=37622" class="uri">https://web.archive.org/web/20140202105224/http://usacac.army.mil/cac2/call/thesaurus/toc.asp?id=37622</a> <a target="_blank" rel="noopener" href="https://web.archive.org/web/20140201113535/http://www.doncio.navy.mil/ContentView.aspx?ID=3978" class="uri">https://web.archive.org/web/20140201113535/http://www.doncio.navy.mil/ContentView.aspx?ID=3978</a></p>
+<p>Echelon <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/ECHELON" class="uri">https://en.wikipedia.org/wiki/ECHELON</a> <a target="_blank" rel="noopener" href="http://news.bbc.co.uk/2/hi/europe/820758.stm" class="uri">http://news.bbc.co.uk/2/hi/europe/820758.stm</a> <a target="_blank" rel="noopener" href="http://news.bbc.co.uk/2/hi/sci/tech/1357513.stm" class="uri">http://news.bbc.co.uk/2/hi/sci/tech/1357513.stm</a></p>
+<p>RAMPART A <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/RAMPART-A" class="uri">https://en.wikipedia.org/wiki/RAMPART-A</a> <a target="_blank" rel="noopener" href="https://web.archive.org/web/20160313201540/https://www.documentcloud.org/documents/1200865-uodds2overview-v1-1-redacted-information-dk.html" class="uri">https://web.archive.org/web/20160313201540/https://www.documentcloud.org/documents/1200865-uodds2overview-v1-1-redacted-information-dk.html</a> <a target="_blank" rel="noopener" href="https://web.archive.org/web/20180722111501/https://www.information.dk/udland/2014/06/nsa-third-party-partners-tap-the-internet-backbone-in-global-surveillance-program" class="uri">https://web.archive.org/web/20180722111501/https://www.information.dk/udland/2014/06/nsa-third-party-partners-tap-the-internet-backbone-in-global-surveillance-program</a> <a target="_blank" rel="noopener" href="https://web.archive.org/web/20180321194347/https://www.documentcloud.org/documents/1200860-odd-s3-overviewnov2011-v1-0-redacted-information.html" class="uri">https://web.archive.org/web/20180321194347/https://www.documentcloud.org/documents/1200860-odd-s3-overviewnov2011-v1-0-redacted-information.html</a> <a target="_blank" rel="noopener" href="https://web.archive.org/web/20180321194335/https://s3.amazonaws.com/s3.documentcloud.org/documents/1200866/foreignpartneraccessbudgetfy2013-redacted.pdf" class="uri">https://web.archive.org/web/20180321194335/https://s3.amazonaws.com/s3.documentcloud.org/documents/1200866/foreignpartneraccessbudgetfy2013-redacted.pdf</a></p>
+<p>Bullrun <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bullrun_(decryption_program)" class="uri">https://en.wikipedia.org/wiki/Bullrun_(decryption_program)</a> <a target="_blank" rel="noopener" href="https://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security" class="uri">https://www.theguardian.com/world/2013/sep/05/nsa-gchq-encryption-codes-security</a> <a target="_blank" rel="noopener" href="https://www.propublica.org/article/the-nsas-secret-campaign-to-crack-undermine-internet-encryption" class="uri">https://www.propublica.org/article/the-nsas-secret-campaign-to-crack-undermine-internet-encryption</a> <a target="_blank" rel="noopener" href="https://www.nytimes.com/2013/09/06/us/nsa-foils-much-internet-encryption.html?pagewanted=2&amp;_r=1" class="uri">https://www.nytimes.com/2013/09/06/us/nsa-foils-much-internet-encryption.html?pagewanted=2&amp;_r=1</a> <a target="_blank" rel="noopener" href="https://www.ibtimes.com/edward-snowden-reveals-secret-decryption-programs-10-things-you-need-know-about-bullrun-edgehill" class="uri">https://www.ibtimes.com/edward-snowden-reveals-secret-decryption-programs-10-things-you-need-know-about-bullrun-edgehill</a></p>
+<p>Edward Snowden <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Edward_Snowden" class="uri">https://en.wikipedia.org/wiki/Edward_Snowden</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Edward_Snowden#United_States" class="uri">https://en.wikipedia.org/wiki/Edward_Snowden#United_States</a> <a target="_blank" rel="noopener" href="https://www.washingtonpost.com/world/national-security/us-charges-snowden-with-espionage/2013/06/21/507497d8-dab1-11e2-a016-92547bf094cc_story.html?utm_term=.d83dab4ab6af" class="uri">https://www.washingtonpost.com/world/national-security/us-charges-snowden-with-espionage/2013/06/21/507497d8-dab1-11e2-a016-92547bf094cc_story.html?utm_term=.d83dab4ab6af</a> <a target="_blank" rel="noopener" href="https://www.theguardian.com/world/2013/nov/25/edward-snowden-nsa-wikipedia-founder" class="uri">https://www.theguardian.com/world/2013/nov/25/edward-snowden-nsa-wikipedia-founder</a> <a target="_blank" rel="noopener" href="https://www.newyorker.com/news/john-cassidy/why-edward-snowden-is-a-hero" class="uri">https://www.newyorker.com/news/john-cassidy/why-edward-snowden-is-a-hero</a></p>
+<p>Weeping Angel <a target="_blank" rel="noopener" href="https://fossbytes.com/wikileaks-friday-weeping-angel-by-cia-a-hacking-tool-for-your-television/" class="uri">https://fossbytes.com/wikileaks-friday-weeping-angel-by-cia-a-hacking-tool-for-your-television/</a> <a target="_blank" rel="noopener" href="https://wikileaks.org/ciav7p1/cms/page_12353643.html" class="uri">https://wikileaks.org/ciav7p1/cms/page_12353643.html</a> <a target="_blank" rel="noopener" href="https://www.wsj.com/articles/wikileaks-reveals-cia-hacking-projects-from-weeping-angel-to-hammer-drill-1489017814" class="uri">https://www.wsj.com/articles/wikileaks-reveals-cia-hacking-projects-from-weeping-angel-to-hammer-drill-1489017814</a> <a target="_blank" rel="noopener" href="https://www.theguardian.com/media/2017/mar/07/wikileaks-publishes-biggest-ever-leak-of-secret-cia-documents-hacking-surveillance" class="uri">https://www.theguardian.com/media/2017/mar/07/wikileaks-publishes-biggest-ever-leak-of-secret-cia-documents-hacking-surveillance</a></p>
+<p>China <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Censorship_in_China" class="uri">https://en.wikipedia.org/wiki/Censorship_in_China</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mass_surveillance_in_China" class="uri">https://en.wikipedia.org/wiki/Mass_surveillance_in_China</a></p>
+<p>Australia <a target="_blank" rel="noopener" href="https://www.zdnet.com/article/australias-anti-encryption-law-will-merely-relocate-the-backdoors-expert/" class="uri">https://www.zdnet.com/article/australias-anti-encryption-law-will-merely-relocate-the-backdoors-expert/</a> <a target="_blank" rel="noopener" href="https://www.abc.net.au/news/science/2018-10-02/proposed-surveillance-laws-draw-international-criticism/10300170" class="uri">https://www.abc.net.au/news/science/2018-10-02/proposed-surveillance-laws-draw-international-criticism/10300170</a> <a target="_blank" rel="noopener" href="https://www.zdnet.com/article/whats-actually-in-australias-encryption-laws-everything-you-need-to-know/" class="uri">https://www.zdnet.com/article/whats-actually-in-australias-encryption-laws-everything-you-need-to-know/</a></p>
+<p>EU <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Internet_censorship_and_surveillance_in_Europe" class="uri">https://en.wikipedia.org/wiki/Internet_censorship_and_surveillance_in_Europe</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Data_Retention_Directive" class="uri">https://en.wikipedia.org/wiki/Data_Retention_Directive</a> <a target="_blank" rel="noopener" href="https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32006L0024" class="uri">https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32006L0024</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Intelligence_Act_(France)" class="uri">https://en.wikipedia.org/wiki/Intelligence_Act_(France)</a> <a target="_blank" rel="noopener" href="https://www.theregister.co.uk/2002/11/04/german_secret_service_taps_phones/" class="uri">https://www.theregister.co.uk/2002/11/04/german_secret_service_taps_phones/</a> <a target="_blank" rel="noopener" href="https://privacyinternational.org/sites/default/files/2017-12/Data%20Retention_2017.pdf">https://privacyinternational.org/sites/default/files/2017-12/Data%20Retention_2017.pdf</a> <a target="_blank" rel="noopener" href="https://edri.org/edrigramnumber2-14wiretap/" class="uri">https://edri.org/edrigramnumber2-14wiretap/</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mass_surveillance_in_the_United_Kingdom" class="uri">https://en.wikipedia.org/wiki/Mass_surveillance_in_the_United_Kingdom</a></p>
+<p>Russia <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mass_surveillance_in_Russia" class="uri">https://en.wikipedia.org/wiki/Mass_surveillance_in_Russia</a></p>
+<p>How to fact check https://www.youtube.com/playlist?list=PL8dPuuaLjXtN07XYqqWSKpPrtNDiCHTzU</p>
+<p>Warrant Canary <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Warrant_canary" class="uri">https://en.wikipedia.org/wiki/Warrant_canary</a></p>
+<p>You can not even trust yourself <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Freedom_of_thought#History_of_development_and_suppression" class="uri">https://en.wikipedia.org/wiki/Freedom_of_thought#History_of_development_and_suppression</a></p>
+<p>Too much fake news <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fake_news" class="uri">https://en.wikipedia.org/wiki/Fake_news</a> <a target="_blank" rel="noopener" href="https://www.independent.co.uk/news/science/fake-news-twitter-spreads-further-faster-real-stories-retweets-political-a8247491.html" class="uri">https://www.independent.co.uk/news/science/fake-news-twitter-spreads-further-faster-real-stories-retweets-political-a8247491.html</a> <a target="_blank" rel="noopener" href="https://www.nytimes.com/2016/12/06/us/fake-news-partisan-republican-democrat.html" class="uri">https://www.nytimes.com/2016/12/06/us/fake-news-partisan-republican-democrat.html</a></p>
+<p>Free Speech? <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Freedom_of_speech_by_country" class="uri">https://en.wikipedia.org/wiki/Freedom_of_speech_by_country</a></p>
+<p>Free Thought? <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Freedom_of_thought#History_of_development_and_suppression" class="uri">https://en.wikipedia.org/wiki/Freedom_of_thought#History_of_development_and_suppression</a></p>
+<p>Libre Software <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Free_software" class="uri">https://en.wikipedia.org/wiki/Free_software</a> <a target="_blank" rel="noopener" href="https://www.gnu.org/philosophy/philosophy.html" class="uri">https://www.gnu.org/philosophy/philosophy.html</a></p>
+<p>Linux <a target="_blank" rel="noopener" href="https://www.gnu.org/gnu/why-gnu-linux.html" class="uri">https://www.gnu.org/gnu/why-gnu-linux.html</a> <a target="_blank" rel="noopener" href="https://fsfe.org/freesoftware/transcripts/rms-fs-2006-03-09.en.html" class="uri">https://fsfe.org/freesoftware/transcripts/rms-fs-2006-03-09.en.html</a> https://www.wired.com/2004/12/linux-fewer-bugs-than-rivals/ <a target="_blank" rel="noopener" href="https://www.forbes.com/sites/jasonevangelho/2019/07/17/these-windows-10-vs-pop-os-benchmarks-reveal-a-surprising-truth-about-linux-gaming-performance/#cce0dc15e747" class="uri">https://www.forbes.com/sites/jasonevangelho/2019/07/17/these-windows-10-vs-pop-os-benchmarks-reveal-a-surprising-truth-about-linux-gaming-performance/#cce0dc15e747</a> http://blogs.valvesoftware.com/linux/faster-zombies/ <a target="_blank" rel="noopener" href="https://beardedgiant.games/benefits-of-supporting-linux-if-you-are-a-small-indie-developer/" class="uri">https://beardedgiant.games/benefits-of-supporting-linux-if-you-are-a-small-indie-developer/</a> <a target="_blank" rel="noopener" href="https://www.phoronix.com/scan.php?page=article&amp;item=june-2018-gpus&amp;num=1" class="uri">https://www.phoronix.com/scan.php?page=article&amp;item=june-2018-gpus&amp;num=1</a> <a target="_blank" rel="noopener" href="https://www.forbes.com/sites/jasonevangelho/2019/03/01/windows-10-versus-linux-6-steam-games-benchmarked-on-intels-hades-" class="uri">https://www.forbes.com/sites/jasonevangelho/2019/03/01/windows-10-versus-linux-6-steam-games-benchmarked-on-intels-hades-</a></p>
+<p>Security Advantages <a target="_blank" rel="noopener" href="http://www.albion.com/security/intro-7.html" class="uri">http://www.albion.com/security/intro-7.html</a> <a target="_blank" rel="noopener" href="https://dwheeler.com/oss_fs_why.html#security" class="uri">https://dwheeler.com/oss_fs_why.html#security</a></p>
+<p>Who uses Linux? <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_Linux_adopters#Scientific_institutions" class="uri">https://en.wikipedia.org/wiki/List_of_Linux_adopters#Scientific_institutions</a></p>
+<p>Why use an Adblocker? <a target="_blank" rel="noopener" href="https://www.pcmag.com/g00/news/307680/online-advertising-more-likely-to-spread-malware-than-porn?i10c.ua=1&amp;i10c.enc♥♥♥♥♥♥♥♥♥&amp;i10c.dv=18" class="uri">https://www.pcmag.com/g00/news/307680/online-advertising-more-likely-to-spread-malware-than-porn?i10c.ua=1&amp;i10c.enc♥♥♥♥♥♥♥♥♥&amp;i10c.dv=18</a> <a target="_blank" rel="noopener" href="http://www.sectheory.com/browser-power-consumption.htm" class="uri">http://www.sectheory.com/browser-power-consumption.htm</a></p>
+<p>Some more <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Global_surveillance" class="uri">https://en.wikipedia.org/wiki/Global_surveillance</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/PRISM_(surveillance_program)" class="uri">https://en.wikipedia.org/wiki/PRISM_(surveillance_program)</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/XKeyscore" class="uri">https://en.wikipedia.org/wiki/XKeyscore</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Nothing_to_hide_argument" class="uri">https://en.wikipedia.org/wiki/Nothing_to_hide_argument</a> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Right_to_privacy" class="uri">https://en.wikipedia.org/wiki/Right_to_privacy</a> <a target="_blank" rel="noopener" href="https://www.washingtonpost.com/wp-srv/special/national/black-budget/" class="uri">https://www.washingtonpost.com/wp-srv/special/national/black-budget/</a></p>
+<h1 id="参考来源二">参考来源二</h1>
+<p><a target="_blank" rel="noopener" href="https://www.forbes.com/sites/daveywinder/2020/04/21/the-average-windows-10-pc-has-14-weaponized-vulnerabilities-new-research-finds/#2b74c33f2fd9" class="uri">https://www.forbes.com/sites/daveywinder/2020/04/21/the-average-windows-10-pc-has-14-weaponized-vulnerabilities-new-research-finds/#2b74c33f2fd9</a> <a target="_blank" rel="noopener" href="https://www.phoronix.com/scan.php?page=article&amp;item=june-2018-gpus&amp;num=1" class="uri">https://www.phoronix.com/scan.php?page=article&amp;item=june-2018-gpus&amp;num=1</a> <a target="_blank" rel="noopener" href="https://beardedgiant.games/benefits-of-supporting-linux-if-you-are-a-small-indie-developer/" class="uri">https://beardedgiant.games/benefits-of-supporting-linux-if-you-are-a-small-indie-developer/</a> http://blogs.valvesoftware.com/linux/faster-zombies/ <a target="_blank" rel="noopener" href="https://www.forbes.com/sites/jasonevangelho/2019/07/17/these-windows-10-vs-pop-os-benchmarks-reveal-a-surprising-truth-about-linux-gaming-performance/#704e38985e74" class="uri">https://www.forbes.com/sites/jasonevangelho/2019/07/17/these-windows-10-vs-pop-os-benchmarks-reveal-a-surprising-truth-about-linux-gaming-performance/#704e38985e74</a> https://www.wired.com/2004/12/linux-fewer-bugs-than-rivals/ <a target="_blank" rel="noopener" href="https://www.lifewire.com/windows-vs-linux-mint-2200609" class="uri">https://www.lifewire.com/windows-vs-linux-mint-2200609</a> <a target="_blank" rel="noopener" href="https://www.forbes.com/sites/jasonevangelho/2019/03/01/windows-10-versus-linux-6-steam-games-benchmarked-on-intels-hades-canyon-nuc/#7ed2c61c78ce" class="uri">https://www.forbes.com/sites/jasonevangelho/2019/03/01/windows-10-versus-linux-6-steam-games-benchmarked-on-intels-hades-canyon-nuc/#7ed2c61c78ce</a> <a target="_blank" rel="noopener" href="https://www.diffen.com/difference/Linux_vs_Windows" class="uri">https://www.diffen.com/difference/Linux_vs_Windows</a> <a target="_blank" rel="noopener" href="https://www.techrepublic.com/article/5-fundamental-differences-between-windows-10-and-linux/" class="uri">https://www.techrepublic.com/article/5-fundamental-differences-between-windows-10-and-linux/</a> <a target="_blank" rel="noopener" href="https://www.computerhope.com/issues/ch000575.htm" class="uri">https://www.computerhope.com/issues/ch000575.htm</a> <a target="_blank" rel="noopener" href="https://www.linuxjournal.com/content/nsa-linux-journal-extremist-forum-and-its-readers-get-flagged-extra-surveillance" class="uri">https://www.linuxjournal.com/content/nsa-linux-journal-extremist-forum-and-its-readers-get-flagged-extra-surveillance</a> <a target="_blank" rel="noopener" href="https://daserste.ndr.de/panorama/aktuell/NSA-targets-the-privacy-conscious,nsa230.html" class="uri">https://daserste.ndr.de/panorama/aktuell/NSA-targets-the-privacy-conscious,nsa230.html</a> <a target="_blank" rel="noopener" href="https://www.linuxjournal.com/content/are-you-extremist" class="uri">https://www.linuxjournal.com/content/are-you-extremist</a></p>
+<!-- flag of hidden posts -->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/blog/tags/Translation/" rel="tag"># Translation</a>
+              <a href="/blog/tags/FOSS/" rel="tag"># FOSS</a>
+          </div>
+
+        
+
+
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E6%9C%89%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">专有软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9A%90%E7%A7%81%E5%AE%89%E5%85%A8%E4%B8%8E%E5%85%A8%E7%90%83%E7%9B%91%E6%8E%A7"><span class="nav-number">3.</span> <span class="nav-text">隐私，安全与全球监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A8%80%E8%AE%BA%E6%80%9D%E6%83%B3%E8%87%AA%E7%94%B1%E5%86%85%E5%AE%B9%E5%AE%A1%E6%9F%A5"><span class="nav-number">4.</span> <span class="nav-text">言论&#x2F;思想自由，内容审查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E4%BD%86%E6%97%A0%E5%85%B3%E7%B4%A7%E8%A6%81%E7%9A%84%E8%AF%9D"><span class="nav-number">5.</span> <span class="nav-text">一些有趣，但无关紧要的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">6.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90%E4%B8%80"><span class="nav-number">7.</span> <span class="nav-text">参考来源一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90%E4%BA%8C"><span class="nav-number">8.</span> <span class="nav-text">参考来源二</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yxnan</p>
+  <div class="site-description" itemprop="description">Sci-Tech Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yxnan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

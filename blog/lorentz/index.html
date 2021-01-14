@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="人们发现，时间与空间原是分不开的，之前的动力学定律之所以形式繁杂，是因为这些定律描述的仅仅是一个更大结构——时空的几个分量而已。一旦把时间纳入体系，统一的形式便展现在人们眼前了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相对论中的 Lorentz 变换与四维矢量">
+<meta property="og:url" content="http://yxnan.tk/blog/lorentz/index.html">
+<meta property="og:site_name" content="typowritter">
+<meta property="og:description" content="人们发现，时间与空间原是分不开的，之前的动力学定律之所以形式繁杂，是因为这些定律描述的仅仅是一个更大结构——时空的几个分量而已。一旦把时间纳入体系，统一的形式便展现在人们眼前了。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-04-10T18:03:07.000Z">
+<meta property="article:modified_time" content="2020-07-30T23:41:26.902Z">
+<meta property="article:author" content="yxnan">
+<meta property="article:tag" content="Math in Practice">
+<meta property="article:tag" content="Linear algebra">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yxnan.tk/blog/lorentz/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>相对论中的 Lorentz 变换与四维矢量 | typowritter</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">typowritter</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/lorentz/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          相对论中的 Lorentz 变换与四维矢量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-11 02:03:07" itemprop="dateCreated datePublished" datetime="2019-04-11T02:03:07+08:00">2019-04-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-31 07:41:26" itemprop="dateModified" datetime="2020-07-31T07:41:26+08:00">2020-07-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Mathematics/Physics/" itemprop="url" rel="index"><span itemprop="name">Physics</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>人们发现，时间与空间原是分不开的，之前的动力学定律之所以形式繁杂，是因为这些定律描述的仅仅是一个更大结构——时空的几个分量而已。一旦把时间纳入体系，统一的形式便展现在人们眼前了。</p>
+<a id="more"></a>
+<h2 id="lorentz-变换的矩阵形式">Lorentz 变换的矩阵形式</h2>
+<p>考虑两个参考系 <span class="math inline">\(K\)</span> 和 <span class="math inline">\(K^{\prime}\)</span>， <span class="math inline">\(K^{\prime}\)</span> 的原点相对 <span class="math inline">\(K\)</span> 原点速度为 <span class="math inline">\(u\)</span> （设运动方向为 <span class="math inline">\(x\)</span> 方向，以下忽略无关的 <span class="math inline">\(y\)</span> 和 <span class="math inline">\(z\)</span> 方向），则两参考系之间的变换规则为： <span class="math display">\[
+{\begin{pmatrix}t^{\prime}\\x^{\prime}\end{pmatrix}}=\gamma{\begin{pmatrix}1&amp;-\beta\\-\beta&amp;1\end{pmatrix}}{\begin{pmatrix}t\\x\end{pmatrix}}
+\]</span> 其中</p>
+<p><span class="math inline">\(\beta=\dfrac{u}{c},\quad\gamma=\dfrac{1}{\sqrt{1-\dfrac {u^2}{c^2}}}\)</span>，称为 Lorentz 因子。</p>
+<p>可以证明，所有参考系转换以转换叠加作为乘法组成一个群，在群公理下，一般 Lorentz 变换的矩阵可写成： <span class="math display">\[
+{\frac{1}{\sqrt{1+\kappa u^2}}}{\begin{pmatrix}1&amp;\kappa u\\-u&amp;1\end{pmatrix}}
+\]</span> 其中 <span class="math inline">\(\gamma=\dfrac{1}{\sqrt{1+\kappa u^2}}\)</span> 为 Lorentz 因子， <span class="math inline">\(c^2=\dfrac{1}{|\kappa|}\)</span> 为转换的不变速度。</p>
+<ol style="list-style-type: decimal">
+<li><p>当 <span class="math inline">\(\kappa&gt;0\)</span> 时，意味着 <span class="math inline">\(c\)</span> 是速度的下限，这与现实世界不符；</p></li>
+<li><p>当 <span class="math inline">\(\kappa=0\)</span> 时，即得伽利略变换矩阵：</p></li>
+</ol>
+<p><span class="math display">\[
+{\begin{pmatrix}t^{\prime}\\x^{\prime }\end{pmatrix}}={\begin{pmatrix}1&amp;0\\-u&amp;1\end{pmatrix}}{\begin{pmatrix}t\\x\end{pmatrix}}
+\]</span> 3. 更一般的，在 <span class="math inline">\(c=\dfrac{1}{\sqrt{-\kappa}}&lt;\infty\)</span> 的情况下就得到我们世界的 Lorentz 变换：</p>
+<p><span class="math display">\[
+{\begin{pmatrix}t^{\prime}\\x^{\prime}\end{pmatrix}}={\frac{1}{\sqrt{1-{\frac{u^2}{c^2}}}}}{\begin{pmatrix}1&amp;-{\frac{u}{c^2}}\\-u&amp;1\end{pmatrix}}{\begin{pmatrix}t\\x\end{pmatrix}}
+\]</span></p>
+<p>到底世界是属于 <span class="math inline">\(\kappa=0\)</span> 还是 <span class="math inline">\(\kappa&lt;0\)</span> 类型，最终只能靠实验验证。例如<strong>迈克耳孙-莫雷实验</strong>。</p>
+<hr />
+<h2 id="四维矢量">四维矢量</h2>
+<p>在狭义相对论里，四维向量(four-vector)是<strong>闵可夫斯基空间</strong>里的矢量。在闵可夫斯基空间内的任意一点，都代表一个『<strong>事件</strong>』，可以用四维向量来表示，其分量分别为时间点和三维空间坐标，可写作：（以下用大写黑体字母代表四维向量） <span class="math display">\[
+\mathbf{X}=(ct,\,\vec{r})=(x_0,\,x_1,\,x_2,\,x_3)
+\]</span> 其中，<span class="math inline">\(x_0=ct\)</span> 为时间分量，<span class="math inline">\(x_1,\,x_2,\,x_3\)</span> 为三个空间坐标。</p>
+<p>根据 Lorentz 变换，我们有： <span class="math display">\[
+x_1^{\prime}=\dfrac{(x_1-\beta x_0)}{\sqrt{1-\beta^2}}\\
+x_0^{\prime}=\dfrac{(x_0-\beta x_1)}{\sqrt{1-\beta^2}}
+\]</span> 我们会惊喜地发现，<span class="math inline">\((x_0^{\prime})^2-(x_1^{\prime})^2=(x_0)^2-(x_1)^2\)</span> ## 闵可夫斯基内积 在闵可夫斯基空间里，定义两个四维向量的内积： <span class="math display">\[
+\mathbf{X\cdot Y}=x_0y_0-x_1y_1-x_2y_2-x_3y_3
+\]</span> #### 性质 1. 不具有正定性，即 <span class="math inline">\(\mathbf{X\cdot X}\)</span> 可能小于零 2. <strong>不变量</strong>：在任意参考系中，两个四维矢量的内积是不变量</p>
+<p>根据内积的不变性，可以定义四维矢量的长度，也叫<strong>时空间距 (spacetime interval)</strong> <span class="math display">\[
+s^2=x_0^2-\vec{r}\cdot \vec{r}
+\]</span> ## 对时间求导 在计算四维向量对时间的导数时，如能选择<strong>固有时</strong>为时间变量，则求得的四维矢量具有良好的性质。对于任意时刻，选择与物体运动状态相同的惯性参考系，在该参考系下测得的时间即为固有时。</p>
+<p>在固有参考系中，空间位移恒为 0，因此两事件间距为时间分量之差： <span class="math display">\[
+\Delta s=c\Delta \tau
+\]</span> 只考虑 <span class="math inline">\(x\)</span> 方向的运动，在另一参考系中，两事件间距 <span class="math display">\[
+\begin{aligned}
+\Delta s^\prime&amp;=\sqrt{(c\Delta t)^2-(\Delta x)^2}\\
+&amp;=c\Delta t\sqrt{1-(\dfrac{\Delta x}{\Delta t})^2\dfrac{1}{c^2}}
+\end{aligned}
+\]</span> 由于时空间距在不同参考系下的不变性，我们有： <span class="math display">\[
+\Delta s=\Delta s^\prime
+\]</span> 故 <span class="math display">\[
+\Delta t=\gamma\Delta \tau，或\,\dfrac{d\tau}{dt}=\dfrac{1}{\gamma}
+\]</span> ### 四维动量 对于一个在时空中运动的物体，我们仿效三维运动的动量定义： <span class="math display">\[
+\mathbf{P}=m\dfrac{d\mathbf{X}}{d\tau}
+\]</span> 注意，这里时间变量应为运动物体的固有时，因为 <span class="math inline">\(\Delta t\)</span> 在不同参考系下不一定相同，不再具有三维运动中的特殊地位，仅是四维矢量的分量之一。</p>
+<p>代入 <span class="math inline">\(\mathbf{X}\)</span> 各分量及 <span class="math inline">\(\tau\)</span> 与 <span class="math inline">\(t\)</span> 的转化关系，得到：（以下 <span class="math inline">\(m\)</span> 均代表固有质量） <span class="math display">\[
+\mathbf{P}=(\dfrac{mc}{\sqrt{1-{u^2}/{c^2}}},\,\dfrac{m\vec{v}}{\sqrt{1-{u^2}/{c^2}}})
+\]</span> 也就是 <span class="math display">\[
+\mathbf{P}=(\dfrac{E}{c},\,\vec{p})
+\]</span></p>
+<p>也被称为<strong>能量-动量四矢量</strong> #### 推论 由四维矢量内积的不变性，对固有参考系和其他任一参考系，有 <span class="math display">\[
+\mathbf{(P)^2}=\mathbf{(P^\prime)^2}
+\]</span> 这里 <span class="math inline">\(\mathbf{P}=(mc,\,0)\)</span>，<span class="math inline">\(\mathbf{P^\prime}=(\dfrac{E}{c},\,\vec{p})\)</span>，这两个四维矢量并不相等，但它们的平方相等。</p>
+<p>即可推出 <span class="math display">\[
+E^2=p^2c^2+m^2c^4
+\]</span></p>
+<hr />
+<h2 id="其他的四维量">其他的四维量</h2>
+<p>类似地，我们还可继续定义四维速度、四维加速度、四维力、四维频率……它们的长度也相应有各自的意义，此处不再赘述。</p>
+<p>值得注意的是，由于四维速度保持恒长，故<strong>四维加速度一定与四维速度正交</strong>。至于这一事实的直观意义，就交给诸位去想象了。</p>
+<hr />
+<h3 id="如何用四维矢量解题">如何用四维矢量解题</h3>
+<ol style="list-style-type: decimal">
+<li>一个动量为 <span class="math inline">\(k\)</span> 的光子，打中一质量为 <span class="math inline">\(m\)</span> 的静止物体并被其吸收，求物体新的质量 <span class="math inline">\(m^\prime\)</span></li>
+<li>动能多大的 <span class="math inline">\(\alpha\)</span> 粒子 (<span class="math inline">\(\sideset{_2^4}{}H\)</span>) 轰击 <span class="math inline">\(\sideset{_7^{14}}{}N\)</span>，可实现下列反应：</li>
+</ol>
+<p><span class="math display">\[
+\sideset{_7^{14}}{}N+\sideset{_2^4}{}H\rightarrow\sideset{_8^{17}}{}O+\sideset{_1^1}{}H
+\]</span></p>
+<p>已知 <span class="math inline">\(\sideset{_7^{14}}{}N,\sideset{_2^4}{}H,\sideset{_8^{17}}{}H,\sideset{_1^1}{}H\)</span> 的静止质量分别为 ​ <span class="math inline">\(m_1=13.99922u,\,m_2=4.00151u,\,m_3=16.99476u,\,m_4=1.00728u\)</span></p>
+<p>对第一题，首先我们来看一下传统解法：</p>
+<p>设物体的反冲速度为 <span class="math inline">\(v\)</span> ，光子、之前物体、之后物体的能量-动量四矢量分别为 <span class="math inline">\(\mathbf{K},\mathbf{P_1},\mathbf{P_2}\)</span></p>
+<p>则 <span class="math inline">\(\mathbf{K} = (\dfrac{\omega}{c},\,k)\)</span>，其中 <span class="math inline">\(\omega = kc\)</span>（通常用 <span class="math inline">\(\omega\)</span>, <span class="math inline">\(k\)</span> 分别代表光子能量和动量）</p>
+<p><span class="math inline">\(\mathbf{P_1}=(mc,\,0)\)</span>，<span class="math inline">\(\mathbf{P_2}=(\dfrac{m^\prime c}{\sqrt{1-{v^2}/{c^2}}},\,\dfrac{m^\prime v}{\sqrt{1-{v^2}/{c^2}}})\)</span></p>
+<p>有 <span class="math display">\[
+\mathbf{K}+\mathbf{P_1}=\mathbf{P_2}
+\]</span> 上式同时表示了能量、动量守恒</p>
+<p>根据两个分量，我们可以列出两个等式，含有两个未知数 <span class="math inline">\(m^\prime\)</span> 、<span class="math inline">\(v\)</span>，理论上可以解了。</p>
+<p>但是我们很快就会发现方程过于复杂，难以求解。</p>
+<p><strong>怎么办呢？</strong></p>
+<p>这里最好的解法，还是要考虑四维矢量的不变性：</p>
+<p>由 <span class="math display">\[\mathbf{K}+\mathbf{P_1}=\mathbf{P_2}\]</span></p>
+<p>可有 <span class="math display">\[(\mathbf{K}+\mathbf{P_1})^2=(\mathbf{P_2})^2\]</span></p>
+<p>展开，<span class="math inline">\(\mathbf{P_1}^2+\mathbf{K}^2+2\mathbf{P_1}\mathbf{K}={m^\prime}^2 c^2\)</span></p>
+<p>继续，<span class="math inline">\(m^2c^2+0+2(mkc)={m^\prime}^2 c^2\)</span></p>
+<p>显然，这个方程中只有一个未知数，之前的 <span class="math inline">\(v\)</span> 根本不需出现</p>
+<p>直接可解得 <span class="math inline">\(m^\prime =\sqrt{m^2+\dfrac{2mk}{c}}\)</span></p>
+<p>第二题，当入射动能最小时，生成的氧原子和氢原子共速，据此列方程解答。</p>
+<p>同样，如果用常规解法，需要解一个<strong>六元二次方程组</strong>，计算量可想而知。（反正笔者高中时花了一个上午都没有解出来(;-;）</p>
+<p>我们还是使用四维矢量的性质，注意到 <span class="math display">\[
+\mathbf{P}_{in}=\mathbf{P}_{out}
+\]</span> 上面是在实验室参考系中得出的式子。让我们转换视角，在质心系中，碰撞后两原子均静止，因此有简单关系： <span class="math display">\[
+\mathbf{P}^{\prime}_{out}=(m_3c+m_4c,\,0)
+\]</span> 根据性质 <span class="math display">\[
+\mathbf{P}^2_{out}=\mathbf{P}^{\prime2}_{out}
+\]</span> 联立上述方程，得到的式子中仍然只有一个未知数，就是我们想要求的动能</p>
+<p>轻松得到 <span class="math inline">\(E_k=2.514\times 10^{-13}J\)</span></p>
+<p>比起传统方法，这种方式简便了可不止一点</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Math-in-Practice/" rel="tag"># Math in Practice</a>
+              <a href="/blog/tags/Linear-algebra/" rel="tag"># Linear algebra</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/inner-space/" rel="prev" title="内积空间的正交投影与极小化问题">
+      <i class="fa fa-chevron-left"></i> 内积空间的正交投影与极小化问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/oh-my-laziness/" rel="next" title="啊哈，惰性求值！">
+      啊哈，惰性求值！ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#lorentz-%E5%8F%98%E6%8D%A2%E7%9A%84%E7%9F%A9%E9%98%B5%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Lorentz 变换的矩阵形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%BB%B4%E7%9F%A2%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">四维矢量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E5%9B%9B%E7%BB%B4%E9%87%8F"><span class="nav-number">3.</span> <span class="nav-text">其他的四维量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8%E5%9B%9B%E7%BB%B4%E7%9F%A2%E9%87%8F%E8%A7%A3%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">如何用四维矢量解题</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yxnan</p>
+  <div class="site-description" itemprop="description">Sci-Tech Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yxnan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+
+  
+
+</body>
+</html>

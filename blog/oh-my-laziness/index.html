@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="因为最近在研究Haskell的惰性求值，看到了一篇讲得不错的文章，网上好像还没人翻译成中文，因此来试着翻译一下 （Haskell 的中文资源好像很少，我似乎发现了巨大的机会） 本文不会是原文忠实的翻译，在中间我也会穿插一些自己的理解；文章中引用的部分资料，我也会适当展开并给出翻译。某些易混淆或是中文译法未统一的词，我会如实保留原文。 原文地址：Oh my laziness!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="啊哈，惰性求值！">
+<meta property="og:url" content="http://yxnan.tk/blog/oh-my-laziness/index.html">
+<meta property="og:site_name" content="typowritter">
+<meta property="og:description" content="因为最近在研究Haskell的惰性求值，看到了一篇讲得不错的文章，网上好像还没人翻译成中文，因此来试着翻译一下 （Haskell 的中文资源好像很少，我似乎发现了巨大的机会） 本文不会是原文忠实的翻译，在中间我也会穿插一些自己的理解；文章中引用的部分资料，我也会适当展开并给出翻译。某些易混淆或是中文译法未统一的词，我会如实保留原文。 原文地址：Oh my laziness!">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-05-03T13:27:51.000Z">
+<meta property="article:modified_time" content="2020-09-05T15:43:23.034Z">
+<meta property="article:author" content="yxnan">
+<meta property="article:tag" content="Haskell">
+<meta property="article:tag" content="Translation">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yxnan.tk/blog/oh-my-laziness/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>啊哈，惰性求值！ | typowritter</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">typowritter</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/oh-my-laziness/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          啊哈，惰性求值！
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-03 21:27:51" itemprop="dateCreated datePublished" datetime="2019-05-03T21:27:51+08:00">2019-05-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-05 23:43:23" itemprop="dateModified" datetime="2020-09-05T23:43:23+08:00">2020-09-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>因为最近在研究Haskell的惰性求值，看到了一篇讲得不错的文章，网上好像还没人翻译成中文，因此来试着翻译一下 （Haskell 的中文资源好像很少，我似乎发现了巨大的机会）</p>
+<p>本文不会是原文忠实的翻译，在中间我也会穿插一些自己的理解；文章中引用的部分资料，我也会适当展开并给出翻译。某些易混淆或是中文译法未统一的词，我会如实保留原文。</p>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://alpmestan.com/posts/2013-10-02-oh-my-laziness.html">Oh my laziness!</a></p>
+<a id="more"></a>
+<hr />
+<h1 id="目录">目录</h1>
+<ul>
+<li>前言</li>
+<li>你好，惰性求值！
+<ul>
+<li>深入探索
+<ul>
+<li>NF 和 WHNF</li>
+<li>练习</li>
+</ul></li>
+<li>GHC runtime 环境的惰性机制</li>
+</ul></li>
+<li>严格求值
+<ul>
+<li>使用 Bang Patterns</li>
+<li>数据类型中的严格域
+<ul>
+<li>练习</li>
+</ul></li>
+<li>{-# UNPACK #-} 声明和严格域的内存表示
+<ul>
+<li>练习</li>
+</ul></li>
+<li>一些强制求值的其它方法</li>
+</ul></li>
+</ul>
+<h1 id="前言">前言</h1>
+<p>你已经了解 Haskell 中相当一部分内涵了，现在，你想要看得更深刻，了解什么时候你的代码会被求值，什么时候不会。本文将会直观地解释惰性求值在 GHC 编译器环境中是如何实现的，如何判断是否求值，以及如何在函数参数和自定义类型中精确地控制求值方式。 前言</p>
+<p>这篇文章将会阐述如何在你的 Haskell 代码中更好地控制求值方式。不论你的目标是写一个快速处理数字的程序，还是想要处理 GiB 量级的流数据，这篇文章都将为你提供一些有用的建议，当然前提是你能熟练地运用惰性/严格求值方式，并将它们适当地运用到你的项目中去。比如你要读取数量以 GiB 计算的数据，你肯定不想将它们同时读到内存中，而是读取一些区块（chunks），并逐个处理。这就要求<strong>惰性求值</strong>和<strong>严格求值</strong>这两个老朋友的完美合作。如果用了太多的严格求值，程序就会在背后吃掉你大量的内存，而这本可以避免。不管是惰性求值还是严格求值，你都应该谨慎对待！</p>
+<h1 id="你好惰性求值">你好，惰性求值！</h1>
+<p>你大概已经听说，Haskell 是一门 <em>call-by-need</em> 的编程语言，而大多数主流语言，比如 C++，Python，都是 <em>call-by-value</em>。也就是说，在 C++ 里，下面这个函数：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &gt; <span class="number">0</span>)</span><br><span class="line">      <span class="keyword">return</span> x<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="keyword">return</span> x+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当f被调用时，它的两个参数都会被求值，尽管f根本没用到第二个参数y。在 Haskell 中这个函数是这样的：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">f</span> :: <span class="type">Int</span> -&gt; <span class="type">Int</span> -&gt; <span class="type">Int</span></span><br><span class="line"><span class="title">f</span> x y = <span class="keyword">case</span> x &gt; <span class="number">0</span> <span class="keyword">of</span></span><br><span class="line">  <span class="type">True</span>  -&gt; x - <span class="number">1</span></span><br><span class="line">  <span class="type">False</span> -&gt; x + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>Haskell 则不在意这个y，它根本不会对y求值。我们如何知道这一点？让我们传一个不可能求出值的东西作为参数y，看看f会不会返回结果。比如，让它计算所有正整数的乘积：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">main</span> = print $ f <span class="number">1</span> (product [<span class="number">1.</span>.])</span><br></pre></td></tr></table></figure>
+<p>运行程序，屏幕上打印出<code>0</code></p>
+<p>所以x确实是如预想的那样求了值，因为结果依赖于它。但是y一定是被忽略了，否则我们的程序不可能停止。我们就说函数f对参数x是<strong>严格的</strong>，因为它一定会对x求值；而对参数y是<strong>惰性的</strong>。在 C++ 中，这个函数会陷入无限循环，因此它对两个参数都是严格的。</p>
+<p>这里有一个通用的原则：一个函数对它的返回值一定是严格的。从这一点出发，你可以通过观察其返回值所依赖的变量，来确定哪些表达式一定会求值。你的函数将会对这些参数严格，而对另外的参数惰性处理。</p>
+<p>你还应该知道，大多数编程语言都不是完全的严格或惰性，比如 C++ 中的操作符<code>||</code>对其第二个参数就是非严格的，比如</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">big_computation</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span> || big_computation())</span><br><span class="line">&#123;</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器看到第一个参数是<code>true</code>，因此第二个参数<code>big_computation</code>就会被短路。对于不同的求值策略，可以参考<a target="_blank" rel="noopener" href="https://alpmestan.com/posts/2013-10-02-oh-my-laziness.html">这个维基页面</a>。</p>
+<p>同样的，我们很快就会看到如何在 Haskell 中显式地指定严格求值，即使在并不必须的时候也让其立即求值。在那之前，我们再深入地探索一下惰性求值的内在机制，以及它如何影响你的代码编写。</p>
+<hr />
+<h2 id="深入探索">深入探索</h2>
+<h3 id="nf-和-whnf">NF 和 WHNF</h3>
+<p>你大概已经了解<code>length</code>这个函数了吧？它的一个可能的定义如下（尾递归）：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">length1</span> :: [a] -&gt; <span class="type">Int</span></span><br><span class="line"><span class="title">length1</span> lst = go lst <span class="number">0</span></span><br><span class="line">  <span class="keyword">where</span> go []     acc = acc</span><br><span class="line">        go (x:xs) acc = go xs (acc+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="title">main</span> = putStrLn (<span class="string">&quot;length1 [1, 2, 3] = &quot;</span> ++ show (length1 [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]))</span><br></pre></td></tr></table></figure>
+<p>对此，你已经见惯不惊了。<code>length1</code>计算一个列表的长度，这里是 3.</p>
+<p>看起来，<code>length1</code>通过模式匹配来解构一个列表，某种意义上是对列表作了求值，虽然这个过程并没有真正去管列表中的元素究竟是什么。因此，如果我们传给它一个无穷列表，函数就不会返回，对吗？事实上的确如此，这没什么稀奇的。</p>
+<p>现在，假如我们要计算一个有限列表的长度，但列表中一个元素是我们的老朋友<code>product [1..]</code>（正整数之积，无法计算），现在函数能正常返回吗？我们来试试看：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">length1</span> :: [a] -&gt; <span class="type">Int</span></span><br><span class="line"><span class="title">length1</span> lst = go lst <span class="number">0</span></span><br><span class="line"><span class="title">where</span> go [] acc     = acc</span><br><span class="line">      go (x:xs) acc = go xs (acc+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="title">main</span> = <span class="keyword">let</span> x = product [<span class="number">1.</span>.] <span class="keyword">in</span> print (length1 [<span class="number">1</span>, x])</span><br></pre></td></tr></table></figure>
+<p>程序打印出<code>2</code>！</p>
+<p>啊？！发生了什么？<code>length1</code>不是会对它的参数求值吗？实际上，确实求值了，<strong>到某一程度为止</strong>。记住，<strong>GHC只会求值所需要的东西</strong>。为阐述这一事实，我们先回忆一下<code>[a]</code>类型是如何定义的：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> [] a = [] | (:) a [a]</span></span><br><span class="line"><span class="comment">-- 或者，你能对GHC实际给出的定义：</span></span><br><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">List</span> a = <span class="type">Cons</span> a (<span class="type">List</span> <span class="title">a</span>) | <span class="type">Nil</span></span></span><br></pre></td></tr></table></figure>
+<p>所以，我们在<code>length1</code>里做的事情就是对列表求值，对吗？实际上，这个说法不完全正确，我们来看看<code>length1 [1, x]</code>是如何被计算的：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">  length1 [<span class="number">1</span>, x]</span><br><span class="line">= length1 <span class="number">1</span>:(x:[])</span><br><span class="line">= <span class="number">1</span> + length1 (x:[])    <span class="comment">-- 1:(x:[]) 匹配 (x:xs) 模式</span></span><br><span class="line">= <span class="number">1</span> + <span class="number">1</span> + length1 []    <span class="comment">-- (x:[])，同上</span></span><br><span class="line">= <span class="number">1</span> + <span class="number">1</span> + <span class="number">0</span>             <span class="comment">-- [] 匹配 第一个模式，即空表</span></span><br><span class="line">= <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>这很对，但该怎么解释<code>length1</code>忽略了我们加给它的无限计算量？我们审视一下这个表达式：<code>length1 [1, x]</code>，我们需要真正知道列表里装了什么东西吗？其实根本不需要。在每一层递归，我们检查的是列表是否为空，或者对某个<code>x</code>和<code>xs</code>符合<code>x:xs</code>的模式，除此之外就不需要进一步做任何的求值了。</p>
+<p>现在，假如我们有一个奇怪的<code>length</code>，它只统计列表中的正数，比如，<code>weirdLength [-1, 1, 2] == 2</code>。对一个全是正数的列表，它的行为就和<code>length</code>一样。现在我们写出这个函数：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">weirdLength</span> :: [<span class="type">Int</span>] -&gt; <span class="type">Int</span></span><br><span class="line"><span class="title">weirdLength</span> []                 = <span class="number">0</span></span><br><span class="line"><span class="title">weirdLength</span> (x:xs) | x &lt; <span class="number">0</span>     = weirdLength xs</span><br><span class="line">                   | otherwise = <span class="number">1</span> + weirdLength xs</span><br><span class="line"></span><br><span class="line"><span class="title">main</span> = <span class="keyword">let</span> x = product [<span class="number">1.</span>.] <span class="keyword">in</span> print (weirdLength [<span class="number">1</span>, x])</span><br></pre></td></tr></table></figure>
+<p>这一次，我们真正地检查了列表中的元素，所以<code>weirdLength [1,x]</code>将不会正常返回，因为它的求值过程如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">  weirdLength [<span class="number">1</span>, x]</span><br><span class="line">= weirdLength <span class="number">1</span>:(x:[])</span><br><span class="line">= <span class="number">1</span> + weirdLength (x:[]) <span class="comment">-- 1:(x:[]) 符合 (x:xs) 模式，且 1 是正数</span></span><br><span class="line">= <span class="number">1</span> + ???</span><br><span class="line"><span class="comment">-- x:[] 符合模式 (x:xs)，但 x 是负数吗？</span></span><br><span class="line"><span class="comment">-- 不算出 x，我们就无从得知，这正是</span></span><br><span class="line"><span class="comment">-- 函数所做的...但计算不会停止</span></span><br></pre></td></tr></table></figure>
+<p>与普通的<code>length</code>不同，这里我们彻底计算了传入列表。当然，同样的事情也发生在你自己定义的代数数据类型（algebraic data types）中。考虑一下<code>Maybe</code>的定义，以及一个辅助函数<code>isNothing</code>：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Maybe 如此定义：</span></span><br><span class="line"><span class="comment">-- data Maybe a = Nothing | Just a</span></span><br><span class="line"></span><br><span class="line"><span class="title">isNothing</span> :: <span class="type">Maybe</span> a -&gt; <span class="type">Bool</span></span><br><span class="line"><span class="title">isNothing</span> <span class="type">Nothing</span>  = <span class="type">True</span></span><br><span class="line"><span class="title">isNothing</span> (<span class="type">Just</span> _) = <span class="type">False</span></span><br><span class="line"></span><br><span class="line"><span class="title">main</span> = <span class="keyword">let</span> x = product [<span class="number">1.</span>.] <span class="keyword">in</span> <span class="keyword">do</span></span><br><span class="line">  print $ isNothing <span class="type">Nothing</span></span><br><span class="line">  print $ isNothing (<span class="type">Just</span> <span class="number">4</span>)</span><br><span class="line">  print $ isNothing (<span class="type">Just</span> x)</span><br></pre></td></tr></table></figure>
+<p>当然，<code>isNothing Nothing</code>返回<code>True</code>，<code>isNothing (Just 4)</code>返回<code>False</code>. 但<code>let x = product [1..] in isNothing (Just x)</code>怎么样？它会返回吗？实际上，<strong>会的</strong>，而且返回值是<code>False</code>，因为<code>isNothing</code>并不需要去检查<code>Just</code>值构造子里具体是什么东西。</p>
+<p>必须承认，到目前为止，我们的讨论层次非常浅，所以接下来我们来正式地讨论一下求值时不同的“深度”：</p>
+<p><strong>Normal form</strong> (NF)：处于 NF 形态的表达式已经被完全求值。它或者是无参数的类型构造子，或者是不可继续使用 beta​-约化法则化简的 lambda 抽象子。一些例子如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="string">&quot;haskell&quot;</span></span><br><span class="line">(<span class="number">2</span>, <span class="type">True</span>, <span class="type">Nothing</span>)</span><br><span class="line">\x -&gt; x + <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p><strong>Weak head normal form</strong> (WHNF)：处于 WHNF 形态的表达式或者是一个 lambda 抽象子，或者是一个表达式，且它们的外层构造子(outermost constructor, top level)已经被充分求值，但它们仍包含未求值的子表达式。一些例子如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">(<span class="number">1</span>+<span class="number">1</span>, <span class="number">2</span>) <span class="comment">-- 可以写作 (,) (1+1) 2，这里的外层构造子是(,)</span></span><br><span class="line"><span class="type">Just</span> (sum [<span class="number">1.</span><span class="number">.10</span>]) <span class="comment">-- 外层构造子是Just</span></span><br><span class="line"><span class="number">1</span> : computePrimesUpTo <span class="number">100</span> <span class="comment">-- 外层构造子是 (:)</span></span><br><span class="line">\x -&gt; <span class="number">2</span>+<span class="number">2</span> <span class="comment">-- lambda 抽象子，WHNF 不要求进行 $\beta$-约化</span></span><br></pre></td></tr></table></figure>
+<p>所以，<code>length1</code>和<code>isNothing</code>将它们的参数求值到 WHNF，而weirdLength将我们交给它的列表求值到 NF。</p>
+<p><strong>注</strong>：你可能也听说过 <em>Head Normal Form</em> (HNF)，但它并没有在 GHC Haskell 中实现，想了解你可以读一读<a target="_blank" rel="noopener" href="http://foldoc.org/head+normal+form">这里</a>。</p>
+<h3 id="练习">练习</h3>
+<p>判断以下函数如何对它们的参数求值：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">concatenate</span> :: [a] -&gt; [a] -&gt; [a]</span><br><span class="line"><span class="title">concatenate</span> [] y = y</span><br><span class="line"><span class="title">concatenate</span> (x:xs) y = x : concatenate xs y</span><br><span class="line"></span><br><span class="line"><span class="title">mix</span> :: [a] -&gt; [a] -&gt; [a]</span><br><span class="line"><span class="title">mix</span> [] l2 = l2</span><br><span class="line"><span class="title">mix</span> l1 [] = l1</span><br><span class="line"><span class="title">mix</span> (x1:x1s) (x2:x2s) = x1 : x2 : mix x1s x2s</span><br><span class="line"></span><br><span class="line"><span class="title">silly</span> :: [<span class="type">Int</span>] -&gt; [a] -&gt; [a]</span><br><span class="line"><span class="title">silly</span> [] _ = []</span><br><span class="line"><span class="title">silly</span> _ [] = []</span><br><span class="line"><span class="title">silly</span> (x:xs) (y:ys) | x == <span class="number">0</span>    = silly xs ys</span><br><span class="line">                    | otherwise = y : silly xs ys</span><br></pre></td></tr></table></figure>
+<p>答案：</p>
+<ul>
+<li><code>concatenate</code>将第一个参数求值到 WHNF（因为它并不关心x是什么或者它的任何特征，而仅仅是传递它）。对第二个参数y不做任何求值。</li>
+<li><code>mix</code>将它的两个列表都求值到 WHNF（基于与concatenate同样的原因）</li>
+<li><code>silly</code>将它的第一个参数求值到 NF（ 因为它需要知道x是否为零），对第二个参数求值到 WHNF.</li>
+</ul>
+<h2 id="ghc-runtime-环境的惰性机制">GHC runtime 环境的惰性机制</h2>
+<p>GHC 编译器通常使用被称为 <strong><em>thunks</em></strong> 的机制来处理惰性求值。你可以把一个 thunk 刻画成一个盒子，里面装了尚未求值的表达式。当需要表达式的值时， runtime 就会把这个 thunk 打开，并对里面的表达式求值。如果这个 thunk 还指向其他未求值的 thunk，它们也会被求值。一旦 thunk 中的表达式被求值（如果求值过程能正常结束的话）， runtime 系统就会重写该 thunk，把其中指向表达式的“指针”替换为它的实际值。关于 GHC Haskell 的堆机制，可以参考 Edward Z. Yang 的博客，在<a target="_blank" rel="noopener" href="http://blog.ezyang.com/category/haskell/haskell-heap/">这里</a>。你可以在读完本文之后再去研究这些文章，它们对你理解 GHC 如何执行你的代码有很大帮助。（你可能某一天会需要的，比如当你特别关注你的代码运行效率时）</p>
+<p>你需要记住的是，在 GHC 中，任何东西都会默认创建一个 thunk。这也就是 GHC 惰性机制的实现方式。考虑以下代码：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">map</span> negate [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="comment">-- 提示：这与 map negate (1:2:3:[]) 是等价的</span></span><br></pre></td></tr></table></figure>
+<p>它会如何被求值？</p>
+<p>最开始，整个表达式就是一个 thunk，我把 thunk 记为<code>&lt;thunk: 待求值表达式&gt;</code>的形式。这并不是我的发明，我在一些地方看到过这种写法，比如 <a target="_blank" rel="noopener" href="http://vimeo.com/69280214">Trevor Caira 关于 NYC Haskell 的视频分享</a>。所以，在最开始，整个表达式长这样：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">&lt;thunk: map negate &lt;thunk: (<span class="number">1</span>:<span class="number">2</span>:<span class="number">3</span>:[])&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>map的代码又是怎样的？</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">map</span> :: (a -&gt; b) -&gt; [a] -&gt; [b]</span><br><span class="line"><span class="title">map</span> _ []     = []</span><br><span class="line"><span class="title">map</span> f (x:xs) = f x : map f xs</span><br></pre></td></tr></table></figure>
+<p>我们首先匹配到了第二个模式，所以我们可以展开为：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">&lt;thunk: negate &lt;thunk: <span class="number">1</span>&gt; : &lt;thunk: map negate &lt;thunk: [<span class="number">2</span>,<span class="number">3</span>]&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>因为negate x = -x，所以我们有：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">-&lt;thunk: <span class="number">1</span>&gt; : &lt;thunk: map negate &lt;thunk: [<span class="number">2</span>,<span class="number">3</span>]&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>继续：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="number">-1</span> : &lt;thunk: map negate &lt;thunk: [<span class="number">2</span>,<span class="number">3</span>]&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>现在我们得处理列表的剩下部分，这和我们开始时处理<code>map negate [1,2,3]</code>是一样的，不同的是第一个元素已经处理完成了。</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 我们将 [2,3] 求值到 WHNF，以判断我们应该进入 map 的第二子句</span></span><br><span class="line"><span class="number">-1</span> : &lt;thunk: negate &lt;thunk: <span class="number">2</span>&gt;&gt; : &lt;thunk: map negate &lt;thunk: [<span class="number">3</span>]&gt;&gt;</span><br><span class="line"><span class="comment">-- 对 negate 以同样的方式求值</span></span><br><span class="line"><span class="number">-1</span> : -&lt;thunk: <span class="number">2</span>&gt; : &lt;thunk: map negate &lt;thunk: [<span class="number">3</span>]&gt;&gt;</span><br><span class="line"><span class="number">-1</span> : <span class="number">-2</span> : &lt;thunk map negate &lt;thunk: [<span class="number">3</span>]&gt;&gt;</span><br><span class="line"><span class="number">-1</span> : <span class="number">-2</span> : &lt;thunk: negate &lt;thunk: <span class="number">3</span>&gt;&gt; : &lt;thunk: map negate &lt;thunk: []&gt;&gt;</span><br><span class="line"><span class="number">-1</span> : <span class="number">-2</span> -&lt;thunk: <span class="number">3</span>&gt; : &lt;thunk: map negate &lt;thunk: []&gt;&gt;</span><br><span class="line"><span class="number">-1</span> : <span class="number">-2</span> : <span class="number">-3</span> : &lt;thunk: map negate &lt;thunk: []&gt;&gt;</span><br><span class="line"><span class="number">-1</span> : <span class="number">-2</span> : <span class="number">-3</span> : [] <span class="comment">-- 匹配到 map 的第一个模式</span></span><br></pre></td></tr></table></figure>
+<p>现在我们考虑一下<code>take 6 . map (+1) $ [1..10]</code>（将1～10整数加 1，再取前 6 个元素）。当然map会以同样的方式被求值，但是，惰性求值的机制会使得 runtime 首先进入take的调用中。我们假设take以如下方式定义：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">take</span> :: <span class="type">Int</span> -&gt; [a] -&gt; [a]</span><br><span class="line"><span class="title">take</span> n _ | n &lt;= <span class="number">0</span> = []</span><br><span class="line"><span class="title">take</span> _ [] = []</span><br><span class="line"><span class="title">take</span> n (x:xs) = x : take (n<span class="number">-1</span>) xs</span><br></pre></td></tr></table></figure>
+<p>这种情况下，我们仅仅需要执行第三个子句，递归计算<code>x+1</code>直到n变为零。这里重要的东西是：<strong>求值过程从外层表达式(<em>outermost expression</em>)开始.</strong></p>
+<p>惰性机制作用在每一个“层级”上，这就是说，你可以检查表达式使用了何种值构造子（例如<code>Just</code>或<code>Nothing</code>），然后对其中的表达式进行强制求值，以此类推。想要获得极致的效率，通常意味着你要按照实际需求精确控制数据的求值。比如当你要从一个文件里读取大量数据并处理时，显然逐行读取比同时读入内存要好。一个好的实现会生成一个“<strong>on-demand</strong>”的列表，而负责处理行的函数会把这个列表视作已经读入完成，因此在处理数据上只花费了 O(1)​ 的空间复杂度。</p>
+<p>（译者：这里说的 on-demand 的列表，我认为 Python 中的 generator 就是这种东西，直到需要时才会计算下一个值。从这个角度来说，Haskell 中所有返回一个列表类似物的函数都属于 on-demand 的范畴。</p>
+<p>比如，之前我在写一个寻找数对的函数，可能有多组解，而且计算量比较大，但答案只要求其中一组，我的代码大概是这样的：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">let</span> pairs = [(x,y) | big_computation]</span><br><span class="line"><span class="title">in</span> <span class="keyword">if</span> pairs == [] <span class="keyword">then</span> [] <span class="keyword">else</span> head pairs</span><br></pre></td></tr></table></figure>
+<p>我琢磨了半天如何让<code>big_computation</code>找到一组解就停止计算，甚至想用 IO action 来做。很快我就发现，直接写就对了，因为在let绑定时<code>pairs</code>并没有被求值，而是处于thunk的状态，真正的求值发生在if表达式里面。首先判断是否为<code>[]</code>时，并不需要对整个<code>pairs</code>求值，而是算出一组解就足以说明不是<code>[]</code>了，无需继续计算。如果不是<code>[]</code>，则到达<code>head pairs</code>，由于我们在判断空表时已经计算了第一个元素，相应的thunk已被替换为求出的解，所以<code>head</code>直接就能拿到第一个值并返回，在这里没有任何额外的计算开支。）</p>
+<hr />
+<h1 id="严格求值">严格求值</h1>
+<p>惰性求值很棒，在大多数情况下都方便易用。但是在某些场合就不是了，它会导致系统创建大量的 thunks，堆积在那里，直到你耗光内存。在这种情况下，我们就希望能随着代码流程的进行来对它们求值，尽管不是马上需要。一个简单的例子就是经典的<code>sum</code>函数了：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">sum</span> :: <span class="type">Num</span> a =&gt; [a] -&gt; a</span><br><span class="line"><span class="title">sum</span> []     = <span class="number">0</span></span><br><span class="line"><span class="title">sum</span> (x:xs) = x + sum xs</span><br></pre></td></tr></table></figure>
+<p>求值<code>sum [1..5]</code>时，因为我们首先是对外层构造子求值，因此在把各数相加之前，我们要先把<code>sum</code>应用到列表的所有层次上：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">  sum [<span class="number">1.</span><span class="number">.5</span>]</span><br><span class="line">= sum (<span class="number">1</span>:<span class="number">2</span>:<span class="number">3</span>:<span class="number">4</span>:<span class="number">5</span>:[])</span><br><span class="line">= <span class="number">1</span> + sum (<span class="number">2</span>:<span class="number">3</span>:<span class="number">4</span>:<span class="number">5</span>:[])               <span class="comment">-- 匹配第二个模式 (x:xs)</span></span><br><span class="line">= <span class="number">1</span> + (<span class="number">2</span> + sum (<span class="number">3</span>:<span class="number">4</span>:<span class="number">5</span>[]))            <span class="comment">-- 同上</span></span><br><span class="line">= ...</span><br><span class="line">= <span class="number">1</span> + (<span class="number">2</span> + (<span class="number">3</span> + (<span class="number">4</span> + (<span class="number">5</span> + sum [])))) <span class="comment">-- 5:[]，匹配第二个模式</span></span><br><span class="line">= <span class="number">1</span> + (<span class="number">2</span> + (<span class="number">3</span> + (<span class="number">4</span> + (<span class="number">5</span> + <span class="number">0</span>     )))) <span class="comment">-- []，匹配第一个模式</span></span><br><span class="line">= <span class="number">15</span>                                 <span class="comment">-- 现在所有的加法 thunks 能求值了</span></span><br><span class="line">                                     <span class="comment">-- 当元素数量很多时十分浪费空间</span></span><br></pre></td></tr></table></figure>
+<p>注意在这个过程中，加法操作是怎样堆积起来而未被求值的。这是因为<code>sum</code>在遍历列表时会不断创建thunks. 但很显然，我们想要的是在遍历过程中就计算这些值。也许我们可以用一个带累加器的辅助函数？</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">sum</span> :: <span class="type">Num</span> a =&gt; [a] -&gt; a</span><br><span class="line"><span class="title">sum</span> xs = go xs <span class="number">0</span></span><br><span class="line">  <span class="keyword">where</span> go []     acc = acc</span><br><span class="line">        go (x:xs) acc = go xs (acc + x)</span><br><span class="line">        <span class="comment">-- acc 代表目前的元素和</span></span><br></pre></td></tr></table></figure>
+<p>现在我们看看计算<code>sum [1..5]</code>的过程：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">  sum [<span class="number">1.</span><span class="number">.5</span>]</span><br><span class="line">= go [<span class="number">1.</span><span class="number">.5</span>] <span class="number">0</span></span><br><span class="line">= go [<span class="number">2.</span><span class="number">.5</span>] (<span class="number">0</span>+<span class="number">1</span>)         <span class="comment">-- 匹配第二个语句, x=1</span></span><br><span class="line">= go [<span class="number">3.</span><span class="number">.5</span>] (<span class="number">0</span>+<span class="number">1</span>+<span class="number">2</span>)       <span class="comment">-- 同上, x=2</span></span><br><span class="line">= go [<span class="number">4</span>,<span class="number">5</span>]  (<span class="number">0</span>+<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>)     <span class="comment">-- 同上, x=3</span></span><br><span class="line">= go [<span class="number">5</span>]    (<span class="number">0</span>+<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>)   <span class="comment">-- 同上, x=4</span></span><br><span class="line">= go []     (<span class="number">0</span>+<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>) <span class="comment">-- 同上, x=5</span></span><br><span class="line">= <span class="number">0</span>+<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>             <span class="comment">-- 匹配第一个语句</span></span><br><span class="line">= <span class="number">15</span>                      <span class="comment">-- 最后累加起来</span></span><br></pre></td></tr></table></figure>
+<p>加法操作又堆积起来了！我们该怎么避免它？ ## 使用 Bang Patterns</p>
+<p>有个十分简单的方式来声明函数参数为严格求值，这就是<code>!</code>（读音&quot;bang&quot;）。你需要启用 GHC 的 <code>BangPatterns</code> 扩展模式，可以通过给编译器传递<code>-XBangPatterns</code>参数，或是在你的源代码文件开头写下一行<code>&#123;-# LANGUAGE BangPatterns #-&#125;</code>。经过修正后的<code>sum</code>函数如下：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#123;-# LANGUAGE BangPatterns #-&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="title">sum</span> :: <span class="type">Num</span> a =&gt; [a] -&gt; a</span><br><span class="line"><span class="title">sum</span> xs = go xs <span class="number">0</span></span><br><span class="line">  <span class="keyword">where</span> go []     !acc = acc</span><br><span class="line">        go (x:xs) !acc = go xs (acc + x)</span><br></pre></td></tr></table></figure>
+<p>注意在<code>acc</code>前的<code>!</code>符号。这些<code>!</code>就是告诉编译器，在匹配到该模式时立即对<code>acc</code>进行求值，这个求值过程发生在右表达式的求值之前。但是，<strong>它仅仅会求值到 WHNF，而不是 NF，不管该参数类型是什么</strong>。对于像数字这样的参数，这足够了，但是如果我们写<code>sum !xs</code>而不是<code>sum xs</code>，系统仅仅会对第一个<code>Cons</code>构造子求值，也就是说，变为<code>未求值的head : 未求值的tail</code>。同样的事情也会发生在<code>Maybe Int</code>类型的值上，这时求值为<code>Nothing</code>或是<code>Just 未求值的内容</code>。不管怎么样，现在<code>sum</code>的行为是：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line">  sum [<span class="number">1.</span><span class="number">.5</span>]</span><br><span class="line">= go [<span class="number">1.</span><span class="number">.5</span>] <span class="number">0</span></span><br><span class="line">= go [<span class="number">2.</span><span class="number">.5</span>] <span class="number">1</span>  <span class="comment">-- 匹配第二个模式，此时 acc 被立即求值</span></span><br><span class="line">= go [<span class="number">3.</span><span class="number">.5</span>] <span class="number">3</span>  <span class="comment">-- 同上</span></span><br><span class="line">= go [<span class="number">4</span>,<span class="number">5</span>]  <span class="number">6</span>  <span class="comment">-- 同上</span></span><br><span class="line">= go [<span class="number">5</span>]    <span class="number">10</span> <span class="comment">-- 同上</span></span><br><span class="line">= go []     <span class="number">15</span> <span class="comment">-- 同上</span></span><br><span class="line">= <span class="number">15</span>           <span class="comment">-- 匹配第一个模式</span></span><br></pre></td></tr></table></figure>
+<p>哈哈，现在好多了！这就是关于 bang pattern 的使用方法了。当你不想某些“简单类型”参数的 thunks 堆积起来时，它十分有用。“简单类型”，就是指那些 WHNF 等于 NF 的类型。或者说，求值外层构造子确实是你想要做的事情，那你也可以使用 bang pattern. 但通常来说前者更常见。对于你的自定义数据类型，或者是更复杂的结构，我们可以有更适合的方式。</p>
+<h2 id="数据类型中的严格域">数据类型中的严格域</h2>
+<p>除了上述提到的累加器之外，你可能还想在数据类型的某些域上严格求值。想象你在实现神经网络中的后向传递算法，需要处理一堆矩阵和向量，此时我们并不想把数以万计的运算都堆积到最后一刻来做，但在你的代码里到处放置!显然不够优雅。那么我们有更好的方法来做这件事吗？确实有，看下面：</p>
+<p>就拿矩阵来说事，我们定义个2x2矩阵类型，它在所有域上都是严格的。这回我们不需要使用语言扩展选项了！</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Matrix2</span> a = <span class="type">M2</span> !a !a !a !a</span></span><br></pre></td></tr></table></figure>
+<p>就是它了！通过创建一个所有因子都是<code>product [1..]</code>的矩阵，我们将看到它的数据域确实是严格的：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Matrix2</span> = <span class="type">M2</span> !<span class="type">Double</span> !<span class="type">Double</span> !<span class="type">Double</span> !<span class="type">Double</span> <span class="keyword">deriving</span> <span class="type">Show</span></span></span><br><span class="line"></span><br><span class="line"><span class="title">main</span> = <span class="keyword">do</span></span><br><span class="line">  print (<span class="type">M2</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span><br><span class="line">  <span class="keyword">let</span> x = product [<span class="number">1.</span>.] <span class="keyword">in</span> print (<span class="type">M2</span> x x x x)</span><br><span class="line">  <span class="comment">-- 程序不会结束</span></span><br></pre></td></tr></table></figure>
+<p>这里我们看到，所有的域都带有<code>!</code>，你也可以仅指定部分域的严格求值，在它们前面放个<code>!</code>就好了。</p>
+<h3 id="练习-1">练习</h3>
+<ul>
+<li>如何定义一个<code>Pair</code>数据类型，其第一个域严格，而第二个惰性？</li>
+<li>你是否思考过严格和惰性版本的<code>ByteString</code>在实现上有什么不同？对<code>Text</code>也有同样的问题。这两种类型的惰性实现都用到了chunks，你能通过直觉和对 <a target="_blank" rel="noopener" href="http://hackage.haskell.org/packages/archive/bytestring/0.10.2.0/doc/html/Data-ByteString-Lazy.html">Data.ByteString.Lazy</a> 以及 <a target="_blank" rel="noopener" href="http://hackage.haskell.org/packages/archive/text/0.11.3.1/doc/html/Data-Text-Lazy.html">Data.Text.Lazy</a> 的了解，来判断其中的具体机制吗？以及它们如何带来 O(1) 的空间效率？</li>
+</ul>
+<h3 id="答案">答案</h3>
+<p>Pair的定义十分简单：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Pair</span> a b = <span class="type">Pair</span> !a b</span></span><br></pre></td></tr></table></figure>
+<p>考虑<code>Text</code>和<code>ByteString</code>，它们使用同样的机制在严格类型上实现惰性求值。我们看看<code>Text</code>。以下就是 <a target="_blank" rel="noopener" href="http://hackage.haskell.org/packages/archive/text/0.11.3.1/doc/html/src/Data-Text-Lazy-Internal.html#Text">Data.Text.Lazy.Text</a> 的定义：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Text</span> = <span class="type">Empty</span></span></span><br><span class="line">          | <span class="type">Chunk</span> <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">T</span>.<span class="type">Text</span> <span class="type">Text</span></span><br></pre></td></tr></table></figure>
+<p>暂时跳过<code>&#123;-# UNPACK #-&#125;</code>编译声明，留到下一个部分再讲。这里的<code>T.Text</code>指 <a target="_blank" rel="noopener" href="http://hackage.haskell.org/packages/archive/text/0.11.3.1/doc/html/Data-Text-Internal.html">Data.Text.Internal.Text</a> ，它是一个“空间效率高的、未封装的 Unicode 文本类型”——这也是通常见到的严格类型字符串。定义的后半部分递归地指向自身。</p>
+<p>等等，看到这里应该引起你的注意了！这听起来挺像一个元素类型为<code>T.Text</code>的列表，不过它是严格的！这也就是说不管我们何时向它追加一点东西，就会被马上求值（创建该结构时也是如此），即，我们在操作一个具有严格数据类型的列表。</p>
+<p>但仔细看看，这里的Chunk构造子却并不是严格的。也就是说当我们仅仅是访问一个Chunk时，整个列表并不会被完全求值。其剩余部分表现为 on-demand，需要时逐个Chunk进行求值。</p>
+<p>这就是 O(1) 空间效率的部分答案：以Chunk为单位进行求值。剩余部分的解答，考虑当你试图用垃圾回收器来释放已用的Chunk时，在任何时刻你只会在内存中找到一些Chunk。That’s however far from trivial to achieve, and is addressed by streaming libraries such as <a target="_blank" rel="noopener" href="http://hackage.haskell.org/packages/archive/text/0.11.3.1/doc/html/Data-Text-Internal.html">pipes</a>, <a target="_blank" rel="noopener" href="http://hackage.haskell.org/package/conduit">conduit</a> or <a target="_blank" rel="noopener" href="http://hackage.haskell.org/package/io-streams">io-streams</a>.（翻不来……）</p>
+<h2 id="unpack---声明和严格域的内存表示">{-# UNPACK #-} 声明和严格域的内存表示</h2>
+<p>将数据域<strong>拆封(<em>unbox</em>)</strong>是写出高效的 Haskell 代码的一个关键所在。在介绍它之前，我们先看看它解决了什么问题。</p>
+<p>和很多编程语言一样，GHC runtime 并不会仅仅储存机器上表示的原始的值。特别的，我们已经知道，惰性机制是通过储存一个指向未求值表达式的“指针”，该指针在求值后就被替换为表达式的实际值。这样做带来的后果，就是在创建几乎每一个简单数据上都有一定的额外开销。</p>
+<p>与此相反，一个 unboxed 的值在内存中表示为…就直接是它本身，没有间接层，也没有指向堆中某个值的指针（因此它是严格的）。</p>
+<p>例如，<code>Int</code>是一种 boxed 的类型，而<code>Int#</code>就是 unboxed 的版本，表示为一个底层机器数据类型，就像 C 中的 <code>int</code> 一样。同样，还有<code>Double#</code>、<code>Float#</code>、<code>Addr#</code>（相当于<code>void*</code>）等。它们都以<code>#</code>结尾，而且有一些标准数据类型是在它们的基础上实现的。但这些数据类型并不能在 Haskell 中定义出来，它们其实是编码到了编译器中。有兴趣的话可以看看 <a target="_blank" rel="noopener" href="http://www.haskell.org/ghc/docs/latest/html/libraries/ghc-prim-0.3.0.0/GHC-Prim.html">GHC.Prim的文档</a>，了解它们是如何在编译器中实现的。</p>
+<p>通过GHC.Prim模块，我们能访问并操作底层的数据类型。比如，把两个<code>Int#</code>相加的代码经过编译后，很可能生成的就是单个加法指令。</p>
+<p>但是这些和 unpacking 有什么关系呢？嗯，还记得之前的矩阵吗？我可不可以直接将4个值储存在矩阵中，而不是储存4个指针呢？这就是<code>&#123;-# UNPACK #-&#125;</code>声明可以做的，看个例子：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Mat2</span> = <span class="type">M2</span> <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">Double</span></span></span><br><span class="line">               <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">Double</span></span><br><span class="line">               <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">Double</span></span><br><span class="line">               <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">Double</span></span><br></pre></td></tr></table></figure>
+<p>注意，一个 unpacked 的值必须要求其严格，如果对一个非严格的域使用该声明，GHC 就会拒绝。</p>
+<p>上述定义等价于：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">Mat2</span> = <span class="type">M2</span> <span class="type">Double</span>#</span></span><br><span class="line">               <span class="type">Double</span>#</span><br><span class="line">               <span class="type">Double</span>#</span><br><span class="line">               <span class="type">Double</span>#</span><br></pre></td></tr></table></figure>
+<p>你不能直接在代码里使用<code>Int#</code>、<code>Double#</code>等类型，除非你打开MagicHash`语言扩展。</p>
+<p>注意：如果你给 Haskell 传了一个<code>-funbox-strict-fields</code>的参数，或者在文件里使用了<code>&#123;-# OPTIONS_GHC -funbox-strict-fields #-&#125;</code>声明，则编译器会试图 unbox 所有你标记为<code>!</code>的域，不能 unbox 的值就会静默跳过。如果你使用<code>&#123;-# UNPACK #-&#125;</code>声明，则至少在遇到不能 unbox 的值时还会给出警告。</p>
+<p>最后一点，什么时候我们能使用<code>&#123;-# UNPACK #-&#125;</code>声明呢？很简单，你想 unpack 的类必须是一个单值构造子的类（比如，不能是<code>data Maybe a = Nothing | Just a</code>），而且不能是一个类型变量（比如<code>data Foo a = Foo &#123;-# UNPACK #-&#125; !a</code>不会正常工作，GHC必须知道<code>a</code>所代表的具体类型），且需要标记为严格域（用!）。</p>
+<h3 id="练习-2">练习</h3>
+<p>幸运的是，GHC 对积类型处理得非常好。你并不应该感到太惊讶，来看看下面的代码片段：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">StrictIntPair</span> = <span class="type">SIP</span> <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">Int</span></span></span><br><span class="line">                         <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">Int</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">TwoSIPs</span> = <span class="type">TwoSIPs</span> <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">StrictIntPair</span></span></span><br><span class="line">                       <span class="meta">&#123;-# UNPACK #-&#125;</span> !<span class="type">StrictIntPair</span></span><br><span class="line"></span><br><span class="line"><span class="title">f</span> :: <span class="type">TwoSIPs</span> -&gt; <span class="type">TwoSIPs</span></span><br><span class="line"><span class="title">f</span> (<span class="type">TwoSIPs</span> (<span class="type">SIP</span> a b) (<span class="type">SIP</span> c d)) = <span class="type">TwoSIPs</span> (<span class="type">SIP</span> x x) (<span class="type">SIP</span> x x)</span><br><span class="line">  <span class="keyword">where</span> x = a+b+c+d</span><br></pre></td></tr></table></figure>
+<p><code>TwoSIPs</code>在内存中如何表示？不用在意<code>f</code>，它只是我用来检查 GHC 做了何种转换的。</p>
+<h3 id="答案-1">答案</h3>
+<p><code>TwoSIPs</code>等价于如下定义：</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span> <span class="type">TwoSIPs</span> = <span class="type">TwoSIPs</span> <span class="type">Int</span># <span class="type">Int</span># <span class="type">Int</span># <span class="type">Int</span>#</span></span><br></pre></td></tr></table></figure>
+<p>我们可以通过查看生成的<strong>核心（Core）代码</strong>来确认这一点（有关 Core 的介绍<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6121146/reading-ghc-core">看这里</a>）</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="title">f</span> :: <span class="type">TwoSIPs</span> -&gt; <span class="type">TwoSIPs</span></span><br><span class="line"><span class="title">f</span> =</span><br><span class="line">  \ (ds :: <span class="type">TwoSIPs</span>) -&gt;</span><br><span class="line">    <span class="keyword">case</span> ds <span class="keyword">of</span> _ &#123; <span class="type">TwoSIPs</span> rb rb1 rb2 rb3 -&gt;</span><br><span class="line">    <span class="keyword">let</span> &#123;</span><br><span class="line">      a :: <span class="type">Int</span>#</span><br><span class="line">      a = +# (+# (+# rb rb1) rb2) rb3 &#125; <span class="keyword">in</span></span><br><span class="line">    <span class="type">TwoSIPs</span> a a a a</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>首先，我们可以看到<code>TwoSIPs</code>的结构：<code>case ds of _ &#123; TwoSIPs rb rb1 rb2 rb3 -&gt; ... &#125;</code>，明显只有四个域，它们恰好是<code>Int#</code>，并且使用原生加法函数+#来计算。</p>
+<p>那么为什么<code>TwoSIPs</code>会被转换为四个<code>Int#</code>呢？</p>
+<p>观察<code>StrictIntPair</code>，显然它会被转换为两个<code>Int#</code>。GHC 会高兴地把这两个<code>Int</code>进行 unpack，并且由于编译声明的存在，它们也会被 unbox，到此，我们的<code>Int</code>就变为了机器原生类型，也即<code>Int#</code>。所以我们的结构就被转换为了<code>data StrictIntPair = SIP Int# Int#</code>。到目前为止，一切都很清晰。</p>
+<p>现在我们考虑<code>TwoSIPs</code>。我们把<code>StrictIntPair</code>声明为<code>TwoSIPs</code>的两个严格域，即要求其在<code>TwoSIPs</code>的内存中 unpack，因为<code>StrictIntPair</code>只有一个值构造子，且没有引入类型变量，因此 GHC 能顺利把它 unpack，<code>SIP</code>构造子在这个过程中就消失了。记住，我们只能 unpack 单个值构造子的类型，因为我们必须知道哪个值构造子被使用，也只有这样，在转换为<code>data TwoSIPs = TwoSIPs Int# Int# Int# Int#</code>的过程中才不会丢失必要的类型声明信息。</p>
+<p>你可以在这里学到有关 unpacking 的更多知识：<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6121146/reading-ghc-core">the dedicated section of the GHC manual</a>.</p>
+<h2 id="一些强制求值的其它方法">一些强制求值的其它方法</h2>
+<p>有一些其他的方法可以控制你的数据类型的求值。例如，当你想在一个参数传递给函数之前就对其求值，可以使用<code>!</code>，它就像一样，但会把参数求值到 WHNF。</p>
+<p>我故意没有在这篇文章里提及<code>seq</code>，因为在代码里到处放置<code>seq</code>并不是一个好的实践。大多数情况下，使用严格域声明和<code>!</code>就足够了。但是，相当多的严格求值技巧依赖于<code>seq</code>，它就是一个原生操作符（<em>primop</em>），无法用 Haskell 本身来表达。<code>seq</code>的行为，是把第一个参数求值到 WHNF，并返回第二个参数。听起来十分无害，但它在使用不当时会破坏我们代码的安全保证，可以看看<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6121146/reading-ghc-core">这里的分析</a>。</p>
+<p>（全文完）</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Haskell/" rel="tag"># Haskell</a>
+              <a href="/blog/tags/Translation/" rel="tag"># Translation</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/lorentz/" rel="prev" title="相对论中的 Lorentz 变换与四维矢量">
+      <i class="fa fa-chevron-left"></i> 相对论中的 Lorentz 变换与四维矢量
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/functional-solutions/" rel="next" title="用函数式思维解决问题（CodeWars）">
+      用函数式思维解决问题（CodeWars） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%A0%E5%A5%BD%E6%83%B0%E6%80%A7%E6%B1%82%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">你好，惰性求值！</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E6%8E%A2%E7%B4%A2"><span class="nav-number">3.1.</span> <span class="nav-text">深入探索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nf-%E5%92%8C-whnf"><span class="nav-number">3.1.1.</span> <span class="nav-text">NF 和 WHNF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">3.1.2.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ghc-runtime-%E7%8E%AF%E5%A2%83%E7%9A%84%E6%83%B0%E6%80%A7%E6%9C%BA%E5%88%B6"><span class="nav-number">3.2.</span> <span class="nav-text">GHC runtime 环境的惰性机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%A5%E6%A0%BC%E6%B1%82%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">严格求值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%AD%E7%9A%84%E4%B8%A5%E6%A0%BC%E5%9F%9F"><span class="nav-number">4.1.</span> <span class="nav-text">数据类型中的严格域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-1"><span class="nav-number">4.1.1.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88"><span class="nav-number">4.1.2.</span> <span class="nav-text">答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unpack---%E5%A3%B0%E6%98%8E%E5%92%8C%E4%B8%A5%E6%A0%BC%E5%9F%9F%E7%9A%84%E5%86%85%E5%AD%98%E8%A1%A8%E7%A4%BA"><span class="nav-number">4.2.</span> <span class="nav-text">{-# UNPACK #-} 声明和严格域的内存表示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0-2"><span class="nav-number">4.2.1.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E6%A1%88-1"><span class="nav-number">4.2.2.</span> <span class="nav-text">答案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%BC%BA%E5%88%B6%E6%B1%82%E5%80%BC%E7%9A%84%E5%85%B6%E5%AE%83%E6%96%B9%E6%B3%95"><span class="nav-number">4.3.</span> <span class="nav-text">一些强制求值的其它方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yxnan</p>
+  <div class="site-description" itemprop="description">Sci-Tech Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yxnan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

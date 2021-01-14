@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="如果你经常使用 “file5.txt”、“学习资料153.avi” 一类的文件名，你会发现在给文件名排序时，这种命名方式存在很大的弊端。很大一部分程序直接用字典序给文件名排序，因此 file10.txt 会排到 file2.txt 前面，尽管事实上10比2大。你是否想过，有没有什么办法能给数字编码，使得它们按字典序排序后仍然保持原有的大小顺序，并且编码的方法足够简单，编码之后原来的数字仍可以一目了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UyHiP：对数字进行编码使其按字典序排列后仍然有序">
+<meta property="og:url" content="http://yxnan.tk/blog/uyhip-encode/index.html">
+<meta property="og:site_name" content="typowritter">
+<meta property="og:description" content="如果你经常使用 “file5.txt”、“学习资料153.avi” 一类的文件名，你会发现在给文件名排序时，这种命名方式存在很大的弊端。很大一部分程序直接用字典序给文件名排序，因此 file10.txt 会排到 file2.txt 前面，尽管事实上10比2大。你是否想过，有没有什么办法能给数字编码，使得它们按字典序排序后仍然保持原有的大小顺序，并且编码的方法足够简单，编码之后原来的数字仍可以一目了">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-03-11T14:12:44.000Z">
+<meta property="article:modified_time" content="2021-01-02T15:05:47.357Z">
+<meta property="article:author" content="yxnan">
+<meta property="article:tag" content="UyHiP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yxnan.tk/blog/uyhip-encode/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'default'
+  };
+</script>
+
+  <title>UyHiP：对数字进行编码使其按字典序排列后仍然有序 | typowritter</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">typowritter</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/uyhip-encode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UyHiP：对数字进行编码使其按字典序排列后仍然有序
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-11 22:12:44" itemprop="dateCreated datePublished" datetime="2020-03-11T22:12:44+08:00">2020-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-02 23:05:47" itemprop="dateModified" datetime="2021-01-02T23:05:47+08:00">2021-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>如果你经常使用 “file5.txt”、“学习资料153.avi” 一类的文件名，你会发现在给文件名排序时，这种命名方式存在很大的弊端。很大一部分程序直接用字典序给文件名排序，因此 <code>file10.txt</code> 会排到 <code>file2.txt</code> 前面，尽管事实上10比2大。你是否想过，有没有什么办法能给数字编码，使得它们按字典序排序后仍然保持原有的大小顺序，并且编码的方法足够简单，编码之后原来的数字仍可以一目了然？</p>
+<a id="more"></a>
+<p>一种简单的方法就是加前缀0，这样就保证了 <code>002</code> 在 <code>010</code> 前面，<code>file005.txt</code> 也不会排到 <code>file100.txt</code> 的后面。它有一个缺点就是，你必须预先知道需要编码的数字最多有多少位，否则一旦新添进一个位数更多的数，前面所有的数必需要全部重新编码（加更多的前缀0）。另一个比较明显的缺点就是，这种编码方式过于冗长，添加进去的数字0最多可能与最大数的位数相当，多数情况下都远远超过了待编码的数自身的长度。我们更希望，编码时添加进去的“辅助码”不要超过这个数字本身的长度。由于数字 <span class="math inline">\(n\)</span> 本身的长度是 <span class="math inline">\(\log n\)</span>，因此我们需要保证冗余部分不超过 <span class="math inline">\(\log n\)</span>. 你能找到满足这些条件的一种编码方式吗？</p>
+<p>注意到，当数字位数相同时，数值小的数按字典序排列时也排在前面。问题的关键就是，你需要找到一种编码方式，它可以标识出数字的位数，并且这种标识可以保证数字按位数从小到大排序。于是我们想到用“一进制编码”为每一个数加上一个“位数标识”。我们在每个数前面加上和这个数字本身的位数一样多的 <code>1</code>，中间用一个 <code>0</code> 隔开。这样，所有三位数都是 <code>1110xxx</code> 的形式，所有四位数都是 <code>11110xxxx</code> 的形式，这样按字典序排序时，三位数一定都排在四位数的前面。对应的解码方法也相当简单，只需要取第一个 <code>0</code> 后面的数字就行了。忽略常数的话，这种编码方式的冗余长度为 <span class="math inline">\(\log n\)</span>，和数字本身的长度相当，基本上符合我们的要求。</p>
+<p>我们可以列出一张简单的表格，形象地展示出数字编码后的样子：</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(n\)</span></th>
+<th><span class="math inline">\(encode(n)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><strong>1</strong>01</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><strong>1</strong>02</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><strong>1</strong>03</td>
+</tr>
+<tr class="even">
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td><strong>1</strong>08</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td><strong>1</strong>09</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td><strong>11</strong>010</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td><strong>11</strong>011</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td><strong>11</strong>012</td>
+</tr>
+<tr class="even">
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td>100</td>
+<td><strong>111</strong>0100</td>
+</tr>
+<tr class="even">
+<td>101</td>
+<td><strong>111</strong>0101</td>
+</tr>
+<tr class="odd">
+<td>102</td>
+<td><strong>111</strong>0102</td>
+</tr>
+</tbody>
+</table>
+<p>我们所提出的问题已经解决了，但我们不禁会想，还有比 <span class="math inline">\(O(\log n)\)</span> 更好的算法吗？仔细思考之后，你会想到，为什么不把数字的位数加在前面作为前缀，再用上面的方法把表示位数的那几个数字进行编码？试试看：</p>
+<table>
+<thead>
+<tr class="header">
+<th>位数</th>
+<th><span class="math inline">\(encode(n)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1位数</td>
+<td><strong>1</strong>01 x</td>
+</tr>
+<tr class="even">
+<td>2位数</td>
+<td><strong>1</strong>02 xx</td>
+</tr>
+<tr class="odd">
+<td>3位数</td>
+<td><strong>1</strong>03 xxx</td>
+</tr>
+<tr class="even">
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td>8位数</td>
+<td><strong>1</strong>08 xxxxxxxx</td>
+</tr>
+<tr class="even">
+<td>9位数</td>
+<td><strong>1</strong>09 xxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td>10位数</td>
+<td><strong>11</strong>010 xxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td>11位数</td>
+<td><strong>11</strong>011 xxxxxxxxxxx</td>
+</tr>
+<tr class="odd">
+<td>12位数</td>
+<td><strong>11</strong>012 xxxxxxxxxxxx</td>
+</tr>
+<tr class="even">
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td>99位数</td>
+<td><strong>11</strong>099 xxxx...xxxx</td>
+</tr>
+<tr class="even">
+<td>100位数</td>
+<td><strong>111</strong>0100 xxxx...xxxx</td>
+</tr>
+<tr class="odd">
+<td>101位数</td>
+<td><strong>111</strong>0101 xxxx...xxxx</td>
+</tr>
+<tr class="even">
+<td>102位数</td>
+<td><strong>111</strong>0102 xxxx...xxxx</td>
+</tr>
+</tbody>
+</table>
+<p>这种算法的冗余长度是数 <span class="math inline">\(n\)</span> 的位数的位数的两倍，忽略常数即为 <span class="math inline">\(\log\log n\)</span>. 这个结果已经相当令人满意了。但我们还会想，有没有算法能够比 <span class="math inline">\(O(\log\log n)\)</span> 还好呢？下面我们证明， <span class="math inline">\(O(\log\log n)\)</span> 的冗余已经是最好的了。 为了证明这个命题，我们可以这样反过来想：假如你对每个数字编码时只允许使用不超过 <span class="math inline">\(c\)</span> 个单位的冗余，那么你最多能为多少数进行编码。对于某一个正整数 <span class="math inline">\(k\)</span>，<span class="math inline">\(k\)</span> 位数一共有 <span class="math inline">\(9\times 10^{k-1}\)</span> 个，它们都必需表示成长度在 <span class="math inline">\(0\)</span> 和 <span class="math inline">\(k+c\)</span> 之间的数。我们把注意力集中在所有这些编码后的数字串的长为 <span class="math inline">\(c+1\)</span> 的前缀（如果字串本身的长度小于 <span class="math inline">\(c+1\)</span>，定义前缀为它本身）。对于每一个给定的前缀，最多只能产生 <span class="math inline">\((10^k-1)/9\)</span> 个数，这小于 <span class="math inline">\(k\)</span> 位数的总个数，因此这些前缀不可能全部相同。那些字典序较小的前缀已经不能再用于对位数更多的数进行编码了，因此我们说，长度为 <span class="math inline">\(k\)</span> 的数“消耗了”至少一个长为 <span class="math inline">\(c+1\)</span> 的前缀。而长度为 <span class="math inline">\(c+1\)</span> 的前缀一共只有 <span class="math inline">\(O(10^c)\)</span> 个，因此在冗余长度为 <span class="math inline">\(c\)</span> 的情况下，我们能够编码的数不超过 <span class="math inline">\(O(10^{10^c})\)</span>；反过来，要想给不超过 <span class="math inline">\(n\)</span> 的自然数进行编码，冗余长度至少为 <span class="math inline">\(O(\log\log n)\)</span>.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/UyHiP/" rel="tag"># UyHiP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/complexity-n-entropy/" rel="prev" title="排序复杂度与信息熵">
+      <i class="fa fa-chevron-left"></i> 排序复杂度与信息熵
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/migrate-mdk-to-arm-gcc/" rel="next" title="将Keil uVision工程迁移到GNU工具链">
+      将Keil uVision工程迁移到GNU工具链 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yxnan</p>
+  <div class="site-description" itemprop="description">Sci-Tech Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yxnan</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+
+  
+
+</body>
+</html>
