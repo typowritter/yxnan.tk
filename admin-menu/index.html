@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>自己改的 Admin Menu</title>
+  <meta name="description" content="Texts about blog links and games.">
+  <style>
+    div.body {
+        margin-top: 0%;
+        margin-bottom: 5%;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+  </style>
+</head>
+<body>
+  <!--<BODY TEXT=#000000 BGCOLOR=#FFFFFF link=#000000 vlink=#888888>-->
+  <div align="right">
+    <font face="sans"></font>
+    <table border="0" width="100%">
+      <tr>
+        <td width="100%" valign="middle"><b>yxnan</b></td>
+        <td nowrap="nowrap" valign="middle">
+          <a href="/">主页</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td valign="middle">
+          <a href="/en/admin-menu">English</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap="nowrap" valign="middle">
+          <a href="/blog/about">链接</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap="nowrap" valign="middle">
+          <a href="mailto:yxnan@pm.me">联系</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+  <hr size="3" color="black">
+  <br>
+  <br>
+  <div class="body">
+    <!--============================================================-->
+    <font size="+4">自己改的 Admin Menu</font><br>
+    <br>
+    <b>Original Credits to Rayman1103</b><br>
+
+
+    <br><br><br>
+    <font size=+2>
+    Diff
+    <br><br>
+    </font>
+    创意工坊：<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=574484797">Admin Menu</a><br>
+    主要加了几个方便的 cvars
+
+    <br><br>
+    <pre><b>
+      <span style="color: rgb(153, 153, 153);">--- a/scripts/clientmenu.txt</span>
+      <span style="color: rgb(153, 153, 153);">+++ b/scripts/clientmenu.txt</span>
+      <span style="color: rgb(30, 144, 255);">@@ -2153,13 +2153,13 @@</span>
+              }
+              "5"
+              {
+      <span style="color: rgb(255, 0, 0);">-           "command"   "play buttons/button14; scripted_user_func cvar,pain_pills_decay_rate,0; show_menu Cvars2"
+      -           "label"     " Pain Pills Decay Rate [0]"</span>
+      <span style="color: rgb(154, 205, 50);">+           "command"   "play buttons/button14; scripted_user_func cvar,ammo_assaultrifle_max,360; scripted_user_func cvar,ammo_autoshotgun_max,90; scripted_user_func cvar,ammo_grenadelauncher_max,30; scripted_user_func cvar,ammo_huntingrifle_max,150; scripted_user_func cvar,ammo_m60_max,0; scripted_user_func cvar,ammo_shotgun_max,72; scripted_user_func cvar,ammo_smg_max,650; scripted_user_func cvar,ammo_sniperrifle_max,180; show_menu Cvars2"
+      +           "label"     " Reserve Ammo Defect"</span>
+              }
+              "6"
+              {
+      <span style="color: rgb(255, 0, 0);">-           "command"   "play buttons/button14; scripted_user_func cvar,pain_pills_decay_rate,0.27; show_menu Cvars2"
+      -           "label"     " Pain Pills Decay Rate [0.27] (default)"</span>
+      <span style="color: rgb(154, 205, 50);">+           "command"   "play buttons/button14; scripted_user_func cvar,ammo_assaultrifle_max,720; scripted_user_func cvar,ammo_autoshotgun_max,180; scripted_user_func cvar,ammo_grenadelauncher_max,60; scripted_user_func cvar,ammo_huntingrifle_max,300; scripted_user_func cvar,ammo_m60_max,150; scripted_user_func cvar,ammo_shotgun_max,144; scripted_user_func cvar,ammo_smg_max,950; scripted_user_func cvar,ammo_sniperrifle_max,360; show_menu Cvars2"
+      +           "label"     " Double Reserve Ammunition"</span>
+              }
+              "8"
+              {
+      <span style="color: rgb(30, 144, 255);">@@ -2168,7 +2168,58 @@</span>
+              }
+              "9"
+              {
+      <span style="color: rgb(154, 205, 50);">+           "command"   "play buttons/button14; show_menu Cvars3"
+      +           "label"     " >> Next"
+      +       }
+      +       "0"
+      +       {
+      +           "command"   "play buttons/button14"
+      +           "label"     " Exit"
+      +       }
+      +   }
+      +
+      +   "Cvars3"
+      +   {
+      +       "Title"         "Cvar Commands"
+      +
+      +       "1"
+      +       {
+      +           "command"   "play buttons/button14; scripted_user_func cvar,director_afk_timeout,999999; show_menu Cvars3"
+      +           "label"     " No Idle [ON]"
+      +       }
+      +       "2"
+      +       {
+      +           "command"   "play buttons/button14; scripted_user_func cvar,director_afk_timeout,60; show_menu Cvars3"
+      +           "label"     " No Idle [OFF]"
+      +       }
+      +       "3"
+      +       {
+      +           "command"   "play buttons/button14; scripted_user_func cvar,z_difficulty,Easy; show_menu Cvars3"
+      +           "label"     " Difficulty [Easy]"
+      +       }
+      +       "4"
+      +       {
+      +           "command"   "play buttons/button14; scripted_user_func cvar,z_difficulty,Normal; show_menu Cvars3"
+      +           "label"     " Difficulty [Normal]"
+      +       }
+      +       "5"
+      +       {
+      +           "command"   "play buttons/button14; scripted_user_func cvar,z_difficulty,Hard; show_menu Cvars3"
+      +           "label"     " Difficulty [Hard]"
+      +       }
+      +       "6"
+      +       {
+      +           "command"   "play buttons/button14; scripted_user_func cvar,z_difficulty,Impossible; show_menu Cvars3"
+      +           "label"     " Difficulty [Impossible]"
+      +       }
+      +       "8"
+      +       {</span>
+                  "command"   "play buttons/button14; show_menu Cvars2"
+      <span style="color: rgb(154, 205, 50);">+           "label"     " << Back"
+      +       }
+      +       "9"
+      +       {
+      +           "command"   "play buttons/button14; show_menu Cvars3"</span>
+                  "label"     " "
+              }
+              "0"
+    </b></pre>
+
+  </div>
+</body>
+</html>

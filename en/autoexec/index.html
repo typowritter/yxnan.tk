@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>My autoexec.cfg</title>
+  <meta name="description" content="Texts about blog links and games.">
+  <style>
+    div.body {
+        margin-top: 0%;
+        margin-bottom: 5%;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+  </style>
+</head>
+<body>
+  <!--<BODY TEXT=#000000 BGCOLOR=#FFFFFF link=#000000 vlink=#888888>-->
+  <div align="right">
+    <font face="sans"></font>
+    <table border="0" width="100%">
+      <tr>
+        <td width="100%" valign="middle"><b>yxnan</b></td>
+        <td nowrap valign="middle">
+          <a href="/en">Home</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap valign="middle">
+          <a href="/autoexec">中文</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap valign="middle">
+          <a href="/blog/about">Links</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap valign="middle">
+          <a href="mailto:yxnan@pm.me">Contact</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+  <hr size="3" color="black">
+  <br>
+  <br>
+  <div class="body">
+    <!--============================================================-->
+    <font size="+4">My autoexec.cfg</font><br>
+    <br>
+    <b>The file executed on startup</b><br>
+
+
+    <br><br><br>
+    <font size=+2>
+    Configs Explained
+    <br><br>
+    </font>
+
+    You know, I am too lazy even to move my hand only to press some unfamiliar keys.<br>
+    (Five-button mouse for me :D)
+
+    <br><br>
+    <pre>
+      // [yxnan.cn] 106.15.249.79
+      bind f3 "thirdpersonshoulder"
+      bind f5 "connect yxnan.cn"
+      bind f10 "disconnect"
+      bind v "say /rygive"
+      bind b "say /admin"
+      bind m "say /mapvote"
+      bind n "say /c"
+      bind "[" "say /away"
+      bind "]" "say /jg"
+      bind mouse3 "show_menu Menu"
+      bind mouse4 slot9
+      bind mouse5 slot8
+
+      // solve conflict between Rayman1103's Admin Menu and Sourcemod menu
+      bind ctrl "show_menu Menu; say /rygive; slot7; wait 1; say /rygive; wait 8; slot7"
+
+      bind 1 slot1
+      bind 2 slot2
+      bind 3 slot3
+      bind 4 slot4
+      bind 5 slot5
+      bind 6 slot6
+      bind 7 slot7
+      bind 8 slot8
+      bind 9 slot9
+      bind z slot0
+      bind f slot5
+      bind c slot6
+      bind x slot7
+
+
+      cl_cmdrate 100
+      cl_updaterate 100
+      cl_interp 0.016667
+      cl_interp_ratio 1
+      cl_lagcompensation 1
+      cl_viewmodelfovsurvivor 51
+      cl_menuduration -1
+      sv_consistency 0
+      rate 30000
+      mm_dedicated_search_maxping 70
+      mm_dedicated_force_servers 106.15.249.79
+    </pre>
+
+  </div>
+</body>
+</html>

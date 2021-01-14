@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Scripts for Server</title>
+  <meta name="description" content="Texts about blog links and games.">
+  <style>
+    div.body {
+        margin-top: 0%;
+        margin-bottom: 5%;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+  </style>
+</head>
+<body>
+  <!--<BODY TEXT=#000000 BGCOLOR=#FFFFFF link=#000000 vlink=#888888>-->
+  <div align="right">
+    <font face="sans"></font>
+    <table border="0" width="100%">
+      <tr>
+        <td width="100%" valign="middle"><b>yxnan</b></td>
+        <td nowrap valign="middle">
+          <a href="/en">Home</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap valign="middle">
+          <a href="/server-scripts">中文</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap valign="middle">
+          <a href="/blog/about">Links</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;<font size="+1">|</font>&nbsp;&nbsp;&nbsp;</td>
+        <td nowrap valign="middle">
+          <a href="mailto:yxnan@pm.me">Contact</a>
+        </td>
+        <td valign="middle">&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+  <hr size="3" color="black">
+  <br>
+  <br>
+  <div class="body">
+    <!--============================================================-->
+    <font size="+4">Scripts for Server</font><br>
+    <br>
+    <b>Server runs on Ubuntu 20.04 64-bit</b><br>
+
+
+    <br><br><br>
+    <font size=+2>
+    Startup
+    <br><br>
+    </font>
+
+    L4D2 is a 32-bit game, and is somewhat problematic. Crashes etc.<br>
+    Without further debug, I found some memory leakages, and decided to reset the server if all players disconnect (by <i>Unix Haters Book</i> :-)<br>
+    Work woth Sourcemod plugin <b>Reset Server When Empty</b> (Hard reset mode)<br>
+    <br>
+    <code><i>~/server</i></code>
+
+    <br><br>
+    <pre><b>
+      <span style="color: rgb(153, 153, 153);">#!/bin/bash</span>
+
+      while :
+      do
+        ~/steam/l4d2/srcds_run -console -game left4dead2 +port 27015 -insecure -nomaster
+        echo -e "Hit Ctrl+C in 3 seconds to prevent restart\n"
+        <span style="color: rgb(255, 0, 0);">sleep 3</span>
+      done
+    </b></pre>
+
+    <br>
+    Specify an alias in <code>.bashrc</code><br><br>
+    <code>alias svr='screen ~/server'</code>
+
+  </div>
+</body>
+</html>
