@@ -162,6 +162,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/stm32-audio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/stm32-audio/" class="post-title-link" itemprop="url">STM32 DAC 音频输出方案</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-07 23:56:09" itemprop="dateCreated datePublished" datetime="2020-12-07T23:56:09+08:00">2020-12-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-15 22:20:04" itemprop="dateModified" datetime="2021-01-15T22:20:04+08:00">2021-01-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>总结一下我们小组在 STM32 音频方面的实现思路。</p>
+<p>简单来讲是 SDIO 读取音频数据，通过 DAC 输出至外部功放进行发声。详细展开，大致可从音频格式、播放缓冲、外部电路几个方面来讲。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/stm32-audio/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/spi-ili9341/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/spi-ili9341/" class="post-title-link" itemprop="url">SPI 接口的 ILI9341 液晶驱动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-11-14 20:23:38" itemprop="dateCreated datePublished" datetime="2020-11-14T20:23:38+08:00">2020-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-15 22:15:25" itemprop="dateModified" datetime="2021-01-15T22:15:25+08:00">2021-01-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>为了完成微控制器的编程实践，又买了一块 ILI9341 液晶（自己挖的坑，硬着头皮也得填完 :-）</p>
+<p>因为想着外部连线尽可能方便，选了 SPI 接口的，并且不带触摸控制。这样，剔除掉 MISO 接口，只需要用到 SCLK、MOSI 和 RES 三条数据线（CS 直接接地，因为只用到一个 SPI 设备），再加上 VCC 和 GND，就构成一块可用的显示屏了。现在，只需要将之前 FSMC 并口的驱动改写成 SPI 就能直接用了。</p>
+<p>整理后的代码放在了 Gist 上：<a target="_blank" rel="noopener" href="https://gist.github.com/typowritter/7a3bcc75d94163ba59a47dd6b304d9e1">SPI driver for ili9341 controller on STM32</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/spi-ili9341/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
     <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/msp430-setup-linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,7 +341,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/msp430-setup-linux/" class="post-title-link" itemprop="url">Linux搭建MSP430 Launchpad开发环境</a>
+            <a href="/blog/msp430-setup-linux/" class="post-title-link" itemprop="url">Linux 搭建 MSP430 Launchpad 开发环境</a>
         </h2>
 
         <div class="post-meta">
@@ -193,7 +358,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-15 04:50:55" itemprop="dateModified" datetime="2021-01-15T04:50:55+08:00">2021-01-15</time>
+                <time title="Modified: 2021-01-15 22:15:46" itemprop="dateModified" datetime="2021-01-15T22:15:46+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -201,7 +366,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
                 </span>
             </span>
 
@@ -257,7 +422,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/migrate-mdk-to-arm-gcc/" class="post-title-link" itemprop="url">将Keil uVision工程迁移到GNU工具链</a>
+            <a href="/blog/migrate-mdk-to-arm-gcc/" class="post-title-link" itemprop="url">将 Keil uVision 工程迁移到 GNU 工具链</a>
         </h2>
 
         <div class="post-meta">
@@ -274,7 +439,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-02 21:13:01" itemprop="dateModified" datetime="2021-01-02T21:13:01+08:00">2021-01-02</time>
+                <time title="Modified: 2021-01-15 22:14:14" itemprop="dateModified" datetime="2021-01-15T22:14:14+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,7 +447,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
                 </span>
             </span>
 
@@ -436,7 +601,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-02 21:11:50" itemprop="dateModified" datetime="2021-01-02T21:11:50+08:00">2021-01-02</time>
+                <time title="Modified: 2021-01-15 19:59:46" itemprop="dateModified" datetime="2021-01-15T19:59:46+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -603,7 +768,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-15 04:50:55" itemprop="dateModified" datetime="2021-01-15T04:50:55+08:00">2021-01-15</time>
+                <time title="Modified: 2021-01-15 20:23:56" itemprop="dateModified" datetime="2021-01-15T20:23:56+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -611,11 +776,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Mathematics/Physics/" itemprop="url" rel="index"><span itemprop="name">Physics</span></a>
+                  <a href="/blog/categories/Physics/" itemprop="url" rel="index"><span itemprop="name">Physics</span></a>
                 </span>
             </span>
 
@@ -688,7 +849,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-02 21:40:53" itemprop="dateModified" datetime="2021-01-02T21:40:53+08:00">2021-01-02</time>
+                <time title="Modified: 2021-01-15 20:00:13" itemprop="dateModified" datetime="2021-01-15T20:00:13+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -712,7 +873,8 @@
 
       
           <p>天下武功，唯快不破，对于函数式语言更是如此。</p>
-<p>由于惰性求值，Haskell慢于大多数命令式语言。但，OJ 们却是一视同仁的。因此经常会有这样的惨案发生：用Haskell写个程序，倾尽平生所学投入到优化事业中，提交上去仍然超时；顺手用C撸个原型就直接过了。并且，优化Haskell代码往往要求你得是一个Haskell专家，熟知RTS、profiling，能看懂Core，了解各种Haskell结构的实现细节等等。
+<p>由于惰性求值，Haskell慢于大多数命令式语言。但，OJ 们却是一视同仁的。因此经常会有这样的惨案发生：用Haskell写个程序，倾尽平生所学投入到优化事业中，提交上去仍然超时；顺手用C撸个原型就直接过了。并且，优化Haskell代码往往要求你得是一个Haskell专家，熟知RTS、profiling，能看懂Core，了解各种Haskell结构的实现细节等等。</p>
+<p>Haskell默认惰性求值的特点，导致了Haskell中不同算法“贫富差距”较大<del>（大神写的/我写的 = 50倍以上）</del>。但我们可以大致找到两个方向，要么尽量避免惰性，采用严格求值，但这样会牺牲代码的简洁性；或者就是<strong>更好地利用惰性求值带来的表达能力</strong>。这里主要着重于后者，记录一些函数式的思维方式，以提高“计算”过程的表达能力.
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/blog/functional-solutions/#more" rel="contents">
@@ -818,172 +980,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/lorentz/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="yxnan">
-      <meta itemprop="description" content="Sci-Tech Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="typowritter">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/lorentz/" class="post-title-link" itemprop="url">相对论中的 Lorentz 变换与四维矢量</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-11 02:03:07" itemprop="dateCreated datePublished" datetime="2019-04-11T02:03:07+08:00">2019-04-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-31 07:41:26" itemprop="dateModified" datetime="2020-07-31T07:41:26+08:00">2020-07-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Mathematics/Physics/" itemprop="url" rel="index"><span itemprop="name">Physics</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>人们发现，时间与空间原是分不开的，之前的动力学定律之所以形式繁杂，是因为这些定律描述的仅仅是一个更大结构——时空的几个分量而已。一旦把时间纳入体系，统一的形式便展现在人们眼前了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/lorentz/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/inner-space/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="yxnan">
-      <meta itemprop="description" content="Sci-Tech Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="typowritter">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/inner-space/" class="post-title-link" itemprop="url">内积空间的正交投影与极小化问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-02-27 18:31:49" itemprop="dateCreated datePublished" datetime="2019-02-27T18:31:49+08:00">2019-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-15 04:50:55" itemprop="dateModified" datetime="2021-01-15T04:50:55+08:00">2021-01-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>问题</strong>：求取一个不超过 <span class="math inline">\(5\)</span> 次的实系数多项式 <span class="math inline">\(u\)</span>，使其在区间 <span class="math inline">\([-\pi,\pi]\)</span> 上尽量好地逼近 <span class="math inline">\(sin\,x\)</span>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/inner-space/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1053,20 +1049,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

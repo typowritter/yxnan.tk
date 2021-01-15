@@ -22,16 +22,17 @@
 
   <meta name="description" content="最近在准备电赛，学了一些stm32。老师给的示例程序是Keil IDE的工程，由于该工具使用MDK-ARM编译器（仅支持Windows），而我的工作流都在Linux上，在编译代码时比较不便，因此研究了一下如何将Keil的工程迁移到Makefile，使用 GNU 工具链进行程序编译、连接。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="将Keil uVision工程迁移到GNU工具链">
+<meta property="og:title" content="将 Keil uVision 工程迁移到 GNU 工具链">
 <meta property="og:url" content="http://yxnan.tk/blog/migrate-mdk-to-arm-gcc/index.html">
 <meta property="og:site_name" content="typowritter">
 <meta property="og:description" content="最近在准备电赛，学了一些stm32。老师给的示例程序是Keil IDE的工程，由于该工具使用MDK-ARM编译器（仅支持Windows），而我的工作流都在Linux上，在编译代码时比较不便，因此研究了一下如何将Keil的工程迁移到Makefile，使用 GNU 工具链进行程序编译、连接。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-09-05T15:38:36.000Z">
-<meta property="article:modified_time" content="2021-01-02T13:13:01.252Z">
+<meta property="article:modified_time" content="2021-01-15T14:14:14.920Z">
 <meta property="article:author" content="yxnan">
 <meta property="article:tag" content="STM32">
 <meta property="article:tag" content="GNU">
+<meta property="article:tag" content="ARM">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yxnan.tk/blog/migrate-mdk-to-arm-gcc/">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>将Keil uVision工程迁移到GNU工具链 | typowritter</title>
+  <title>将 Keil uVision 工程迁移到 GNU 工具链 | typowritter</title>
   
 
 
@@ -180,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          将Keil uVision工程迁移到GNU工具链
+          将 Keil uVision 工程迁移到 GNU 工具链
         </h1>
 
         <div class="post-meta">
@@ -197,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-02 21:13:01" itemprop="dateModified" datetime="2021-01-02T21:13:01+08:00">2021-01-02</time>
+                <time title="Modified: 2021-01-15 22:14:14" itemprop="dateModified" datetime="2021-01-15T22:14:14+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -205,7 +206,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
                 </span>
             </span>
 
@@ -260,6 +261,7 @@
           <div class="post-tags">
               <a href="/blog/tags/STM32/" rel="tag"># STM32</a>
               <a href="/blog/tags/GNU/" rel="tag"># GNU</a>
+              <a href="/blog/tags/ARM/" rel="tag"># ARM</a>
           </div>
 
         
@@ -272,8 +274,8 @@
       <i class="fa fa-chevron-left"></i> UyHiP：对数字进行编码使其按字典序排列后仍然有序
     </a></div>
       <div class="post-nav-item">
-    <a href="/blog/msp430-setup-linux/" rel="next" title="Linux搭建MSP430 Launchpad开发环境">
-      Linux搭建MSP430 Launchpad开发环境 <i class="fa fa-chevron-right"></i>
+    <a href="/blog/msp430-setup-linux/" rel="next" title="Linux 搭建 MSP430 Launchpad 开发环境">
+      Linux 搭建 MSP430 Launchpad 开发环境 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -354,20 +356,20 @@ arm-none-eabi-objcopy -O binary -S build&#x2F;test.elf build&#x2F;test.bin
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

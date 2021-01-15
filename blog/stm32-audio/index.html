@@ -20,30 +20,38 @@
     var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Sci-Tech Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="typowritter">
-<meta property="og:url" content="http://yxnan.tk/blog/page/2/index.html">
+  <meta name="description" content="总结一下我们小组在 STM32 音频方面的实现思路。 简单来讲是 SDIO 读取音频数据，通过 DAC 输出至外部功放进行发声。详细展开，大致可从音频格式、播放缓冲、外部电路几个方面来讲。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32 DAC 音频输出方案">
+<meta property="og:url" content="http://yxnan.tk/blog/stm32-audio/index.html">
 <meta property="og:site_name" content="typowritter">
-<meta property="og:description" content="Sci-Tech Blog">
+<meta property="og:description" content="总结一下我们小组在 STM32 音频方面的实现思路。 简单来讲是 SDIO 读取音频数据，通过 DAC 输出至外部功放进行发声。详细展开，大致可从音频格式、播放缓冲、外部电路几个方面来讲。">
 <meta property="og:locale">
+<meta property="og:image" content="http://yxnan.tk/blog/images/stm32-audio/audio-buffer.png">
+<meta property="og:image" content="http://yxnan.tk/blog/images/stm32-audio/lm386.png">
+<meta property="article:published_time" content="2020-12-07T15:56:09.000Z">
+<meta property="article:modified_time" content="2021-01-15T14:20:04.468Z">
 <meta property="article:author" content="yxnan">
+<meta property="article:tag" content="STM32">
+<meta property="article:tag" content="ARM">
+<meta property="article:tag" content="Audio">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yxnan.tk/blog/images/stm32-audio/audio-buffer.png">
 
-<link rel="canonical" href="http://yxnan.tk/blog/page/2/">
+<link rel="canonical" href="http://yxnan.tk/blog/stm32-audio/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'default'
   };
 </script>
 
-  <title>typowritter</title>
+  <title>STM32 DAC 音频输出方案 | typowritter</title>
   
 
 
@@ -156,13 +164,14 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/lorentz/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/stm32-audio/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -174,10 +183,9 @@
       <meta itemprop="name" content="typowritter">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/lorentz/" class="post-title-link" itemprop="url">相对论中的 Lorentz 变换与四维矢量</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          STM32 DAC 音频输出方案
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -186,14 +194,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-11 02:03:07" itemprop="dateCreated datePublished" datetime="2019-04-11T02:03:07+08:00">2019-04-11</time>
+              <time title="Created: 2020-12-07 23:56:09" itemprop="dateCreated datePublished" datetime="2020-12-07T23:56:09+08:00">2020-12-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-15 20:02:13" itemprop="dateModified" datetime="2021-01-15T20:02:13+08:00">2021-01-15</time>
+                <time title="Modified: 2021-01-15 22:20:04" itemprop="dateModified" datetime="2021-01-15T22:20:04+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -201,7 +209,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Physics/" itemprop="url" rel="index"><span itemprop="name">Physics</span></a>
+                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
                 </span>
             </span>
 
@@ -216,201 +224,67 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>人们发现，时间与空间原是分不开的，之前的动力学定律之所以形式繁杂，是因为这些定律描述的仅仅是一个更大结构——时空的几个分量而已。一旦把时间纳入体系，统一的形式便展现在人们眼前了。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/lorentz/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+        <p>总结一下我们小组在 STM32 音频方面的实现思路。</p>
+<p>简单来讲是 SDIO 读取音频数据，通过 DAC 输出至外部功放进行发声。详细展开，大致可从音频格式、播放缓冲、外部电路几个方面来讲。</p>
+<a id="more"></a>
+<h2 id="音频格式">音频格式</h2>
+<p>最简单的音频格式就是 <strong>脉冲编码调制</strong> (Pulse-code modulation, PCM) 了，这种格式的采样值是关于时间的函数，因此可直接送入 DAC，免去了 CPU 软解或外部解码芯片的使用。</p>
+<p>我们选择的微控制器是 STM32F1 系列，片上 DAC 支持 8 位和 12 位两种深度。为了尽可能不降低音质，只能选择 12 位输出。而常见的音频编码器并不支持这种深度，因此我们决定将 16 位的 PCM 音频进行简单改造，将数据点缩放到 12 位能表示的范围内。</p>
+<p>为这种格式定义的文件头如下（小端格式）：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PCM_12_LE_HEAD</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint8_t</span>  Artist[<span class="number">16</span>];</span><br><span class="line">    <span class="keyword">uint8_t</span>  Title [<span class="number">16</span>];</span><br><span class="line">    <span class="keyword">uint16_t</span> Chunks;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中，Chunks 代表音频文件的 “块数”（人为划分每 256 采样点为一个块）。这是为了便于计算播放进度以及得知播放何时结束。</p>
+<p>尽管每个采样点只需要用到 12 位，但由于数据读入及传输过程都是以字节为最小单位的，因此用 0 补齐 16 位。</p>
+<h2 id="双缓冲">双缓冲</h2>
+<p>使用 SDIO 将数据读入内存缓冲区后，便可以启用 DMA 将采样点传输到 DAC 了。问题在于，缓冲区耗尽后，必须阻塞等待 SD 卡读取完成，才能继续播放，导致音频播放不连贯。</p>
+<p>为解决这个问题，我们采用了双缓冲机制，将缓冲区划分为前后两段，以 DMA 半传输为界，交替完成数据读取，如下图所示：</p>
+<div class="figure">
+<img src="/blog/images/stm32-audio/audio-buffer.png" />
+
+</div>
+<h2 id="外部电路">外部电路</h2>
+<p>基于 TI 的 LM386 实现，这款芯片支持 4V ~ 12V 宽电压供电，默认增益是 20，但也可以自行配置。为了简单，没有分离模拟地和数字地，实践发现对音频干扰并不大，因为几毛钱一个、动态范围仅 5kHz 的廉价扬声器，所带来的音质损失远远大于电源的干扰……</p>
+<p>简单配置一下，即可适用 STM32 DAC 0 ~ 3.3V 的电压输出：</p>
+<div class="figure">
+<img src="/blog/images/stm32-audio/lm386.png" />
+
+</div>
+<h2 id="参考">参考</h2>
+<p><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/application_note/cd00259245-audio-and-waveform-generation-using-the-dac-in-stm32-products-stmicroelectronics.pdf">Audio and waveform generation using the DAC in STM32 products</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/application_note/dm00477514-classd-audio-amplifier-implementation-on-stm32-32bit-arm-cortex-mcus-stmicroelectronics.pdf">Class-D audio amplifier implementation on STM32 32-bit Arm® Cortex® MCUs</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/application_note/dm00129215-extending-the-dac-performance-of-stm32-microcontrollers-stmicroelectronics.pdf">Extending the DAC performance of STM32 micro-controllers</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.element14.com/community/docs/DOC-33449/l/stmicroelectronics-um0891-user-manual-for-stm32100b-eval-demonstration-firmware">STM32100B-EVAL demonstration firmware</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/lm386.pdf">LM386 数据手册</a></p>
+
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/blog/tags/STM32/" rel="tag"># STM32</a>
+              <a href="/blog/tags/ARM/" rel="tag"># ARM</a>
+              <a href="/blog/tags/Audio/" rel="tag"># Audio</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/inner-space/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="yxnan">
-      <meta itemprop="description" content="Sci-Tech Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="typowritter">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/inner-space/" class="post-title-link" itemprop="url">内积空间的正交投影与极小化问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-02-27 18:31:49" itemprop="dateCreated datePublished" datetime="2019-02-27T18:31:49+08:00">2019-02-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-15 20:12:01" itemprop="dateModified" datetime="2021-01-15T20:12:01+08:00">2021-01-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>问题</strong>：求取一个不超过 <span class="math inline">\(5\)</span> 次的实系数多项式 <span class="math inline">\(u\)</span>，使其在区间 <span class="math inline">\([-\pi,\pi]\)</span> 上尽量好地逼近 <span class="math inline">\(sin\,x\)</span>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/inner-space/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="">
-    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/dim-theorem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="yxnan">
-      <meta itemprop="description" content="Sci-Tech Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="typowritter">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/dim-theorem/" class="post-title-link" itemprop="url">维数定理及其可推广性的探究</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-01-10 23:37:40" itemprop="dateCreated datePublished" datetime="2019-01-10T23:37:40+08:00">2019-01-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-31 07:41:15" itemprop="dateModified" datetime="2020-07-31T07:41:15+08:00">2020-07-31</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Mathematics/" itemprop="url" rel="index"><span itemprop="name">Mathematics</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><span class="math display">\[
-\begin{aligned}
-|A\cup B|&amp;=|A|+|B|-|A\cap B|\\
-dim(V_1+V_2)&amp;=dimV_1+dimV_2-dim(V_1\cap V_2)
-\end{aligned}
-\]</span></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/dim-theorem/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/spi-ili9341/" rel="prev" title="SPI 接口的 ILI9341 液晶驱动">
+      <i class="fa fa-chevron-left"></i> SPI 接口的 ILI9341 液晶驱动
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span>
-  </nav>
 
 
 
@@ -462,6 +336,7 @@ dim(V_1+V_2)&amp;=dimV_1+dimV_2-dim(V_1\cap V_2)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">音频格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%BC%93%E5%86%B2"><span class="nav-number">2.</span> <span class="nav-text">双缓冲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%94%B5%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">外部电路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -550,7 +425,7 @@ dim(V_1+V_2)&amp;=dimV_1+dimV_2-dim(V_1\cap V_2)
 <script src="/blog/js/schemes/pisces.js"></script>
 
 
-<script src="/blog/js/next-boot.js"></script>
+<script src="/blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -574,59 +449,6 @@ dim(V_1+V_2)&amp;=dimV_1+dimV_2-dim(V_1\cap V_2)
   
 
   
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-    
 
   
 

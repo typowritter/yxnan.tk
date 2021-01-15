@@ -22,7 +22,7 @@
 
   <meta name="description" content="本文将展示如何使用 Linux 上的 msp430-gcc 工具链进行开发。Texas Instruments（TI）从开源社区接手 MSPGCC 项目之后，正式发布了兼容 TI ABI 的 msp430-gcc，支持 Linux 平台和最新的 MCU。我将演示如何正确编译程序，然后使用 mspdebug 将示例程序加载到MSP430 Launchpad上并进行调试。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux搭建MSP430 Launchpad开发环境">
+<meta property="og:title" content="Linux 搭建 MSP430 Launchpad 开发环境">
 <meta property="og:url" content="http://yxnan.tk/blog/msp430-setup-linux/index.html">
 <meta property="og:site_name" content="typowritter">
 <meta property="og:description" content="本文将展示如何使用 Linux 上的 msp430-gcc 工具链进行开发。Texas Instruments（TI）从开源社区接手 MSPGCC 项目之后，正式发布了兼容 TI ABI 的 msp430-gcc，支持 Linux 平台和最新的 MCU。我将演示如何正确编译程序，然后使用 mspdebug 将示例程序加载到MSP430 Launchpad上并进行调试。">
@@ -32,11 +32,12 @@
 <meta property="og:image" content="http://yxnan.tk/blog/images/msp430-setup-linux/jumper.png">
 <meta property="og:image" content="http://yxnan.tk/blog/images/msp430-setup-linux/schematics-2.png">
 <meta property="article:published_time" content="2020-09-06T20:22:33.000Z">
-<meta property="article:modified_time" content="2021-01-14T20:50:55.689Z">
+<meta property="article:modified_time" content="2021-01-15T14:15:46.071Z">
 <meta property="article:author" content="yxnan">
 <meta property="article:tag" content="GNU">
 <meta property="article:tag" content="MSP430">
 <meta property="article:tag" content="Linux">
+<meta property="article:tag" content="ARM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yxnan.tk/blog/images/msp430-setup-linux/ezfet.png">
 
@@ -53,7 +54,7 @@
   };
 </script>
 
-  <title>Linux搭建MSP430 Launchpad开发环境 | typowritter</title>
+  <title>Linux 搭建 MSP430 Launchpad 开发环境 | typowritter</title>
   
 
 
@@ -186,7 +187,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux搭建MSP430 Launchpad开发环境
+          Linux 搭建 MSP430 Launchpad 开发环境
         </h1>
 
         <div class="post-meta">
@@ -203,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-15 04:50:55" itemprop="dateModified" datetime="2021-01-15T04:50:55+08:00">2021-01-15</time>
+                <time title="Modified: 2021-01-15 22:15:46" itemprop="dateModified" datetime="2021-01-15T22:15:46+08:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -211,7 +212,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
                 </span>
             </span>
 
@@ -261,7 +262,7 @@
 
 </div>
 <p>Ok，现在将开发板连接到电脑 USB 端口上，可以看到 <strong>eZ-FET 旁的绿色 LED 亮起，代表进入就绪状态</strong>。我们也可以检查一下电脑识别到的设备：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ lsusb | grep T.*I</span><br><span class="line">Bus 006 Device 112: ID 2047:0013 Texas Instruments </span><br><span class="line">Bus 006 Device 111: ID 0451:2046 Texas Instruments, Inc. TUSB2046 Hub</span><br><span class="line">$ ls /dev/ttyACM*</span><br><span class="line">/dev/ttyACM0  /dev/ttyACM1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ lsusb | grep T.*I</span><br><span class="line">Bus 006 Device 112: ID 2047:0013 Texas Instruments</span><br><span class="line">Bus 006 Device 111: ID 0451:2046 Texas Instruments, Inc. TUSB2046 Hub</span><br><span class="line">$ ls /dev/ttyACM*</span><br><span class="line">/dev/ttyACM0  /dev/ttyACM1</span><br></pre></td></tr></table></figure>
 <p>假设我们刚才编译得到了 <code>blink.out</code>，现在使用 <code>mspdebug</code>，将程序写入开发板并运行：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 此处换成你自己的安装路径</span></span><br><span class="line">LD_LIBRARY_PATH=/opt/ti/msp430-gcc/bin mspdebug tilib <span class="string">&quot;prog blink.out&quot;</span></span><br></pre></td></tr></table></figure>
 <p>可以看到 <strong>eZ-FET 旁的红色指示 LED 亮起，并闪烁，代表已与电脑建立通信，正在传输数据</strong>。</p>
@@ -289,6 +290,7 @@
               <a href="/blog/tags/GNU/" rel="tag"># GNU</a>
               <a href="/blog/tags/MSP430/" rel="tag"># MSP430</a>
               <a href="/blog/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/blog/tags/ARM/" rel="tag"># ARM</a>
           </div>
 
         
@@ -297,10 +299,13 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/migrate-mdk-to-arm-gcc/" rel="prev" title="将Keil uVision工程迁移到GNU工具链">
-      <i class="fa fa-chevron-left"></i> 将Keil uVision工程迁移到GNU工具链
+    <a href="/blog/migrate-mdk-to-arm-gcc/" rel="prev" title="将 Keil uVision 工程迁移到 GNU 工具链">
+      <i class="fa fa-chevron-left"></i> 将 Keil uVision 工程迁移到 GNU 工具链
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/blog/spi-ili9341/" rel="next" title="SPI 接口的 ILI9341 液晶驱动">
+      SPI 接口的 ILI9341 液晶驱动 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -373,20 +378,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
