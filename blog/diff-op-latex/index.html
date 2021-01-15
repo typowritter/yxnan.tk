@@ -20,25 +20,20 @@
     var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="总结一下我们小组在 STM32 音频方面的实现思路。 简单来讲是 SDIO 读取音频数据，通过 DAC 输出至外部功放进行发声。详细展开，大致可从音频格式、播放缓冲、外部电路几个方面来讲。">
+  <meta name="description" content="原文地址：https:&#x2F;&#x2F;liam.page&#x2F;2017&#x2F;05&#x2F;01&#x2F;the-correct-way-to-use-differential-operator&#x2F;  此篇讨论很小的「一点」——关于如何正确排版微分算子。 所谓微分算子 (differential operator)，也就是 \(\mathrm{d}x\) 中的 \(\mathrm{d}\). 由于微分算子形式上就是拉丁字母 d；并且国">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STM32 DAC 音频输出方案">
-<meta property="og:url" content="http://yxnan.tk/blog/stm32-audio/index.html">
+<meta property="og:title" content="【转】在 LaTeX 中使用微分算子的正确姿势">
+<meta property="og:url" content="http://yxnan.tk/blog/diff-op-latex/index.html">
 <meta property="og:site_name" content="typowritter">
-<meta property="og:description" content="总结一下我们小组在 STM32 音频方面的实现思路。 简单来讲是 SDIO 读取音频数据，通过 DAC 输出至外部功放进行发声。详细展开，大致可从音频格式、播放缓冲、外部电路几个方面来讲。">
+<meta property="og:description" content="原文地址：https:&#x2F;&#x2F;liam.page&#x2F;2017&#x2F;05&#x2F;01&#x2F;the-correct-way-to-use-differential-operator&#x2F;  此篇讨论很小的「一点」——关于如何正确排版微分算子。 所谓微分算子 (differential operator)，也就是 \(\mathrm{d}x\) 中的 \(\mathrm{d}\). 由于微分算子形式上就是拉丁字母 d；并且国">
 <meta property="og:locale">
-<meta property="og:image" content="http://yxnan.tk/blog/images/stm32-audio/audio-buffer.png">
-<meta property="og:image" content="http://yxnan.tk/blog/images/stm32-audio/lm386.png">
-<meta property="article:published_time" content="2020-12-07T15:56:09.000Z">
-<meta property="article:modified_time" content="2021-01-15T14:20:04.468Z">
+<meta property="article:published_time" content="2020-07-15T06:12:23.000Z">
+<meta property="article:modified_time" content="2021-01-15T19:01:37.316Z">
 <meta property="article:author" content="yxnan">
-<meta property="article:tag" content="STM32">
-<meta property="article:tag" content="ARM">
-<meta property="article:tag" content="Audio">
+<meta property="article:tag" content="LaTeX">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yxnan.tk/blog/images/stm32-audio/audio-buffer.png">
 
-<link rel="canonical" href="http://yxnan.tk/blog/stm32-audio/">
+<link rel="canonical" href="http://yxnan.tk/blog/diff-op-latex/">
 
 
 <script id="page-configurations">
@@ -51,7 +46,7 @@
   };
 </script>
 
-  <title>STM32 DAC 音频输出方案 | typowritter</title>
+  <title>【转】在 LaTeX 中使用微分算子的正确姿势 | typowritter</title>
   
 
 
@@ -171,7 +166,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
-    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/stm32-audio/">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/diff-op-latex/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -184,7 +179,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          STM32 DAC 音频输出方案
+          【转】在 LaTeX 中使用微分算子的正确姿势
         </h1>
 
         <div class="post-meta">
@@ -194,14 +189,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-12-07 23:56:09" itemprop="dateCreated datePublished" datetime="2020-12-07T23:56:09+08:00">2020-12-07</time>
+              <time title="Created: 2020-07-15 14:12:23" itemprop="dateCreated datePublished" datetime="2020-07-15T14:12:23+08:00">2020-07-15</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-15 22:20:04" itemprop="dateModified" datetime="2021-01-15T22:20:04+08:00">2021-01-15</time>
+                <time title="Modified: 2021-01-16 03:01:37" itemprop="dateModified" datetime="2021-01-16T03:01:37+08:00">2021-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,7 +204,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Embedded/" itemprop="url" rel="index"><span itemprop="name">Embedded</span></a>
+                  <a href="/blog/categories/Techniques/" itemprop="url" rel="index"><span itemprop="name">Techniques</span></a>
                 </span>
             </span>
 
@@ -224,36 +219,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>总结一下我们小组在 STM32 音频方面的实现思路。</p>
-<p>简单来讲是 SDIO 读取音频数据，通过 DAC 输出至外部功放进行发声。详细展开，大致可从音频格式、播放缓冲、外部电路几个方面来讲。</p>
+        <blockquote>
+<p>原文地址：https://liam.page/2017/05/01/the-correct-way-to-use-differential-operator/</p>
+</blockquote>
+<p>此篇讨论很小的「一点」——关于如何正确排版微分算子。</p>
+<p>所谓微分算子 (differential operator)，也就是 <span class="math inline">\(\mathrm{d}x\)</span> 中的 <span class="math inline">\(\mathrm{d}\)</span>. 由于微分算子形式上就是拉丁字母 <code>d</code>；并且国人读起来也是「滴埃克斯」，所以在书写 LaTeX 手稿时，很多人简单粗暴地将微分算子写作 <code>dx</code>，例如不定积分 <code>\int f(x)dx</code>.</p>
+<p>我们说，数学算式是精美而珍贵的。在排版数学算式时，你不能马虎，应该小心谨慎。这也是为什么 Knuth 在设计 TeX 时，将数学式子都包含在美元符号 <code>$</code> 之间的原因。对待微分算子，我们也应该有这样的心态。</p>
 <a id="more"></a>
-<h2 id="音频格式">音频格式</h2>
-<p>最简单的音频格式就是 <strong>脉冲编码调制</strong> (Pulse-code modulation, PCM) 了，这种格式的采样值是关于时间的函数，因此可直接送入 DAC，免去了 CPU 软解或外部解码芯片的使用。</p>
-<p>我们选择的微控制器是 STM32F1 系列，片上 DAC 支持 8 位和 12 位两种深度。为了尽可能不降低音质，只能选择 12 位输出。而常见的音频编码器并不支持这种深度，因此我们决定将 16 位的 PCM 音频进行简单改造，将数据点缩放到 12 位能表示的范围内。</p>
-<p>为这种格式定义的文件头如下（小端格式）：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">PCM_12_LE_HEAD</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint8_t</span>  Artist[<span class="number">16</span>];</span><br><span class="line">    <span class="keyword">uint8_t</span>  Title [<span class="number">16</span>];</span><br><span class="line">    <span class="keyword">uint16_t</span> Chunks;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>其中，Chunks 代表音频文件的 “块数”（人为划分每 256 采样点为一个块）。这是为了便于计算播放进度以及得知播放何时结束。</p>
-<p>尽管每个采样点只需要用到 12 位，但由于数据读入及传输过程都是以字节为最小单位的，因此用 0 补齐 16 位。</p>
-<h2 id="双缓冲">双缓冲</h2>
-<p>使用 SDIO 将数据读入内存缓冲区后，便可以启用 DMA 将采样点传输到 DAC 了。问题在于，缓冲区耗尽后，必须阻塞等待 SD 卡读取完成，才能继续播放，导致音频播放不连贯。</p>
-<p>为解决这个问题，我们采用了双缓冲机制，将缓冲区划分为前后两段，以 DMA 半传输为界，交替完成数据读取，如下图所示：</p>
-<div class="figure">
-<img src="/blog/images/stm32-audio/audio-buffer.png" />
-
-</div>
-<h2 id="外部电路">外部电路</h2>
-<p>基于 TI 的 LM386 实现，这款芯片支持 4V ~ 12V 宽电压供电，默认增益是 20，但也可以自行配置。为了简单，没有分离模拟地和数字地，实践发现对音频干扰并不大，因为几毛钱一个、动态范围仅 5kHz 的廉价扬声器，所带来的音质损失远远大于电源的干扰……</p>
-<p>简单配置一下，即可适用 STM32 DAC 0 ~ 3.3V 的电压输出：</p>
-<div class="figure">
-<img src="/blog/images/stm32-audio/lm386.png" />
-
-</div>
-<h2 id="参考">参考</h2>
-<p><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/application_note/cd00259245-audio-and-waveform-generation-using-the-dac-in-stm32-products-stmicroelectronics.pdf">Audio and waveform generation using the DAC in STM32 products</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/application_note/dm00477514-classd-audio-amplifier-implementation-on-stm32-32bit-arm-cortex-mcus-stmicroelectronics.pdf">Class-D audio amplifier implementation on STM32 32-bit Arm® Cortex® MCUs</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.st.com/resource/en/application_note/dm00129215-extending-the-dac-performance-of-stm32-microcontrollers-stmicroelectronics.pdf">Extending the DAC performance of STM32 micro-controllers</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.element14.com/community/docs/DOC-33449/l/stmicroelectronics-um0891-user-manual-for-stm32100b-eval-demonstration-firmware">STM32100B-EVAL demonstration firmware</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.ti.com/lit/ds/symlink/lm386.pdf">LM386 数据手册</a></p>
+<p>粗话说：「如果没有标准，那所有的争执都是瞎扯淡」。正如单位制有所谓的 ISO 国际单位制一样，数学符号也有对应的 ISO 标准。数学符号的标准，首先是定义在 ISO 31-11 当中；而后这个标准被 ISO 80000-2:2009 取代。因此，此篇讨论的内容，都是基于 ISO 80000-2:2009 的。</p>
+<p>在 ISO 80000-2:2009 中，微分算子被描述为</p>
+<ul>
+<li>直立的拉丁字母 d；</li>
+<li>一个右边没有间距的操作符。</li>
+</ul>
+<p>对于直立的拉丁字母 d，我们可以使用 <code>\mathrm&#123;d&#125;</code> 达成效果。而若要微分算子的左边有间距，而右边没有，这个问题就值得思考了。</p>
+<p>最简单的办法，是将微分算子做如下实现</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\newcommand</span>*&#123;<span class="keyword">\dif</span>&#125;&#123;<span class="keyword">\,</span><span class="keyword">\mathrm</span>&#123;d&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>看起来，这样是没有问题的。但是，在某些情况下，就会出现尴尬的问题。比如</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">关于 <span class="built_in">$</span>x<span class="built_in">$</span> 的微分 <span class="built_in">$</span><span class="keyword">\dif</span> x<span class="built_in">$</span> 是值得思考的问题。</span><br></pre></td></tr></table></figure>
+<p>因为在 <code>\dif</code> 的定义中，<code>\mathrm&#123;d&#125;</code> 之前有不可省略的铅空 <code>\,</code>。于是，这份代码中 <code>\dif x</code> 与前后正文之间的距离就不一致了。为了解决这个问题，更有经验的人可能会选择这样定义</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\newcommand</span>*&#123;<span class="keyword">\dif</span>&#125;&#123;<span class="keyword">\mathop</span>&#123;<span class="keyword">\mathrm</span>&#123;d&#125;&#125;<span class="keyword">\!</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>这份代码，试图利用 <code>\mathop</code>，只在必要的时候于左边插入空白，修复了上面的问题。不过，这样一来也带来了一些副作用——在 <code>\mathop</code> 的作用下，<code>\mathrm&#123;d&#125;</code> 的基线发生了改变，不再与正常的数学变量保持在同一个基线上。这也是不好的。</p>
+<p>最终解决问题，应该对微分算子有这样的定义</p>
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line"><span class="keyword">\newcommand</span>*&#123;<span class="keyword">\dif</span>&#125;&#123;<span class="keyword">\mathop</span>&#123;&#125;<span class="keyword">\!</span><span class="keyword">\mathrm</span>&#123;d&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个定义中，拉丁字母 d 本身的特点得到了保留（比如基线是正常的）。此外，在 <code>\mathrm&#123;d&#125;</code> 的左边，插入了一个空白的 <code>\mathop&#123;&#125;</code>；其左边的空白保留，而右边与 <code>\mathrm&#123;d&#125;</code> 之间的距离，则由 <code>\!</code> 抑制。这样就达成了我们的目标。</p>
+<p>参考：<a target="_blank" rel="noopener" href="http://www.tug.org/TUGboat/Articles/tb18-1/tb54becc.pdf#page=8">Typesetting mathematics for science and technology according to ISO 31/XI</a></p>
 
     </div>
 
@@ -263,9 +253,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/STM32/" rel="tag"># STM32</a>
-              <a href="/blog/tags/ARM/" rel="tag"># ARM</a>
-              <a href="/blog/tags/Audio/" rel="tag"># Audio</a>
+              <a href="/blog/tags/LaTeX/" rel="tag"># LaTeX</a>
           </div>
 
         
@@ -274,12 +262,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/spi-ili9341/" rel="prev" title="SPI 接口的 ILI9341 液晶驱动">
-      <i class="fa fa-chevron-left"></i> SPI 接口的 ILI9341 液晶驱动
+    <a href="/blog/uyhip-encode/" rel="prev" title="UyHiP：对数字进行编码使其按字典序排列后仍然有序">
+      <i class="fa fa-chevron-left"></i> UyHiP：对数字进行编码使其按字典序排列后仍然有序
     </a></div>
       <div class="post-nav-item">
-    <a href="/blog/verilog-6502/" rel="next" title="6502 的 Verilog 简单实现">
-      6502 的 Verilog 简单实现 <i class="fa fa-chevron-right"></i>
+    <a href="/blog/migrate-mdk-to-arm-gcc/" rel="next" title="将 Keil uVision 工程迁移到 GNU 工具链">
+      将 Keil uVision 工程迁移到 GNU 工具链 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -339,7 +327,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">音频格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%BC%93%E5%86%B2"><span class="nav-number">2.</span> <span class="nav-text">双缓冲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E7%94%B5%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">外部电路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -428,7 +415,7 @@
 <script src="/blog/js/schemes/pisces.js"></script>
 
 
-<script src="/blog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/blog/js/next-boot.js"></script>
 
 
 
@@ -452,6 +439,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
 
   
 
