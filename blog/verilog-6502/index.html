@@ -20,17 +20,23 @@
     var CONFIG = {"hostname":"yxnan.tk","root":"/blog/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Sci-Tech Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="typowritter">
-<meta property="og:url" content="http://yxnan.tk/blog/categories/Physics/index.html">
+  <meta name="description" content="在 The 8-Bit Guy 的视频里，经常可以看到 6502 这款微控制器。放了几天假，突然想自己实现一下它的控制逻辑，于是找了些资料就开干了。 6502 大概是被复刻次数最多的微控制器了，之前甚至还看到全用分离器件实现的版本，因此想着自己实现也不是什么难事。 代码：typowritter&#x2F;verilog-6502">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6502 的 Verilog 简单实现">
+<meta property="og:url" content="http://yxnan.tk/blog/verilog-6502/index.html">
 <meta property="og:site_name" content="typowritter">
-<meta property="og:description" content="Sci-Tech Blog">
+<meta property="og:description" content="在 The 8-Bit Guy 的视频里，经常可以看到 6502 这款微控制器。放了几天假，突然想自己实现一下它的控制逻辑，于是找了些资料就开干了。 6502 大概是被复刻次数最多的微控制器了，之前甚至还看到全用分离器件实现的版本，因此想着自己实现也不是什么难事。 代码：typowritter&#x2F;verilog-6502">
 <meta property="og:locale">
+<meta property="og:image" content="http://yxnan.tk/blog/images/verilog-6502/6502-block-diagram.jpg">
+<meta property="article:published_time" content="2020-12-27T04:22:49.000Z">
+<meta property="article:modified_time" content="2021-01-15T14:58:14.539Z">
 <meta property="article:author" content="yxnan">
+<meta property="article:tag" content="6502">
+<meta property="article:tag" content="Verilog">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yxnan.tk/blog/images/verilog-6502/6502-block-diagram.jpg">
 
-<link rel="canonical" href="http://yxnan.tk/blog/categories/Physics/">
+<link rel="canonical" href="http://yxnan.tk/blog/verilog-6502/">
 
 
 <script id="page-configurations">
@@ -38,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'default'
   };
 </script>
 
-  <title>Category: Physics | typowritter</title>
+  <title>6502 的 Verilog 简单实现 | typowritter</title>
   
 
 
@@ -156,71 +162,107 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">Physics
-          <small>Category</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yxnan.tk/blog/verilog-6502/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="yxnan">
+      <meta itemprop="description" content="Sci-Tech Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="typowritter">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6502 的 Verilog 简单实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-27 12:22:49" itemprop="dateCreated datePublished" datetime="2020-12-27T12:22:49+08:00">2020-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-15 22:58:14" itemprop="dateModified" datetime="2021-01-15T22:58:14+08:00">2021-01-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/CPU/" itemprop="url" rel="index"><span itemprop="name">CPU</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2019</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-08-26T16:29:21+08:00"
-              content="2019-08-26">
-          08-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/blog/dim-analysis/" itemprop="url">
-            <span itemprop="name">量纲分析入门</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-04-11T02:03:07+08:00"
-              content="2019-04-11">
-          04-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/blog/lorentz/" itemprop="url">
-            <span itemprop="name">相对论中的 Lorentz 变换与四维矢量</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <p>在 The 8-Bit Guy 的视频里，经常可以看到 6502 这款微控制器。放了几天假，突然想自己实现一下它的控制逻辑，于是找了些资料就开干了。</p>
+<p>6502 大概是被复刻次数最多的微控制器了，之前甚至还看到全用分离器件实现的版本，因此想着自己实现也不是什么难事。</p>
+<p>代码：<a target="_blank" rel="noopener" href="https://github.com/typowritter/verilog-6502">typowritter/verilog-6502</a></p>
+<a id="more"></a>
+<h2 id="说明">说明</h2>
+<p>这个实现是 Cycle-accurate 的（相比 MC6502 而言）</p>
+<p>目前 IRQ/NMI 处理还有问题，缺少 PC 和 PSR 入栈过程。需要和 core sequencer 结合起来实现。</p>
+<p>总体设计参考了这张图：<a target="_blank" rel="noopener" href="http://ladybug.xs4all.nl/arlet/fpga/6502/6502_block_diagram.jpg">6502 block diagram</a></p>
+<div class="figure">
+<img src="/blog/images/verilog-6502/6502-block-diagram.jpg" alt="6502 block diagram" />
+<p class="caption">6502 block diagram</p>
+</div>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/6502/" rel="tag"># 6502</a>
+              <a href="/blog/tags/Verilog/" rel="tag"># Verilog</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/stm32-audio/" rel="prev" title="STM32 DAC 音频输出方案">
+      <i class="fa fa-chevron-left"></i> STM32 DAC 音频输出方案
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -273,6 +315,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
