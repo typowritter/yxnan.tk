@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/yxnan
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://yxnan.tk
+  * I am yxnan (https://keybase.io/yxnan) on keybase.
+  * I have a public key with fingerprint DF3E 9AC7 7C6D 5A09 D4B6  8555 631B 3B15 B793 F1BC
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01019c63df5e484619cca7e39d595eab43a135f095a6e781e87d81483bbe1236e91c0a",
+      "fingerprint": "df3e9ac77c6d5a09d4b68555631b3b15b793f1bc",
+      "host": "keybase.io",
+      "key_id": "631b3b15b793f1bc",
+      "kid": "01019c63df5e484619cca7e39d595eab43a135f095a6e781e87d81483bbe1236e91c0a",
+      "uid": "63321ebd5f5b2fe3f704c575cf328219",
+      "username": "yxnan"
+    },
+    "service": {
+      "hostname": "yxnan.tk",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1611052402,
+  "expire_in": 157680000,
+  "prev": "7ba1ea3dbb551220e717bddec97899ddb652b293008c8835d8a103541c43dca3",
+  "seqno": 16,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.13
+Comment: https://keybase.io/crypto
+
+yMIgAnicrVJbSBVRFL1mJVmRFZT0oJgoetxkzpw587Aiw34qUbKPSI3rOXPO6PiY
+e5uZa14si6CfHkQRZAQVSUqpcQuFzLJ8RIkZJhEUPcT0M5WCkMrqTBT00Wfn57D3
+XmvttTe7e3ZiIDnhfDTn9vys7NGE3o7T0UDh9BanSiBhGhPSq4RS9utjZZS5XqjU
+okK6IAIR6IYCqYmYrMkKDwysMqhTpCOGiQwxgMgUdYQVpmqAaSrVgKxBQhiQoMJ0
+YIhYCAqmZRcxJ+JYtsdlqQmZjg1VNRSKsKhTmSgaQkiBgEACEFF1aAJicGJx2PUZ
+3BzBLkuzwjzHg9Ave//A/2ff0d99oAQYochERDIZNFVRNpCKDBNKmgR0H+gyx8bl
+jKNjlTa2hYNBgacqLIP5W/XH+Luc5pVyUsQJe2EjXMazxZ4XcdN9lheL+LD9jIR+
+C4SIZVO+QM6oYI5rhW0hHXCk4Vm+IlAAEJEki1JQYJURy2Ehy0cgVdFE/vw+rIJL
+qgQDhiElBCEgSSJTgUooZYauarpOKVGQRCQdiqJmaBpEVMNAhEgGhgypgaHgj7TP
+DvstuU9cxDVdq8jGXtRhwsHOBwVTAwnJgenTpviXFUiekfLn3jLzk77N7BhOUT+8
+P/B26qHJHYPt8aSRrwlPn+/duKz9eEnitewDGUvOjKY+OfUdDjXG3YaWI/BqxkB2
+3RczUy4J1qYmKjcXTrxa0btoXk3+xRu9WS3mWwdsG8w790p+Y9c4bes/H34d6eyM
+xffkYrdg4t7HrSuPO/t6Focu/ajZktmwa+KL8W5z/Sq5rWnB9toTI5/El9MmYgMP
+d48vbpIfbYqtLWgej/eMPNNTm5sft+Y0RW91lmd3tS1tzVm+oetYbiO5f/J83eTQ
+WP7cvhd3s6z48pLCo/nDFSNz1t1Z3Vf9YfJsw85o1dGmy3XVm+t3wwtjpY39N69k
+jOV1r0kqK+rfgWb1Xv8JNoxGIw==
+=0LXF
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/yxnan
+
+==================================================================
