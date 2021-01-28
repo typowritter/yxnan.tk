@@ -187,7 +187,7 @@
             logwrite "unvpk: $unvpk_result"
 
             cd $vpk_tmp && mv ' '/* .
-            rm -rf materials particles sound *.jpg *.vtf
+            rm -rf !(maps|missions|models|addoninfo.txt)
 
             if [ <span style="color: rgb(255, 0, 0);">-e missions</span> ]; then
                 mapcmd="，建图代码：$(ls missions/* | $GETMAPCMD)"
@@ -219,10 +219,9 @@
             done
         else
             logwrite "试图解压失败，放弃文件"
-            rm -rf "$fullpath"
         fi
 
-        rm -rf $unar_tmp
+        rm -rf $unar_tmp "$fullpath"
         log_final
 
     </pre>
