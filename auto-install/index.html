@@ -187,7 +187,8 @@
             logwrite "unvpk: $unvpk_result"
 
             cd $vpk_tmp && mv ' '/* .
-            rm -rf !(maps|missions|models|addoninfo.txt)
+            shopt -s extglob
+            eval 'rm -rf !(maps|missions|models|scripts|addoninfo.txt)'
 
             if [ <span style="color: rgb(255, 0, 0);">-e missions</span> ]; then
                 mapcmd="，建图代码：$(ls missions/* | $GETMAPCMD)"
