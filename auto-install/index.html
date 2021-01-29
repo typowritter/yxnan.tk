@@ -120,12 +120,12 @@
     <pre>
     <b>~/watch-ftp</b><br>
         #!/bin/bash
-        screen -dm -S watch iwatch -e <span style="color: rgb(255, 0, 0);">close_write</span> -c "~/process-file" /var/ftp/[USER]/upload
+        screen -dm -S watch iwatch -e <span style="color: rgb(255, 0, 0);">close_write</span> -c "~/process-file %f" /var/ftp/[USER]/upload
     </pre>
 
     其中，<code>~/process-file</code> 是我们将要编写的处理脚本。<br>
-    实际上，<code>iwatch</code> 可以用 <code>%f</code> 代表触发动作的文件，但我在测试中发现，它不支持中文，因此只好在处理脚本里手动读取。<br>
-    （等有时间了翻翻它的源码，加上中文支持）
+    <code>%f</code> 代表触发动作的文件完整路径。<br>
+    （为了使 <code>iwatch</code> 能够正确替换 <code>%f</code>，我们需要给它加上 UTF-8 支持，见附录）
     <br><br>
 
     <br><br><br>
@@ -153,25 +153,24 @@
             iconv -f utf8 -t gbk $log_file > $log_file_pub
         }
 
+        fullpath="$1"
+        filename=$(basename "$fullpath")
         <b># 检查不合法上传</b>
-        if ! [[ $(ls -1 $upload_dir | head -1) =~ <b>vpk|zip|rar|7z|restart</b> ]]; then
-            rm -rf $upload_dir/*
+        if ! [[ "$filename" =~ <b>vpk|zip|rar|7z|restart</b> ]]; then
+            rm -rf "$fullpath"
             exit
         fi
 
         <b># 处理重启服务器指令</b>
-        reset_cmd="$upload_dir/restart"
-        if [ <span style="color: rgb(255, 0, 0);">-e $reset_cmd</span> ]; then
+        if [ <span style="color: rgb(255, 0, 0);">"$filename" == "restart"</span> ]; then
             screen -S l4d2 -X stuff "quit^M"  # 重启服务器
             logwrite "服务器重启"
-            rm -rf $reset_cmd
+            rm -rf "$fullpath"
             log_final && exit
         fi
 
 
         <b># 处理地图上传</b>
-        fullpath=$(<span style="color: rgb(255, 0, 0);">ls -1 $upload_dir/*.{vpk,zip,rar,7z} | head -1</span>) # 取得上传的文件
-        filename=$(basename "$fullpath")
         <b>VPK=~/.local/bin/vpk
         UNVPK=~/.local/bin/unvpk</b>
         GETMAPCMD=~/getmapcmd
@@ -188,7 +187,7 @@
 
             cd $vpk_tmp && mv ' '/* .
             shopt -s extglob
-            eval 'rm -rf !(maps|missions|models|scripts|addoninfo.txt)'
+            eval 'rm -rf !(<b>maps|missions|models|scripts|addoninfo.txt</b>)'
 
             if [ <span style="color: rgb(255, 0, 0);">-e missions</span> ]; then
                 mapcmd="，建图代码：$(ls missions/* | $GETMAPCMD)"
@@ -208,7 +207,7 @@
         unar_tmp=$(mktemp -d -t unar-XXXX)
         logwrite "收到文件：$filename"
 
-        if [ <b>${filename: -4} == ".vpk"</b> ]; then
+        if [ <b>${filename: -3} == "vpk"</b> ]; then
             process_vpk "$fullpath"
         elif <span style="color: rgb(255, 0, 0);">unar -o $unar_tmp "$fullpath"</span>; then
             rm -rf "$fullpath"
@@ -229,9 +228,6 @@
     <br>
 
     你看到了我是怎样实现重启的吗？<br>
-    <br>
-    注意，我这里假设了同一时间只会有一个文件传输完成（上面对 <code>ls</code> 输出取了 <code><b>head -1</b></code>）<br>
-    这是一个暂时的权宜之计，等到 <code>iwatch</code> 支持中文后，就可以直接传入文件名，不需要自己读了。<br>
     <br>
     为方便起见，这里已经把 log 放置到了 https 服务器上，直接在网页里就能查看：<a href="https://yxnan.cn/misc/watch_log.txt">watch_log.txt</a>
     <br><br>
@@ -255,14 +251,61 @@
     怎么样，现在还有人说不会？罚你去把 hehe 全系列单通一遍 :-)
     <br><br>
 
+
     <br><br><br>
     <font size=+2>
-    PS
+    P.S. (iwatch UTF-8 支持)
+    <br><br>
+    </font>
+
+    <code>iwatch</code>实际上是一个 Perl 文件：<br>
+    <br>
+    <pre>
+    <span style="color: rgb(0, 200, 0);"><b>$ file `which iwatch`</b></span>
+        /usr/bin/iwatch: Perl script text executable
+    </pre>
+
+    我们知道 PerlIO 的 UTF-8 模式不是默认打开的，因此在传递非 ASCII 字符时就会出现问题。<br>
+    而刚好这个脚本忽略了这一点，所以我们需要手动将其打开：<br>
+    <br>
+    <pre><b>
+      <span style="color: rgb(153, 153, 153);">--- a/iwatch</span>
+      <span style="color: rgb(153, 153, 153);">+++ b/iwatch</span>
+      <span style="color: rgb(30, 144, 255);">@@ -19,6 +19,9 @@</span>
+       use XML::SimpleObject::LibXML;
+       use POSIX;
+       use Sys::Syslog;
+      <span style="color: rgb(154, 205, 50);">+# Force UTF-8 interpretation of strings and IO.</span>
+      <span style="color: rgb(154, 205, 50);">+use utf8;</span>
+      <span style="color: rgb(154, 205, 50);">+use open qw|:utf8 :std|;</span>
+
+       my $PROGRAM = "iWatch";
+       my $VERSION = "0.2.2";
+
+      <span style="color: rgb(30, 144, 255);">@@ -416,6 +416,8 @@</span>
+           $command =~ /^(.+)$/;
+           return if(!defined($1));
+           my $securecommand = $1;
+      <span style="color: rgb(154, 205, 50);">+    # Force byte-string semantics [why does that work?].
+      +    utf8::downgrade($securecommand) if (utf8::is_utf8($securecommand));</span>
+           system("$securecommand");
+        }
+        if(defined($Message) && $Path->{'alert'}) {
+    </b></pre>
+    <br>
+    参考来源一：<a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=608843">Debian Bug report logs - #608843</a><br>
+    参考来源二：<a href="https://www.perl.com/pub/2012/05/perlunicook-make-all-io-default-to-utf-8.html/">Perl Unicode Cookbook: Make All I/O Default to UTF-8</a>
+    <br><br>
+
+    <br><br><br>
+    <font size=+2>
+    P.P.S.
     <br><br>
     </font>
 
     上面用到的部分工具：<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2181019651">Linux Dev Toolchain Collection</a><br>
     （我自己的 Steam 指南，引 流 之 主）
+    <br><br>
   </div>
 </body>
 </html>
