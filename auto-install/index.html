@@ -187,18 +187,20 @@
 
             cd $vpk_tmp && mv ' '/* .
             shopt -s extglob
-            eval 'rm -rf !(<b>maps|missions|models|scripts|addoninfo.txt</b>)'
-
-            if [ <span style="color: rgb(255, 0, 0);">-e missions</span> ]; then
-                mapcmd="，建图代码：$(ls missions/* | $GETMAPCMD)"
+            eval 'rm -rf !(<b>maps|modes|missions|models|scripts|addoninfo.txt</b>)'
+            if [ <span style="color: rgb(255, 0, 0);">-e modes</span> ]; then
+                vpk_type="变异模式"
+                vpk_info="模式名：$(t=$(basename $(ls modes/*));echo ${t%.*})"
+            elif [ <span style="color: rgb(255, 0, 0);">-e missions</span> ]; then
+                vpk_type="地图"
+                vpk_info="建图代码：$(ls missions/* | $GETMAPCMD)"
             fi
 
             <b>$VPK -c $vpk_tmp "$vpk_dist"</b> && cd -
-
             if [ <span style="color: rgb(255, 0, 0);">-e "$vpk_dist"</span> ]; then
-                logwrite "地图已安装$mapcmd"
+                logwrite "$vpk_type已安装，$vpk_info"
             else
-                logwrite "地图安装失败，请联系管理员解决"
+                logwrite "VPK安装失败，请联系管理员解决"
             fi
 
             rm -rf $vpk_tmp
