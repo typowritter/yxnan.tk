@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>3rdpartymaps</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+<title>3rdpartymaps</title><link href='https://fonts.loli.net/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
 .mac-os-11 { --title-bar-height:28px; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
 body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
@@ -164,53 +164,165 @@ mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
 .md-require-zoom-fix foreignobject { font-size: var(--mermaid-font-zoom); }
 
 
+/* meyer reset -- http://meyerweb.com/eric/tools/css/reset/ , v2.0 | 20110126 | License: none (public domain) */
+
+@include-when-export url(https://fonts.loli.net/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext);
+
+/* =========== */
+
+/* pt-serif-regular - latin */
+/* pt-serif-italic - latin */
+/* pt-serif-700 - latin */
+/* pt-serif-700italic - latin */
 :root {
-    --side-bar-bg-color: #fafafa;
-    --control-text-color: #777;
+	--active-file-bg-color: #dadada;
+	--active-file-bg-color: rgba(32, 43, 51, 0.63);
+	--active-file-text-color: white;
+	--bg-color: #f3f2ee;
+	--text-color: #1f0909;
+	--control-text-color: #444;
+	--rawblock-edit-panel-bd: #e5e5e5;
+
+	--select-text-bg-color: rgba(32, 43, 51, 0.63);
+  --select-text-font-color: white;
 }
 
-@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
-
-/* open-sans-regular - latin-ext_latin */
-  /* open-sans-italic - latin-ext_latin */
-    /* open-sans-700 - latin-ext_latin */
-    /* open-sans-700italic - latin-ext_latin */
-  html {
-    font-size: 16px;
+pre {
+	--select-text-bg-color: #36284e;
+	--select-text-font-color: #fff;
 }
 
-body {
-    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: rgb(51, 51, 51);
-    line-height: 1.6;
+html {
+	font-size: 16px;
 }
+
+html, body {
+	background-color: #f3f2ee;
+	font-family: "PT Serif", 'Times New Roman', Times, serif;
+	color: #1f0909;
+	line-height: 1.5em;
+}
+
+/*#write {
+	overflow-x: auto;
+    max-width: initial;
+	padding-left: calc(50% - 17em);
+    padding-right: calc(50% - 17em);
+}
+
+@media (max-width: 36em) {
+ 	#write {
+ 		padding-left: 1em;
+    	padding-right: 1em;
+ 	}
+}*/
 
 #write {
-    max-width: 860px;
-  	margin: 0 auto;
-  	padding: 30px;
-    padding-bottom: 100px;
+	max-width: 40em;
 }
 
 @media only screen and (min-width: 1400px) {
 	#write {
-		max-width: 1024px;
+			max-width: 914px;
 	}
 }
 
-@media only screen and (min-width: 1800px) {
-	#write {
-		max-width: 1200px;
-	}
+ol li {
+	list-style-type: decimal;
+	list-style-position: outside;
+}
+ul li {
+	list-style-type: disc;
+	list-style-position: outside;
 }
 
-#write > ul:first-child,
-#write > ol:first-child{
-    margin-top: 30px;
+ol,
+ul {
+	list-style: none;
 }
+
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* styles */
+
+/* ====== */
+
+/* headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: bold;
+}
+h1 {
+	font-size: 1.875em;
+	/*30 / 16*/
+	line-height: 1.6em;
+	/* 48 / 30*/
+	margin-top: 2em;
+}
+h2,
+h3 {
+	font-size: 1.3125em;
+	/*21 / 16*/
+	line-height: 1.15;
+	/*24 / 21*/
+	margin-top: 2.285714em;
+	/*48 / 21*/
+	margin-bottom: 1.15em;
+	/*24 / 21*/
+}
+h3 {
+	font-weight: normal;
+}
+h4 {
+	font-size: 1.125em;
+	/*18 / 16*/
+	margin-top: 2.67em;
+	/*48 / 18*/
+}
+h5,
+h6 {
+	font-size: 1em;
+	/*16*/
+}
+h1 {
+	border-bottom: 1px solid;
+	margin-bottom: 1.875em;
+	padding-bottom: 0.8125em;
+}
+/* links */
 
 a {
-    color: #4183C4;
+	text-decoration: none;
+	color: #065588;
+}
+a:hover,
+a:active {
+	text-decoration: underline;
+}
+/* block spacing */
+
+p,
+blockquote,
+.md-fences {
+	margin-bottom: 1.5em;
 }
 h1,
 h2,
@@ -218,336 +330,426 @@ h3,
 h4,
 h5,
 h6 {
-    position: relative;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    line-height: 1.4;
-    cursor: text;
+	margin-bottom: 1.5em;
 }
-h1:hover a.anchor,
-h2:hover a.anchor,
-h3:hover a.anchor,
-h4:hover a.anchor,
-h5:hover a.anchor,
-h6:hover a.anchor {
-    text-decoration: none;
-}
-h1 tt,
-h1 code {
-    font-size: inherit;
-}
-h2 tt,
-h2 code {
-    font-size: inherit;
-}
-h3 tt,
-h3 code {
-    font-size: inherit;
-}
-h4 tt,
-h4 code {
-    font-size: inherit;
-}
-h5 tt,
-h5 code {
-    font-size: inherit;
-}
-h6 tt,
-h6 code {
-    font-size: inherit;
-}
-h1 {
-    font-size: 2.25em;
-    line-height: 1.2;
-    border-bottom: 1px solid #eee;
-}
-h2 {
-    font-size: 1.75em;
-    line-height: 1.225;
-    border-bottom: 1px solid #eee;
-}
+/* blockquote */
 
-/*@media print {
-    .typora-export h1,
-    .typora-export h2 {
-        border-bottom: none;
-        padding-bottom: initial;
-    }
+blockquote {
+	font-style: italic;
+	border-left: 5px solid;
+	margin-left: 2em;
+	padding-left: 1em;
+}
+/* lists */
 
-    .typora-export h1::after,
-    .typora-export h2::after {
-        content: "";
-        display: block;
-        height: 100px;
-        margin-top: -96px;
-        border-top: 1px solid #eee;
-    }
-}*/
-
-h3 {
-    font-size: 1.5em;
-    line-height: 1.43;
-}
-h4 {
-    font-size: 1.25em;
-}
-h5 {
-    font-size: 1em;
-}
-h6 {
-   font-size: 1em;
-    color: #777;
-}
-p,
-blockquote,
-ul,
-ol,
-dl,
-table{
-    margin: 0.8em 0;
-}
-li>ol,
-li>ul {
-    margin: 0 0;
-}
-hr {
-    height: 2px;
-    padding: 0;
-    margin: 16px 0;
-    background-color: #e7e7e7;
-    border: 0 none;
-    overflow: hidden;
-    box-sizing: content-box;
-}
-
-li p.first {
-    display: inline-block;
-}
 ul,
 ol {
-    padding-left: 30px;
+	margin: 0 0 1.5em 1.5em;
 }
-ul:first-child,
-ol:first-child {
-    margin-top: 0;
+/* tables */
+.md-meta,.md-before, .md-after {
+	color:#999;
 }
-ul:last-child,
-ol:last-child {
-    margin-bottom: 0;
-}
-blockquote {
-    border-left: 4px solid #dfe2e5;
-    padding: 0 15px;
-    color: #777777;
-}
-blockquote blockquote {
-    padding-right: 0;
-}
+
 table {
-    padding: 0;
-    word-break: initial;
+	margin-bottom: 1.5em;
+	/*24 / 16*/
+	font-size: 1em;
+	/* width: 100%; */
 }
-table tr {
-    border-top: 1px solid #dfe2e5;
-    margin: 0;
-    padding: 0;
+thead th,
+tfoot th {
+	padding: .25em .25em .25em .4em;
+	text-transform: uppercase;
 }
-table tr:nth-child(2n),
-thead {
-    background-color: #f8f8f8;
+th {
+	text-align: left;
 }
-table th {
-    font-weight: bold;
-    border: 1px solid #dfe2e5;
-    border-bottom: 0;
-    margin: 0;
-    padding: 6px 13px;
-}
-table td {
-    border: 1px solid #dfe2e5;
-    margin: 0;
-    padding: 6px 13px;
-}
-table th:first-child,
-table td:first-child {
-    margin-top: 0;
-}
-table th:last-child,
-table td:last-child {
-    margin-bottom: 0;
+td {
+	vertical-align: top;
+	padding: .25em .25em .25em .4em;
 }
 
-.CodeMirror-lines {
-    padding-left: 4px;
-}
-
-.code-tooltip {
-    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
-    border-top: 1px solid #eef2f2;
-}
-
-.md-fences,
 code,
-tt {
-    border: 1px solid #e7eaed;
-    background-color: #f8f8f8;
-    border-radius: 3px;
-    padding: 0;
-    padding: 2px 4px 0px 4px;
-    font-size: 0.9em;
+.md-fences {
+	background-color: #dadada;
 }
 
 code {
-    background-color: #f3f4f4;
-    padding: 0 2px 0 2px;
+	padding-left: 2px;
+	padding-right: 2px;
 }
 
 .md-fences {
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-top: 8px;
-    padding-bottom: 6px;
+	margin-left: 2em;
+	margin-bottom: 3em;
+	padding-left: 1ch;
+	padding-right: 1ch;
 }
 
+pre,
+code,
+tt {
+	font-size: .875em;
+	line-height: 1.714285em;
+}
+/* some fixes */
 
-.md-task-list-item > input {
-  margin-left: -1.3em;
+h1 {
+	line-height: 1.3em;
+	font-weight: normal;
+	margin-bottom: 0.5em;
 }
 
-@media print {
-    html {
-        font-size: 13px;
-    }
-    table,
-    pre {
-        page-break-inside: avoid;
-    }
-    pre {
-        word-wrap: break-word;
-    }
+p + ul,
+p + ol{
+	margin-top: .5em;
 }
 
-.md-fences {
-	background-color: #f8f8f8;
+h3 + ul,
+h4 + ul,
+h5 + ul,
+h6 + ul,
+h3 + ol,
+h4 + ol,
+h5 + ol,
+h6 + ol {
+	margin-top: .5em;
 }
+
+li > ul,
+li > ol {
+	margin-top: inherit;
+	margin-bottom: 0;
+}
+
+li ol>li {
+	list-style-type: lower-alpha;
+}
+
+li li ol>li{
+	list-style-type: lower-roman;
+}
+
+h2,
+h3 {
+	margin-bottom: .75em;
+}
+hr {
+	border-top: none;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: none;
+}
+h1 {
+	border-color: #c5c5c5;
+}
+blockquote {
+	border-color: #bababa;
+	color: #656565;
+}
+
+blockquote ul,
+blockquote ol {
+	margin-left:0;
+}
+
+.ty-table-edit {
+	background-color: transparent;
+}
+thead {
+	background-color: #dadada;
+}
+tr:nth-child(even) {
+	background: #e8e7e7;
+}
+hr {
+	border-color: #c5c5c5;
+}
+.task-list{
+	padding-left: 1rem;
+}
+
+.md-task-list-item {
+	padding-left: 1.5rem;
+	list-style-type: none;
+}
+
+.md-task-list-item > input:before {
+	content: '\221A';
+	display: inline-block;
+	width: 1.25rem;
+  	height: 1.6rem;
+	vertical-align: middle;
+	text-align: center;
+	color: #ddd;
+	background-color: #F3F2EE;
+}
+
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before{
+	color: inherit;
+}
+
 #write pre.md-meta-block {
-	padding: 1rem;
-    font-size: 85%;
-    line-height: 1.45;
-    background-color: #f7f7f7;
-    border: 0;
-    border-radius: 3px;
-    color: #777777;
-    margin-top: 0 !important;
+	min-height: 1.875rem;
+	color: #555;
+	border: 0px;
+	background: transparent;
+	margin-top: -4px;
+	margin-left: 1em;
+	margin-top: 1em;
 }
 
-.mathjax-block>.code-tooltip {
-	bottom: .375rem;
+.md-image>.md-meta {
+	color: #9B5146;
 }
 
-.md-mathjax-midline {
-    background: #fafafa;
+.md-image>.md-meta{
+	font-family: Menlo, 'Ubuntu Mono', Consolas, 'Courier New', 'Microsoft Yahei', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', serif;
 }
+
 
 #write>h3.md-focus:before{
-	left: -1.5625rem;
-	top: .375rem;
+	left: -1.5rem;
+	color:#999;
+	border-color:#999;
 }
 #write>h4.md-focus:before{
-	left: -1.5625rem;
-	top: .285714286rem;
+	left: -1.5rem;
+	top: .25rem;
+	color:#999;
+	border-color:#999;
 }
 #write>h5.md-focus:before{
-	left: -1.5625rem;
-	top: .285714286rem;
+	left: -1.5rem;
+	top: .0.3125rem;
+	color:#999;
+	border-color:#999;
 }
 #write>h6.md-focus:before{
-	left: -1.5625rem;
-	top: .285714286rem;
+	left: -1.5rem;
+	top: 0.3125rem;
+	color:#999;
+	border-color:#999;
 }
-.md-image>.md-meta {
-    /*border: 1px solid #ddd;*/
-    border-radius: 3px;
-    padding: 2px 0px 0px 4px;
-    font-size: 0.9em;
+
+.md-toc:focus .md-toc-content{
+	margin-top: 19px;
+}
+
+.md-toc-content:empty:before{
+	color: #065588;
+}
+.md-toc-item {
+	color: #065588;
+}
+#write div.md-toc-tooltip {
+	background-color: #f3f2ee;
+}
+
+#typora-sidebar {
+	background-color: #f3f2ee;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
+  	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.375);
+}
+
+.pin-outline #typora-sidebar {
+	background: inherit;
+	box-shadow: none;
+	border-right: 1px dashed;
+}
+
+.pin-outline #typora-sidebar:hover .outline-title-wrapper {
+	border-left:1px dashed;
+}
+
+.outline-item:hover {
+  background-color: #dadada;
+  border-left: 28px solid #dadada;
+  border-right: 18px solid #dadada;
+}
+
+.typora-node .outline-item:hover {
+  	border-right: 28px solid #dadada;
+}
+
+.outline-expander:before {
+  content: "\f0da";
+  font-family: FontAwesome;
+  font-size:14px;
+  top: 1px;
+}
+
+.outline-expander:hover:before,
+.outline-item-open>.outline-item>.outline-expander:before {
+  content: "\f0d7";
+}
+
+.modal-content {
+	background-color: #f3f2ee;
+}
+
+.auto-suggest-container ul li {
+	list-style-type: none;
+}
+
+/** UI for electron */
+
+.megamenu-menu,
+#top-titlebar, #top-titlebar *,
+.megamenu-content {
+	background: #f3f2ee;
+	color: #1f0909;
+}
+
+.megamenu-menu-header {
+	border-bottom: 1px dashed #202B33;
+}
+
+.megamenu-menu {
+	box-shadow: none;
+	border-right: 1px dashed;
+}
+
+header, .context-menu, .megamenu-content, footer {
+	font-family: "PT Serif", 'Times New Roman', Times, serif;
+    color: #1f0909;
+}
+
+#megamenu-back-btn {
+	color: #1f0909;
+	border-color: #1f0909;
+}
+
+.megamenu-menu-header #megamenu-menu-header-title:before {
+	color: #1f0909;
+}
+
+.megamenu-menu-list li a:hover, .megamenu-menu-list li a.active {
+	color: inherit;
+	background-color: #e8e7df;
+}
+
+.long-btn:hover {
+	background-color: #e8e7df;
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background-color: transparent !important;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
     color: inherit;
 }
 
-.md-tag {
-    color: #a7a7a7;
-    opacity: 1;
+.megamenu-menu-panel .btn {
+	background-color: #D2D1D1;
 }
 
-.md-toc { 
-    margin-top:20px;
-    padding-bottom:20px;
+.btn-default {
+	background-color: transparent;
 }
 
-.sidebar-tabs {
-    border-bottom: none;
+.typora-sourceview-on #toggle-sourceview-btn,
+.ty-show-word-count #footer-word-count {
+	background: #c7c5c5;
 }
 
 #typora-quick-open {
-    border: 1px solid #ddd;
-    background-color: #f8f8f8;
+    background-color: inherit;
 }
 
-#typora-quick-open-item {
-    background-color: #FAFAFA;
-    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
-    border-style: solid;
-    border-width: 1px;
+.md-diagram-panel {
+	margin-top: 8px;
 }
 
-/** focus mode */
-.on-focus-mode blockquote {
-    border-left-color: rgba(85, 85, 85, 0.12);
+.file-list-item-file-name {
+	font-weight: initial;
 }
 
-header, .context-menu, .megamenu-content, footer{
-    font-family: "Segoe UI", "Arial", sans-serif;
+.file-list-item-summary {
+	opacity: 1;
 }
 
-.file-node-content:hover .file-node-icon,
-.file-node-content:hover .file-node-open-state{
-    visibility: visible;
+.file-list-item {
+	color: #777;
 }
 
-.mac-seamless-mode #typora-sidebar {
-    background-color: #fafafa;
-    background-color: var(--side-bar-bg-color);
+.file-list-item.active {
+	background-color: inherit;
+	color: black;
 }
 
-.md-lang {
-    color: #b4654d;
+.ty-side-sort-btn.active {
+	background-color: inherit;
 }
 
-.html-for-mac .context-menu {
-    --item-hover-bg-color: #E6F0FE;
+.file-list-item.active .file-list-item-file-name  {
+	font-weight: bold;
 }
 
-#md-notification .btn {
-    border: 0;
+.file-list-item{
+    opacity:1 !important;
+}
+
+.file-library-node.active>.file-node-background{
+	background-color: rgba(32, 43, 51, 0.63);
+	background-color: var(--active-file-bg-color);
+}
+
+.file-tree-node.active>.file-node-content{
+	color: white;
+	color: var(--active-file-text-color);
+}
+
+.md-task-list-item>input {
+	margin-left: -1.7em;
+	margin-top: calc(1rem - 12px);
+}
+
+input {
+	border: 1px solid #aaa;
+}
+
+.megamenu-menu-header #megamenu-menu-header-title,
+.megamenu-menu-header:hover, 
+.megamenu-menu-header:focus {
+	color: inherit;
 }
 
 .dropdown-menu .divider {
-    border-color: #e5e5e5;
+	border-color: #e5e5e5;
 }
 
-.ty-preferences .window-content {
-    background-color: #fafafa;
+/* https://github.com/typora/typora-issues/issues/2046 */
+.os-windows-7 strong,
+.os-windows-7 strong  {
+	font-weight: 760;
 }
 
-.ty-preferences .nav-group-item.active {
-    color: white;
-    background: #999;
+.ty-preferences .btn-default {
+	background: transparent;
+}
+
+.ty-preferences .window-header {
+	border-bottom: 1px dashed #202B33;
+	box-shadow: none;
+}
+
+#sidebar-loading-template, #sidebar-loading-template.file-list-item {
+	color: #777;
+}
+
+.searchpanel-search-option-btn.active {
+	background: #777;
+	color: white;
 }
 
 
 </style>
 </head>
 <body class='typora-export'>
-<div id='write'  class=''><h2><a name="注意" class="md-header-anchor"></a><span>注意</span></h2><ol start='' ><li><span>由于成本原因，本站不提供三方图资源，请自行搜索下载</span></li><li><span>搜索不到时，请结合中英文重新搜索</span></li><li><span>下载地图时请对照版本号确认一致</span></li></ol><h2><a name="常见三方图下载站" class="md-header-anchor"></a><span>常见三方图下载站</span></h2><ol start='' ><li><span>Steam 创意工坊订阅</span></li><li><a href='http://www.orangetage.com/map/'><span>橙子游戏网</span></a></li><li><a href='https://www.gamemaps.com/l4d2/maps'><span>Gamemaps (外网)</span></a></li></ol><figure><table><thead><tr><th style='text-align:center;' ><span>中文名</span></th><th style='text-align:center;' ><span>英文名</span></th><th style='text-align:center;' ><span>版本号（忽略小数点）</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>水坝任务</span></td><td style='text-align:center;' ><span>A Dam Mission fixed</span></td><td style='text-align:center;' ><span>v23</span></td></tr><tr><td style='text-align:center;' ><span>失落之地</span></td><td style='text-align:center;' ><span>A Forgotten Place</span></td><td style='text-align:center;' ><span>v101</span></td></tr><tr><td style='text-align:center;' ><span>由始至终</span></td><td style='text-align:center;' ><span>Beginning to Crossover</span></td><td style='text-align:center;' ><span>v34</span></td></tr><tr><td style='text-align:center;' ><span>深埋</span></td><td style='text-align:center;' ><span>Buried Deep</span></td><td style='text-align:center;' ><span>v152</span></td></tr><tr><td style='text-align:center;' ><span>最后一搏：白天</span></td><td style='text-align:center;' ><span>The Last Daylight</span></td><td style='text-align:center;' ><span>v21</span></td></tr><tr><td style='text-align:center;' ><span>复杂过程</span></td><td style='text-align:center;' ><span>Complex Course</span></td><td style='text-align:center;' ><span>v3</span></td></tr><tr><td style='text-align:center;' ><span>治愈</span></td><td style='text-align:center;' ><span>The Cure</span></td><td style='text-align:center;' ><span>v13</span></td></tr><tr><td style='text-align:center;' ><span>治愈2</span></td><td style='text-align:center;' ><span>Cure 2</span></td><td style='text-align:center;' ><span>v12</span></td></tr><tr><td style='text-align:center;' ><span>活死人黎明：加长版</span></td><td style='text-align:center;' ><span>Dead Before Dawn extended</span></td><td style='text-align:center;' ><span>v41</span></td></tr><tr><td style='text-align:center;' ><span>死亡中心：重生</span></td><td style='text-align:center;' ><span>Dead Center: Rebirth</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>连续死亡</span></td><td style='text-align:center;' ><span>Dead Series</span></td><td style='text-align:center;' ><span>v40</span></td></tr><tr><td style='text-align:center;' ><span>连续死亡：原版</span></td><td style='text-align:center;' ><span>Dead Series original</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>幽灵船2</span></td><td style='text-align:center;' ><span>Death Aboard 2</span></td><td style='text-align:center;' ><span>v21</span></td></tr><tr><td style='text-align:center;' ><span>死亡判决</span></td><td style='text-align:center;' ><span>Death Sentence</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>死亡夏天</span></td><td style='text-align:center;' ><span>Death Summer</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>深邃恐惧</span></td><td style='text-align:center;' ><span>Deep Phobia</span></td><td style='text-align:center;' ><span>v11</span></td></tr><tr><td style='text-align:center;' ><span>血本无归</span></td><td style='text-align:center;' ><span>Down the Drain</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>异度神召</span></td><td style='text-align:center;' ><span>Divine Cybermancy</span></td><td style='text-align:center;' ><span>v36</span></td></tr><tr><td style='text-align:center;' ><span>真道</span></td><td style='text-align:center;' ><span>True Fangshi</span></td><td style='text-align:center;' ><span>v11</span></td></tr><tr><td style='text-align:center;' ><span>再见了晨茗</span></td><td style='text-align:center;' ><span>Farewell Chenming</span></td><td style='text-align:center;' ><span>v40</span></td></tr><tr><td style='text-align:center;' ><span>生还之锋</span></td><td style='text-align:center;' ><span>FOS</span></td><td style='text-align:center;' ><span>v19</span></td></tr><tr><td style='text-align:center;' ><span>飞溅山之旅</span></td><td style='text-align:center;' ><span>Journey to Splash Mountain</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>古墓亡影</span></td><td style='text-align:center;' ><span>One 4 Nine</span></td><td style='text-align:center;' ><span>v13</span></td></tr><tr><td style='text-align:center;' ><span>血腥荒野</span></td><td style='text-align:center;' ><span>The Bloody Moors</span></td><td style='text-align:center;' ><span>v4</span></td></tr><tr><td style='text-align:center;' ><span>去年夏天</span></td><td style='text-align:center;' ><span>Last Summer</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>乐高世界</span></td><td style='text-align:center;' ><span>Left 4 Lego</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>封锁</span></td><td style='text-align:center;' ><span>Lockdown</span></td><td style='text-align:center;' ><span>v4</span></td></tr><tr><td style='text-align:center;' ><span>失踪</span></td><td style='text-align:center;' ><span>Lost</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>奥创</span></td><td style='text-align:center;' ><span>Outrun</span></td><td style='text-align:center;' ><span>v20</span></td></tr><tr><td style='text-align:center;' ><span>可乐之塔</span></td><td style='text-align:center;' ><span>Pasiri</span></td><td style='text-align:center;' ><span>v5</span></td></tr><tr><td style='text-align:center;' ><span>故乡</span></td><td style='text-align:center;' ><span>Hometown</span></td><td style='text-align:center;' ><span>v162</span></td></tr><tr><td style='text-align:center;' ><span>伦理问题1</span></td><td style='text-align:center;' ><span>Questionable Ethics</span></td><td style='text-align:center;' ><span>v12</span></td></tr><tr><td style='text-align:center;' ><span>伦理问题2</span></td><td style='text-align:center;' ><span>Questionable Ethics: Alpha Test</span></td><td style='text-align:center;' ><span>v23</span></td></tr><tr><td style='text-align:center;' ><span>秋明市</span></td><td style='text-align:center;' ><span>Qiuming City</span></td><td style='text-align:center;' ><span>v12</span></td></tr><tr><td style='text-align:center;' ><span>山谷之城</span></td><td style='text-align:center;' ><span>The Ravine</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>乡村之旅</span></td><td style='text-align:center;' ><span>Rural Tour</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>寂静岭：另一边的生活</span></td><td style='text-align:center;' ><span>Silent Hill: Other Side of Life</span></td><td style='text-align:center;' ><span>v55</span></td></tr><tr><td style='text-align:center;' ><span>海岸救援</span></td><td style='text-align:center;' ><span>Shore Rescue</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>星际之门</span></td><td style='text-align:center;' ><span>Stargate</span></td><td style='text-align:center;' ><span>v7</span></td></tr><tr><td style='text-align:center;' ><span>古堡诅咒</span></td><td style='text-align:center;' ><span>The Curse of Lazar Castle</span></td><td style='text-align:center;' ><span>v14</span></td></tr><tr><td style='text-align:center;' ><span>最后的电伏</span></td><td style='text-align:center;' ><span>The Last Volt</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>死亡时光机</span></td><td style='text-align:center;' ><span>Time to Die</span></td><td style='text-align:center;' ><span>v6</span></td></tr><tr><td style='text-align:center;' ><span>世界之下</span></td><td style='text-align:center;' ><span>Under</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>恶灵之地</span></td><td style='text-align:center;' ><span>Unholy Ground</span></td><td style='text-align:center;' ><span>v18</span></td></tr><tr><td style='text-align:center;' ><span>巴塞罗那</span></td><td style='text-align:center;' ><span>Warcelona</span></td><td style='text-align:center;' ><span>v11</span></td></tr><tr><td style='text-align:center;' ><span>冬日寂语</span></td><td style='text-align:center;' ><span>Whispers of Winter</span></td><td style='text-align:center;' ><span>v131</span></td></tr><tr><td style='text-align:center;' ><span>狂奔</span></td><td style='text-align:center;' ><span>Wild Ride</span></td><td style='text-align:center;' ><span>v34</span></td></tr><tr><td style='text-align:center;' ><span>摩耶山危机</span></td><td style='text-align:center;' ><span>Yama Finale Fixed</span></td><td style='text-align:center;' ><span>v6</span></td></tr><tr><td style='text-align:center;' ><span>广州增城</span></td><td style='text-align:center;' ><span>Zengcheng City</span></td><td style='text-align:center;' ><span>v1</span></td></tr><tr><td style='text-align:center;' ><span>ZMB-13</span></td><td style='text-align:center;' ><span>ZMB-13</span></td><td style='text-align:center;' ><span>v4</span></td></tr><tr><td style='text-align:center;' ><span>Z-PTZ</span></td><td style='text-align:center;' ><span>Z-PTZ</span></td><td style='text-align:center;' ><span>v20</span></td></tr><tr><td style='text-align:center;' ><span>Bhop EMF</span></td><td style='text-align:center;' ><span>Bhop EMF</span></td><td style='text-align:center;' ><span>-</span></td></tr><tr><td style='text-align:center;' ><span>白森林</span></td><td style='text-align:center;' ><span>White Forest</span></td><td style='text-align:center;' ><span>v30</span></td></tr><tr><td style='text-align:center;' ><span>能源危机</span></td><td style='text-align:center;' ><span>Energy Crisis</span></td><td style='text-align:center;' ><span>v15</span></td></tr><tr><td style='text-align:center;' ><span>致命货运站</span></td><td style='text-align:center;' ><span>Fatal Freight fixed</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>黎明</span></td><td style='text-align:center;' ><span>Day Break</span></td><td style='text-align:center;' ><span>v30</span></td></tr><tr><td style='text-align:center;' ><span>死亡搏杀</span></td><td style='text-align:center;' ><span>Undead Smackdown</span></td><td style='text-align:center;' ><span>v25</span></td></tr><tr><td style='text-align:center;' ><span>魂斗罗（两关）</span></td><td style='text-align:center;' ><span>ContraZ</span></td><td style='text-align:center;' ><span>v021</span></td></tr><tr><td style='text-align:center;' ><span>阴暗森林：加长版</span></td><td style='text-align:center;' ><span>Dark Wood extended</span></td><td style='text-align:center;' ><span>v17</span></td></tr><tr><td style='text-align:center;' ><span>逃离瓦伦西亚</span></td><td style='text-align:center;' ><span>Escape from Valencia</span></td><td style='text-align:center;' ><span>v20</span></td></tr><tr><td style='text-align:center;' ><span>闹鬼森林</span></td><td style='text-align:center;' ><span>Haunted Forest</span></td><td style='text-align:center;' ><span>v31</span></td></tr><tr><td style='text-align:center;' ><span>威尼西亚</span></td><td style='text-align:center;' ><span>Venissia</span></td><td style='text-align:center;' ><span>v40</span></td></tr><tr><td style='text-align:center;' ><span>新砚州</span></td><td style='text-align:center;' ><span>Yanzhou</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>逃离马拉巴尔</span></td><td style='text-align:center;' ><span>Escape from Malabar</span></td><td style='text-align:center;' ><span>v70</span></td></tr><tr><td style='text-align:center;' ><span>生死四人组</span></td><td style='text-align:center;' ><span>The Mighty 4</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>堕落</span></td><td style='text-align:center;' ><span>Fallen (Fixed Proper Port)</span></td><td style='text-align:center;' ><span>v30</span></td></tr><tr><td style='text-align:center;' ><span>死亡天降</span></td><td style='text-align:center;' ><span>Death from Above</span></td><td style='text-align:center;' ><span>v23</span></td></tr><tr><td style='text-align:center;' ><span>恐怖游乐场</span></td><td style='text-align:center;' ><span>Loony Park</span></td><td style='text-align:center;' ><span>v101</span></td></tr></tbody></table></figure><p>&nbsp;</p></div>
+<div id='write'  class=''><h2><a name="注意" class="md-header-anchor"></a><span>注意</span></h2><ol start='' ><li><span>由于成本原因，本站不提供三方图资源，请自行搜索下载</span></li><li><span>搜索不到时，请结合中英文重新搜索</span></li><li><span>下载地图时请对照版本号确认一致</span></li></ol><h2><a name="常见三方图下载站" class="md-header-anchor"></a><span>常见三方图下载站</span></h2><ol start='' ><li><span>Steam 创意工坊订阅</span></li><li><a href='http://www.orangetage.com/map/'><span>橙子游戏网</span></a></li><li><a href='https://www.gamemaps.com/l4d2/maps'><span>Gamemaps (外网)</span></a></li></ol><figure><table><thead><tr><th style='text-align:center;' ><span>中文名</span></th><th style='text-align:center;' ><span>英文名</span></th><th style='text-align:center;' ><span>版本号（忽略小数点）</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>水坝任务</span></td><td style='text-align:center;' ><span>A Dam Mission fixed</span></td><td style='text-align:center;' ><span>v23</span></td></tr><tr><td style='text-align:center;' ><span>失落之地</span></td><td style='text-align:center;' ><span>A Forgotten Place</span></td><td style='text-align:center;' ><span>v101</span></td></tr><tr><td style='text-align:center;' ><span>由始至终</span></td><td style='text-align:center;' ><span>Beginning to Crossover</span></td><td style='text-align:center;' ><span>v34</span></td></tr><tr><td style='text-align:center;' ><span>深埋</span></td><td style='text-align:center;' ><span>Buried Deep</span></td><td style='text-align:center;' ><span>v152</span></td></tr><tr><td style='text-align:center;' ><span>最后一搏：白天</span></td><td style='text-align:center;' ><span>The Last Daylight</span></td><td style='text-align:center;' ><span>v21</span></td></tr><tr><td style='text-align:center;' ><span>复杂过程</span></td><td style='text-align:center;' ><span>Complex Course</span></td><td style='text-align:center;' ><span>v3</span></td></tr><tr><td style='text-align:center;' ><span>治愈</span></td><td style='text-align:center;' ><span>The Cure</span></td><td style='text-align:center;' ><span>v13</span></td></tr><tr><td style='text-align:center;' ><span>治愈2</span></td><td style='text-align:center;' ><span>Cure 2</span></td><td style='text-align:center;' ><span>v12</span></td></tr><tr><td style='text-align:center;' ><span>活死人黎明：加长版</span></td><td style='text-align:center;' ><span>Dead Before Dawn extended</span></td><td style='text-align:center;' ><span>v41</span></td></tr><tr><td style='text-align:center;' ><span>死亡中心：重生</span></td><td style='text-align:center;' ><span>Dead Center: Rebirth</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>连续死亡</span></td><td style='text-align:center;' ><span>Dead Series</span></td><td style='text-align:center;' ><span>v40</span></td></tr><tr><td style='text-align:center;' ><span>连续死亡：原版</span></td><td style='text-align:center;' ><span>Dead Series original</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>幽灵船2</span></td><td style='text-align:center;' ><span>Death Aboard 2</span></td><td style='text-align:center;' ><span>v21</span></td></tr><tr><td style='text-align:center;' ><span>死亡判决</span></td><td style='text-align:center;' ><span>Death Sentence</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>死亡夏天</span></td><td style='text-align:center;' ><span>Death Summer</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>深邃恐惧</span></td><td style='text-align:center;' ><span>Deep Phobia</span></td><td style='text-align:center;' ><span>v11</span></td></tr><tr><td style='text-align:center;' ><span>血本无归</span></td><td style='text-align:center;' ><span>Down the Drain</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>异度神召</span></td><td style='text-align:center;' ><span>Divine Cybermancy</span></td><td style='text-align:center;' ><span>v36</span></td></tr><tr><td style='text-align:center;' ><span>真道</span></td><td style='text-align:center;' ><span>True Fangshi</span></td><td style='text-align:center;' ><span>v11</span></td></tr><tr><td style='text-align:center;' ><span>再见了晨茗</span></td><td style='text-align:center;' ><span>Farewell Chenming</span></td><td style='text-align:center;' ><span>v40</span></td></tr><tr><td style='text-align:center;' ><span>生还之锋</span></td><td style='text-align:center;' ><span>FOS</span></td><td style='text-align:center;' ><span>v19</span></td></tr><tr><td style='text-align:center;' ><span>飞溅山之旅</span></td><td style='text-align:center;' ><span>Journey to Splash Mountain</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>古墓亡影</span></td><td style='text-align:center;' ><span>One 4 Nine</span></td><td style='text-align:center;' ><span>v13</span></td></tr><tr><td style='text-align:center;' ><span>血腥荒野</span></td><td style='text-align:center;' ><span>The Bloody Moors</span></td><td style='text-align:center;' ><span>v4</span></td></tr><tr><td style='text-align:center;' ><span>去年夏天</span></td><td style='text-align:center;' ><span>Last Summer</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>乐高世界</span></td><td style='text-align:center;' ><span>Left 4 Lego</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>封锁</span></td><td style='text-align:center;' ><span>Lockdown</span></td><td style='text-align:center;' ><span>v4</span></td></tr><tr><td style='text-align:center;' ><span>失踪</span></td><td style='text-align:center;' ><span>Lost</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>奥创</span></td><td style='text-align:center;' ><span>Outrun</span></td><td style='text-align:center;' ><span>v20</span></td></tr><tr><td style='text-align:center;' ><span>可乐之塔</span></td><td style='text-align:center;' ><span>Pasiri</span></td><td style='text-align:center;' ><span>v5</span></td></tr><tr><td style='text-align:center;' ><span>故乡</span></td><td style='text-align:center;' ><span>Hometown</span></td><td style='text-align:center;' ><span>v162</span></td></tr><tr><td style='text-align:center;' ><span>伦理问题1</span></td><td style='text-align:center;' ><span>Questionable Ethics</span></td><td style='text-align:center;' ><span>v12</span></td></tr><tr><td style='text-align:center;' ><span>伦理问题2</span></td><td style='text-align:center;' ><span>Questionable Ethics: Alpha Test</span></td><td style='text-align:center;' ><span>v23</span></td></tr><tr><td style='text-align:center;' ><span>秋明市</span></td><td style='text-align:center;' ><span>Qiuming City</span></td><td style='text-align:center;' ><span>v12</span></td></tr><tr><td style='text-align:center;' ><span>山谷之城</span></td><td style='text-align:center;' ><span>The Ravine</span></td><td style='text-align:center;' ><span>v50</span></td></tr><tr><td style='text-align:center;' ><span>乡村之旅</span></td><td style='text-align:center;' ><span>Rural Tour</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>寂静岭：另一边的生活</span></td><td style='text-align:center;' ><span>Silent Hill: Other Side of Life</span></td><td style='text-align:center;' ><span>v55</span></td></tr><tr><td style='text-align:center;' ><span>海岸救援</span></td><td style='text-align:center;' ><span>Shore Rescue</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>星际之门</span></td><td style='text-align:center;' ><span>Stargate</span></td><td style='text-align:center;' ><span>v7</span></td></tr><tr><td style='text-align:center;' ><span>古堡诅咒</span></td><td style='text-align:center;' ><span>The Curse of Lazar Castle</span></td><td style='text-align:center;' ><span>v14</span></td></tr><tr><td style='text-align:center;' ><span>最后的电伏</span></td><td style='text-align:center;' ><span>The Last Volt</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>死亡时光机</span></td><td style='text-align:center;' ><span>Time to Die</span></td><td style='text-align:center;' ><span>v6</span></td></tr><tr><td style='text-align:center;' ><span>世界之下</span></td><td style='text-align:center;' ><span>Under</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>恶灵之地</span></td><td style='text-align:center;' ><span>Unholy Ground</span></td><td style='text-align:center;' ><span>v18</span></td></tr><tr><td style='text-align:center;' ><span>巴塞罗那</span></td><td style='text-align:center;' ><span>Warcelona</span></td><td style='text-align:center;' ><span>v11</span></td></tr><tr><td style='text-align:center;' ><span>冬日寂语</span></td><td style='text-align:center;' ><span>Whispers of Winter</span></td><td style='text-align:center;' ><span>v131</span></td></tr><tr><td style='text-align:center;' ><span>狂奔</span></td><td style='text-align:center;' ><span>Wild Ride</span></td><td style='text-align:center;' ><span>v34</span></td></tr><tr><td style='text-align:center;' ><span>摩耶山危机</span></td><td style='text-align:center;' ><span>Yama Finale Fixed</span></td><td style='text-align:center;' ><span>v6</span></td></tr><tr><td style='text-align:center;' ><span>广州增城</span></td><td style='text-align:center;' ><span>Zengcheng City</span></td><td style='text-align:center;' ><span>v1</span></td></tr><tr><td style='text-align:center;' ><span>ZMB-13</span></td><td style='text-align:center;' ><span>ZMB-13</span></td><td style='text-align:center;' ><span>v4</span></td></tr><tr><td style='text-align:center;' ><span>Z-PTZ</span></td><td style='text-align:center;' ><span>Z-PTZ</span></td><td style='text-align:center;' ><span>v20</span></td></tr><tr><td style='text-align:center;' ><span>Bhop EMF</span></td><td style='text-align:center;' ><span>Bhop EMF</span></td><td style='text-align:center;' ><span>-</span></td></tr><tr><td style='text-align:center;' ><span>白森林</span></td><td style='text-align:center;' ><span>White Forest</span></td><td style='text-align:center;' ><span>v30</span></td></tr><tr><td style='text-align:center;' ><span>能源危机</span></td><td style='text-align:center;' ><span>Energy Crisis</span></td><td style='text-align:center;' ><span>v15</span></td></tr><tr><td style='text-align:center;' ><span>致命货运站</span></td><td style='text-align:center;' ><span>Fatal Freight fixed</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>黎明</span></td><td style='text-align:center;' ><span>Day Break</span></td><td style='text-align:center;' ><span>v30</span></td></tr><tr><td style='text-align:center;' ><span>死亡搏杀</span></td><td style='text-align:center;' ><span>Undead Smackdown</span></td><td style='text-align:center;' ><span>v25</span></td></tr><tr><td style='text-align:center;' ><span>魂斗罗（两关）</span></td><td style='text-align:center;' ><span>ContraZ</span></td><td style='text-align:center;' ><span>v021</span></td></tr><tr><td style='text-align:center;' ><span>阴暗森林：加长版</span></td><td style='text-align:center;' ><span>Dark Wood extended</span></td><td style='text-align:center;' ><span>v17</span></td></tr><tr><td style='text-align:center;' ><span>逃离瓦伦西亚</span></td><td style='text-align:center;' ><span>Escape from Valencia</span></td><td style='text-align:center;' ><span>v20</span></td></tr><tr><td style='text-align:center;' ><span>闹鬼森林</span></td><td style='text-align:center;' ><span>Haunted Forest</span></td><td style='text-align:center;' ><span>v31</span></td></tr><tr><td style='text-align:center;' ><span>威尼西亚</span></td><td style='text-align:center;' ><span>Venissia</span></td><td style='text-align:center;' ><span>v40</span></td></tr><tr><td style='text-align:center;' ><span>新砚州</span></td><td style='text-align:center;' ><span>Yanzhou</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>逃离马拉巴尔</span></td><td style='text-align:center;' ><span>Escape from Malabar</span></td><td style='text-align:center;' ><span>v70</span></td></tr><tr><td style='text-align:center;' ><span>生死四人组</span></td><td style='text-align:center;' ><span>The Mighty 4</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>堕落</span></td><td style='text-align:center;' ><span>Fallen (Fixed Proper Port)</span></td><td style='text-align:center;' ><span>v30</span></td></tr><tr><td style='text-align:center;' ><span>死亡天降</span></td><td style='text-align:center;' ><span>Death from Above</span></td><td style='text-align:center;' ><span>v23</span></td></tr><tr><td style='text-align:center;' ><span>恐怖游乐场</span></td><td style='text-align:center;' ><span>Loony Park</span></td><td style='text-align:center;' ><span>v101</span></td></tr><tr><td style='text-align:center;' ><span>地狱欢迎你</span></td><td style='text-align:center;' ><span>Welcome to Hell</span></td><td style='text-align:center;' ><span>v70</span></td></tr><tr><td style='text-align:center;' ><span>市中心</span></td><td style='text-align:center;' ><span>Centro</span></td><td style='text-align:center;' ><span>v22</span></td></tr><tr><td style='text-align:center;' ><span>模糊忠告</span></td><td style='text-align:center;' ><span>Vague Reminders</span></td><td style='text-align:center;' ><span>v13</span></td></tr><tr><td style='text-align:center;' ><span>死亡汽油弹</span></td><td style='text-align:center;' ><span>Napalm Death</span></td><td style='text-align:center;' ><span>v10</span></td></tr><tr><td style='text-align:center;' ><span>魔鬼山</span></td><td style='text-align:center;' ><span>Devil Mountain</span></td><td style='text-align:center;' ><span>v31</span></td></tr><tr><td style='text-align:center;' ><span>我恨山2</span></td><td style='text-align:center;' ><span>I Hate Mountains 2</span></td><td style='text-align:center;' ><span>v15</span></td></tr><tr><td style='text-align:center;' ><span>第聂伯河</span></td><td style='text-align:center;' ><span>Dniepr</span></td><td style='text-align:center;' ><span>v201</span></td></tr></tbody></table></figure><p>&nbsp;</p></div>
 </body>
 </html>
