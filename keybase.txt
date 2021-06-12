@@ -4,7 +4,7 @@ https://keybase.io/yxnan
 
 I hereby claim:
 
-  * I am an admin of https://yxnan.cn
+  * I am an admin of https://yxnan.tk
   * I am yxnan (https://keybase.io/yxnan) on keybase.
   * I have a public key with fingerprint DF3E 9AC7 7C6D 5A09 D4B6  8555 631B 3B15 B793 F1BC
 
@@ -21,27 +21,17 @@ To do so, I am signing this object:
       "uid": "63321ebd5f5b2fe3f704c575cf328219",
       "username": "yxnan"
     },
-    "merkle_root": {
-      "ctime": 1614494007,
-      "hash_meta": "f4a00fe9351a7dc42b9789b8957cd7a8b89c2020fdf6bbd54e245c267197f5e8",
-      "seqno": 19243575
-    },
-    "revoke": {
-      "sig_ids": [
-        "80f9979dec4dab4728839ec6e78513ff5030d1f366ec46885b7565b1cbed5c710f"
-      ]
-    },
     "service": {
-      "hostname": "yxnan.cn",
+      "hostname": "yxnan.tk",
       "protocol": "https:"
     },
     "type": "web_service_binding",
     "version": 1
   },
-  "ctime": 1614494099,
+  "ctime": 1623463640,
   "expire_in": 157680000,
-  "prev": "21d5eb4adaa15682b33816f37018a2cebdcc87f0333a2a63079f9eaf201e13b3",
-  "seqno": 24,
+  "prev": "af8de066855b17dd3f7f3852e431b0d6c17673046c18485294e0624216e7d1c7",
+  "seqno": 32,
   "tag": "signature"
 }
 
@@ -51,26 +41,23 @@ which yields the signature:
 Version: Keybase OpenPGP v2.1.13
 Comment: https://keybase.io/crypto
 
-yMKxAnicrVNfiFVFHL67lWub6WK1lRWsx30wWpeZM2f+XUmTsAcLzY2UTZfj/N09
-3t1z7p577t29LUt1JY0KwlaIda0eSkssQ8oQKgm59dKTJPoQQRi0rYVsIiFB0ZzF
-KKLHzsucmfl+3/f9vplp3npDob1lurrl1G2Pbb7c8tWZcrWway2fmvBkouteccIr
-mYXBDGtTycJSpL2iByCAXBGkLTYBC4ibKEEN4hpzbIQMkIAIW8CxIIYyaBjVDAYM
-SWmgj4jhUAHh9Xg2igdNWk6jOHO02iLDhaJUEY0F4DqQhGGMCYISSYgl5chCqVzh
-UFLJK5w5KSqmN0rcmpuEC/b+A/8/+65e10E+NFJji6VvDbIUBApTrCzymQ95DqyY
-NBYjxqHr47GIvckeb8SkpWETpkmS5cmqLMr3IYFBwAMAqOtOVIbCEZMJV2YDAYA1
-HGEoqFaBLzllXDKOqdJUMPenfOADqy2Rzktg/AArn1DIqWuTORMVMxonToH7AXL2
-nIXU1JKSydUr0aALreIVd3gMWM4p10YF2mVBfcYQNypPAkNkLQYIaGgRIQ5BGHP5
-YoIlVNJorCgE1huYzNXSWqQWyPNT+mf3vSp2dsppkiUqGXarQ1lWrhTzULJ6OYeN
-GRleJwhlFGt3P1xFzaSVKIldCw75r7w47/HMeDlKTRjlCEwJA+7LdUzNUfpQYyMD
-oYWAmDBfIsQgsYgCyISv3PkpxagFCCHhC4IA5ZYbYX0ADUQS/R2gHzifYtBxutRi
-kVVT402e+XznjYWW9sKim1rzh1Nov7njr+d06tvFhUPzW09E5Q/WXOvefeCtkza8
-Mj3wyrFmsK33kaUrnuh/fh2Jdr696J56Y+bqC307Ou47uHLbncvn63u6d421fH3x
-19kHPPCyfXCo65lvNtzRhKX+C53Hjn9Wfw6vazu99/TdM78dem33O+uP7jk83Vgy
-t33g8bZro9XO9+c//qTt8NqzJ89dfHL7H7MfLfv+4R/mppozLx4s72tcvVBX988c
-uGJWPfTlam/FvtaBqSRdfjm03WT9bLLx0oevd209++O7jSO3dyY93116s/ne+Q3F
-pzvW7A/ZYtQPnm39+Xwj2ZTq/bVf3ui+d+ync79/0bfl+C3jEyf6Rle9urfr05WP
-zrWvfmnpEvbUXUc36Y1/AkaqdX8=
-=5chJ
+yMIjAnicrVJbSBRRGN7NLmaGZlBQQTFExLrYnDlz5rIJZfcHWbuDEU0zc87YoM6s
+s7PqZtuFfLDairYCi+hiSA8+CPqQpN3Eh8hIMwWlKKQUEonuFgV1Jgx66LHzcs7/
+n+/7/v//+Ltmp/ky/BdiRW1zC8Nv/d33z8R8e7vmDdYwmo3jTKiGKSW/L1KGSdRV
+Sk3MhBgWsEDWBYgNRHiJF2igqyKBMkYyIqrGQxVAZLAyUgUiSoBIIpYAL0FNI4CD
+ApGBzqpMkDFMq4Q4Ece0XCqLDUhkVRdFXcBIZWXMa4KEEBIg0KAGkCbK0ACaTon7
+7KjHoM1papTkmTbN0UD53d4/8P+579hkHcgBomFkII0zCDRElteRiHQDchIHZA8Y
+JY6llhOKjldbqsUkggxNVZo68Vz1xvj7O88tpaSIY7u2bpfR7D7XjURDHsuNRzxY
+FdGUSQFFMy1MDaSMSuJETdtiQoAiddf0FIHAQV6AAs8GGVIdMR2imB4CiYLE0uPV
+IZVUUjUkTFjBs1oDIsZ0DgNKiCM89ZHFgg5EQYQsTx8ST/MyT9EczwHqEQa6yHgj
+VVg2E4Ic7VMtoZpRs8RS3ZhDmETnvd1Tff4M3/RpU7zN8mXMzP6zb48G030n74++
+vB5YVB9oyF+afHX79QGmp21s5HD9srL9HR/6KjYWtPPFzpLPdmNq1FoRNha27ln1
+aVr4s3Wq6IXSFMhrXJdz7pDrT/R1hJ4eXcgVvypMpVLJhDIytHbDio8f45txs342
+y8nmb76vfdG04MqTzDXB1+3rWzrl8Jucb4MF5Ejy++KW+rqBqaEsaWX6pquPG0bO
++3dlld/q7SC5ypbqdcPLSw8fm0g8qxj/UXPtwfMvm74uq50/o/Dd9o7327pOZPa2
+b+i50fQzbXjGuzmzsid29N3pr+pW12/Nvfstufpk3fjFgf6hh5mtl34cunxQON4c
+aBgbzR9febr4Vqt1aefiTvMXCxBDRg==
+=Zftn
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or
